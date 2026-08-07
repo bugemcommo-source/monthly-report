@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICT Department Monthly Report — May 2026 | BUGEMCO</title>
+<meta name="description" content="ICT Department monthly report for May 2026 — Software Development and Information Security. Design demo rebuilt from the May 2026 PowerPoint.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../assets/css/fonts.css">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/report.css">
+<link rel="stylesheet" href="../../assets/css/effects.css">
+<style>
+  /* Page-specific only. Nothing here belongs in the shared stylesheets. */
+
+  /* The "this is a demo" banner in the hero. */
+  .demo-flag {
+    display: inline-flex; align-items: center; gap: 0.7em;
+    padding: 0.55em 1.25em; border-radius: var(--radius-pill);
+    background: var(--yellow-warm); color: var(--ink);
+    font: 800 0.85rem/1.35 var(--font-head);
+    letter-spacing: 0.04em;
+    box-shadow: 0 8px 24px rgba(0, 40, 20, 0.18);
+    max-width: 100%;
+  }
+  .demo-flag::before {
+    content: ''; flex: none; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--ink);
+  }
+
+  /* Every "we don't know this" panel on this page is now the shared
+     .not-recorded component from report.css — the standard's own shape for a
+     fact nobody measured. The page-local .unknown variant that used to live
+     here has gone with them, so there is only one way to say "not recorded". */
+
+  /* Card headings. The shared sheet styles h3 only; these two keep the
+     heading ladder (h1 hero, h2 band, h3 card, h4 inside a card) readable
+     without inventing new components. */
+  h3.card-title { font: 800 clamp(1.05rem, 1.5vw, 1.25rem)/1.25 var(--font-head); margin: 0 0 0.6rem; }
+  h4 { font: 800 0.95rem/1.3 var(--font-head); color: var(--green-deep); margin: var(--sp-3) 0 0.5rem; letter-spacing: 0.01em; }
+  .card > h4:first-child { margin-top: 0; }
+
+  /* The shared stylesheet lets a ring chart grow to the full width of its
+     container. In this card that made it ~570px tall and pushed the text
+     underneath it off the bottom, so it is capped here. */
+  #phish-donut { display: grid; justify-items: center; margin: 0.4rem 0 0.2rem; }
+  #phish-donut .ch-donut { width: 100%; max-width: 210px; }
+
+  /* Two-by-two thumbnail wall for the security dashboard panels.
+     min-width:0 on both the wall and each frame matters: a grid track's
+     automatic minimum is min-content, and these screenshots are 1800px wide
+     intrinsically, so without it the track refuses to shrink and the right
+     half of the wall is pushed off the edge of the page. */
+  .shot-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: var(--sp-2); align-content: start; min-width: 0;
+  }
+  .shot-grid > .shot { min-width: 0; }
+  .shot-grid .shot figcaption { padding: 0.45rem 0.7rem; font-size: 0.72rem; line-height: 1.3; }
+  @media (max-width: 900px) { .shot-grid { grid-template-columns: 1fr; } }
+
+  /* Plain rows of "what was listed" for Network / Support / Others. */
+  .listing { display: grid; gap: var(--sp-2); }
+  .listing > * > h3, .card.listing > h3 { margin: 0 0 0.5rem; font: 800 0.8rem/1 var(--font-head); color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; }
+  .tight { margin: 0.5rem 0 0; color: var(--ink-soft); font-size: 0.95rem; }
+  .figure-note { margin: var(--sp-2) 0 0; color: var(--ink-soft); font-size: 0.9rem; }
+
+  /* One system per row: text on the left, its picture on the right. */
+  .system { margin-bottom: var(--sp-5); }
+  .system:last-of-type { margin-bottom: 0; }
+
+  /* The sign-off panel sits under the artwork rather than on top of it —
+     the photograph already carries "SALAMAT SA GUGMA!" in painted lettering,
+     and printing words over it made both unreadable. */
+  .closing-note { max-width: 60ch; margin-top: var(--sp-4); }
+</style>
+</head>
+<body>
+
+<!-- Fixed artwork behind the whole document. It scrolls slower than the
+     content, which is what reads as depth. -->
+<div class="backdrop" data-backdrop="title" aria-hidden="true">
+  <div class="backdrop-photo" data-photo="title"></div>
+  <div class="backdrop-photo" data-photo="content"></div>
+  <div class="backdrop-photo" data-photo="closing"></div>
+  <div class="layer-capsules"></div>
+  <div class="layer-glow"></div>
+</div>
+
+<!-- No header bar. Progress runs along the top edge of the screen and the
+     section rail down the right edge, so nothing steals a strip of the page. -->
+<div class="site-progress" aria-hidden="true"><div class="site-progress-fill"></div></div>
+<nav class="site-nav" aria-label="Report sections"></nav>
+
+<main class="site">
+
+  <!-- ══ OVERVIEW ═══════════════════════════════════════ -->
+  <section class="band band--hero" id="overview" data-band-name="Overview" data-backdrop="title">
+    <div>
+      <p class="site-logo" data-reveal-on-scroll style="--i:0">
+        <img src="../../assets/img/logo-bugemco.png" alt="BUGEMCO — Making Lives Better">
+      </p>
+      <p data-reveal-on-scroll style="--i:0"><span class="demo-flag">Design demo — rebuilt from the May 2026 PowerPoint. Not published.</span></p>
+      <p class="eyebrow" data-reveal-on-scroll style="--i:1">BUGEMCO · Making Lives Better</p>
+      <h1 class="band-title" data-reveal>ICT DEPARTMENT</h1>
+      <h2 class="band-sub" data-reveal-on-scroll style="--i:2">Software Development &amp; Information Security</h2>
+      <p data-reveal-on-scroll style="--i:3"><strong>May 2026</strong> · Gipre F. Naparan, IT Supervisor — Software Development and Information Security</p>
+
+      <div class="summary-strip" data-reveal-on-scroll style="--i:4">
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="4">0</span></p>
+          <p class="metric-label">Systems reported</p>
+          <p class="metric-note">Four systems were shown to Mancom in May: the School Management System, the Coop Assurance Center System, BUGEMCO Mart and the Membership Information System. Each carries a May entry in its own tracking file.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="6">0</span></p>
+          <p class="metric-label">Support areas covered</p>
+          <p class="metric-note">Six areas were listed on the May Support slide — ATM cards, the ATM machine, branch maintenance, technical requests, Youth Camp and the information drive. This counts the areas the deck listed, not the amount of work done.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="4">0</span></p>
+          <p class="metric-label">Meetings &amp; presentations</p>
+          <p class="metric-note">Four meetings were named on the May Others slide: the weekly Mancom meeting, the weekly policy review, the BLC system presentation, and the SCL Dura discussion. A count of what the deck listed, not a measured total.</p>
+        </div>
+      </div>
+
+      <p class="scroll-cue" data-reveal-on-scroll style="--i:5">Scroll to read</p>
+      <aside class="notes">Open by saying what this is: the May report, rebuilt as a web page so Mancom can scroll through it instead of sitting through slides. This version is a design demo only — it is not published anywhere. The three figures are counts of what the May deck itself lists: four systems under Software Development; six support areas on the Support slide; and four meetings and presentations on the Others slide. Every other figure in the original deck was a screenshot with no number written down, and this rebuild leaves those blank rather than guessing.</aside>
+    </div>
+  </section>
+
+  <!-- ══ SOFTWARE DEVELOPMENT ═══════════════════════════ -->
+  <section class="band" id="software-development" data-band-name="Software Development" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">01 · Software Development</p>
+        <h2 class="band-title">Four systems were shown to Mancom</h2>
+        <ul class="checks">
+          <li data-done="false">BUGEMCO Learning Center — School Management System</li>
+          <li data-done="false">Coop Assurance Center System</li>
+          <li data-done="false">BUGEMCO Mart — Online Store</li>
+          <li data-done="false">Membership Department — Membership Information System</li>
+        </ul>
+        <aside class="notes">Four systems were shown to Mancom in May. Each got one slide in the original deck: a heading and a screenshot of the working software. Nobody wrote down how far along any of them is, so this rebuild shows no percentages — the dots rather than ticks are deliberate, and mean "work in progress", not "finished".</aside>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="4">0</span></p>
+          <p class="metric-label">Systems reported</p>
+          <p class="metric-note">Four systems were brought to Mancom in May. All four are marked <em>In Progress</em> in their tracking files.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Shown with a screenshot</p>
+          <p class="metric-note">2 of the 4 systems are shown here with a picture of the working software — BUGEMCO Mart and BUGEMCONNECT.</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Screenshots held back</p>
+          <p class="metric-note">2 of the 4 screenshots were withheld because they show real people — a student's profile and a list of members by name. Both are waiting on a safe replacement before that system can be shown publicly.</p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num">&mdash;</p>
+          <p class="metric-label">Completion recorded</p>
+          <p class="metric-note">No completion figure exists for any of the four systems. Each tracking file reads &ldquo;Progress: 0%&rdquo;, which records that nothing was ever written down — not that no work has been done. No percentage is shown for any system in this section, and none should be offered if asked.</p>
+        </div>
+      </div>
+
+      <!-- BLC School Management System -->
+      <div class="cols--wide-right system">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3 class="card-title">BUGEMCO Learning Center — School Management System</h3>
+          <p><span class="badge" data-status="progress">In Progress</span></p>
+          <p>The system BUGEMCO Learning Center uses to run the school — enrolling students, keeping records, grading, and billing.</p>
+          <h4>What was reported in May</h4>
+          <ul class="checks">
+            <li>Presented to BUGEMCO Learning Center at a system presentation meeting</li>
+            <li>A working student records screen was shown to Mancom</li>
+          </ul>
+          <div class="not-recorded">
+            <h3>Not recorded</h3>
+            <p>How far along the system is, and which parts are finished, were reported to Mancom but not written down in the source deck.</p>
+          </div>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3 class="card-title">Screenshot held back</h3>
+          <p>The May deck's screenshot for this system is a live student profile. It shows a child's photograph, full name, date of birth, home address and a guardian's mobile number.</p>
+          <p>It has been kept out of this page and out of the repository. The original is stored privately for the owner to review, and a safe replacement screenshot should be captured before this system is shown publicly.</p>
+        </div>
+      </div>
+      <aside class="notes">Be direct about the missing picture. The screenshot in the original deck was a real student's profile — photo, birthdate, home address, guardian's phone number. On a public website that would be a data privacy problem, and the child is a minor, so it has been left out entirely rather than blurred. Ask the owner for a screenshot using test data before this system appears on the live site.</aside>
+
+      <!-- Coop Assurance Center System -->
+      <div class="cols--wide-right system">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3 class="card-title">Coop Assurance Center System</h3>
+          <p><span class="badge" data-status="progress">In Progress</span></p>
+          <p>Handles the coop's assurance records — clients, product applications, renewals, claims and remittances.</p>
+          <h4>What was reported in May</h4>
+          <ul class="checks">
+            <li>A working dashboard was shown to Mancom</li>
+            <li>Client, product application, renewal, claims and remittance screens are in place</li>
+          </ul>
+          <div class="not-recorded">
+            <h3>Not recorded</h3>
+            <p>The system's stage of completion was reported to Mancom but not written down in the source deck.</p>
+          </div>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3 class="card-title">Screenshot held back</h3>
+          <p>The dashboard screenshot for this system is not shown here. Its
+          &ldquo;Recent Activity&rdquo; panel lists five people by name against their
+          membership status, and this report is published on a public web page.</p>
+          <p>The original is kept safely in the private folder on the owner&rsquo;s
+          computer and has not been uploaded. Once it is confirmed as test data,
+          or the names are blurred out, it can go back in.</p>
+        </div>
+      </div>
+      <aside class="notes">The May screenshot for this system has been pulled from the page. Its "Recent Activity" panel lists five people by name with their membership status and join dates, and this site is public. The names look like seeded test records, but "looks like test data" is not good enough to publish — confirm it against the database, or blur the panel, and it can go back in. The counts on that screenshot (16 clients, 9 members) are the system's own figures and are not a report on the coop's assurance business either way.</aside>
+
+      <!-- BUGEMCO Mart Online Store -->
+      <div class="cols--wide-right system">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3 class="card-title">BUGEMCO Mart — Online Store</h3>
+          <p><span class="badge" data-status="progress">In Progress</span></p>
+          <p>Lets members browse and order from BUGEMCO Mart online.</p>
+          <h4>What was reported in May</h4>
+          <ul class="checks">
+            <li>First time this system was brought to Mancom</li>
+            <li>A working storefront was shown — product categories, promotional banners and a timed special event</li>
+          </ul>
+          <div class="not-recorded">
+            <h3>Not recorded</h3>
+            <p>How far along the store is, and when it is expected to open to members, were not written down in the source deck.</p>
+          </div>
+        </div>
+        <figure class="shot" tabindex="0" data-reveal-on-scroll data-from="right">
+          <img src="img/shot-03.jpg" alt="The BUGEMCO Mart online store front page, with a search bar and shopping cart across the top, a row of product categories including Beverages, Canned Goods, Dairy and Eggs, Frozen and Meat, Household, Milk, Personal Care and Rice and Grains, a BUGEMCO Youth Camp 2026 promotional banner offering a weekend sale, and a Special Event strip of discounted grocery items counting down to its end." loading="lazy">
+          <figcaption>BUGEMCO Mart — member-facing storefront · Click to enlarge</figcaption>
+        </figure>
+      </div>
+      <aside class="notes">Worth pausing on: this is the first month the online store appeared in a Mancom report. The screenshot is the storefront a member would see. The Youth Camp banner ties it to the event the department supported in the same month, which is a nice link to make out loud.</aside>
+
+      <!-- Membership Information System -->
+      <div class="cols--wide-right system">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3 class="card-title">Membership Department — Membership Information System</h3>
+          <p><span class="badge" data-status="progress">In Progress</span></p>
+          <p>Holds member information for the Membership Department. It carries the name <strong>BUGEMCONNECT</strong> on screen.</p>
+          <h4>What was reported in May</h4>
+          <ul class="checks">
+            <li>Discussed with SCL Dura alongside the Queuing System</li>
+            <li>The member-facing welcome screen was shown to Mancom</li>
+          </ul>
+          <div class="not-recorded">
+            <h3>Not recorded</h3>
+            <p>How far along the system is, and which parts are working, were not written down in the source deck.</p>
+          </div>
+        </div>
+        <figure class="shot" tabindex="0" data-reveal-on-scroll data-from="right">
+          <img src="img/shot-04.jpg" alt="The BUGEMCONNECT welcome screen — a green and yellow page headed &quot;Welcome Ka-Coop!&quot; with the BUGEMCO coop logo, illustrations of a member rating a service on a phone and a member at a self-service kiosk, the BUGEMCONNECT name with the subtitle Membership Information System, a &quot;Powered by SCL Dura&quot; credit, and the prompt &quot;Tap anywhere to continue&quot;." loading="lazy">
+          <figcaption>BUGEMCONNECT — member welcome screen · Click to enlarge</figcaption>
+        </figure>
+      </div>
+      <aside class="notes">"Tap anywhere to continue" tells you this runs on a touch screen in a branch, not on a desk. Worth saying, because it explains why it sits next to the Queuing System in the SCL Dura discussion. The deck records no completion figure for it, so do not offer one if asked — say it was reported as work in progress and the detail will be written down from this month on.</aside>
+    </div>
+  </section>
+
+  <!-- ══ INFORMATION SECURITY ═══════════════════════════ -->
+  <section class="band" id="information-security" data-band-name="Information Security" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">02 · Information Security</p>
+        <h2 class="band-title">Nobody gave away a password</h2>
+        <ul class="checks">
+          <li>Cybersecurity training for staff</li>
+          <li>Phishing simulation — fake scam emails sent to staff as a test</li>
+        </ul>
+        <p class="tight">The original deck spent six slides on this. They are gathered into one section here.</p>
+        <aside class="notes">The May PowerPoint used six consecutive slides for this section, each with the same three-word heading and a different panel of the same dashboard. That is a PowerPoint habit, not six separate topics, so this rebuild puts the whole dashboard in one section. Nothing has been dropped.</aside>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Sets of credentials given away</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            <span class="tag tag--period">Programme to 17 June 2026</span>
+            <span class="tag tag--source">Read off the dashboard screenshot</span>
+            Not one of the 1,472 test emails led anyone to type a username or password on the fake page. Zero here is the best possible result.
+          </p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="5">0</span></p>
+          <p class="metric-label">Staff who clicked</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            <span class="tag tag--period">Programme to 17 June 2026</span>
+            <span class="tag tag--source">Read off the dashboard screenshot</span>
+            5 of the 1,472 test emails sent had their link clicked — a click rate of 0.34%, against the department's limit of 1% or less.
+          </p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="82" data-suffix="%">0</span></p>
+          <p class="metric-label">Security training completed</p>
+          <p class="metric-note">
+            <span class="tag tag--period">Programme to 17 June 2026</span>
+            <span class="tag tag--source">Read off the dashboard screenshot</span>
+            23 of the 28 enrolled staff have finished their security training (82%). 4 are overdue and 1 is part-way through.
+          </p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="1472">0</span></p>
+          <p class="metric-label">Test emails sent</p>
+          <p class="metric-note">
+            <span class="tag tag--period">Programme to 17 June 2026</span>
+            <span class="tag tag--source">Read off the dashboard screenshot</span>
+            1,472 fake scam emails were sent across 7 rounds to the 28 staff enrolled across 8 branch offices. 29 of them were opened.
+          </p>
+        </div>
+      </div>
+
+      <div class="cols--wide-right system">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3 class="card-title">Training completion</h3>
+          <div id="phish-donut"></div>
+          <p>Of 28 staff enrolled, 23 have finished their security training, 4 are overdue and 1 is part-way through.</p>
+          <h4>The phishing test</h4>
+          <p>1,472 fake scam emails were sent across 7 rounds. 29 were opened, 5 people clicked the link, and <strong>nobody typed in a username or password</strong>. The report button was not used at all.</p>
+          <p class="figure-note">Every figure on this page is read off the dashboard in the screenshot beside it. That dashboard covers the whole awareness programme up to 17 June 2026 — it is not a May-only count.</p>
+        </div>
+        <figure class="shot" tabindex="0" data-reveal-on-scroll data-from="right">
+          <img src="img/shot-05.jpg" alt="The Cybersecurity Training and Phishing Simulation dashboard, marked &quot;defense posture: resilient&quot;, covering 28 enrolled learners across 8 branch offices. A funnel shows 1,472 simulated phishing emails delivered, 29 opened at 2 per cent, 5 links clicked at 0.34 per cent, and zero credentials entered and zero accounts breached. Side panels give a 0.34 per cent click rate, 82 per cent training completion for 23 of 28 learners, and zero phishing reports because the report button was never used." loading="lazy">
+          <figcaption>Awareness dashboard — overview panel · Click to enlarge</figcaption>
+        </figure>
+      </div>
+      <aside class="notes">The headline is the honest one: five people clicked a fake link, but not one of them went on to type a password, so nothing was actually at risk. Say the click rate out loud in plain words — 5 of 1,472 test emails, which the dashboard puts at 0.34 per cent, well under the department's 1 per cent limit. The one thing to flag as a genuine gap: the report button was used zero times, so staff are not yet telling ICT when they spot something suspicious. Be careful with the period — this dashboard runs to 17 June 2026 and includes campaigns going back to July 2025, so these are programme-to-date figures. The department's own phishing log has no May-only totals recorded, and that should be fixed from this month on.</aside>
+
+      <h3 class="band-sub" data-reveal-on-scroll style="--i:0">What the dashboard showed</h3>
+      <div class="grid grid--2">
+        <div class="card tilt" data-reveal-on-scroll style="--i:1">
+          <h4>In plain words</h4>
+          <ul class="checks">
+            <li>The defences held — no password was ever given away.</li>
+            <li data-done="false">Nobody is reporting suspicious email. The report button was used zero times, so staff are a passive target rather than an early warning.</li>
+            <li data-done="false">5 of the 28 staff are overdue or part-way through their training, and three of them have not logged in since mid-2025.</li>
+            <li data-done="false">Everyone who clicked was in the same two rounds, so the same small group needs extra practice.</li>
+            <li>Completion overall is healthy — 82% of training done and 85% of the short videos watched.</li>
+          </ul>
+          <p class="figure-note">Taken from the dashboard's own summary panel, shown at the bottom right.</p>
+        </div>
+        <div class="shot-grid">
+          <figure class="shot" tabindex="0" data-reveal-on-scroll style="--i:2">
+            <img src="img/shot-06.jpg" alt="Training and awareness completion panel — a ring chart reading 82 per cent complete for all 28 enrolled learners, split into 23 completed, 4 overdue and 1 in progress, beside a bar list of ten assigned courses including Annual Levels 1 to 5, Detect Deepfakes, Executive Training, Malware Training, Physical Security and Use GenAI Safely, each showing between 24 and 26 learners done." loading="lazy">
+            <figcaption>Training completion, by course</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" data-reveal-on-scroll style="--i:3">
+            <img src="img/shot-07.jpg" alt="Monthly video training and coverage panel — a bar chart of short training videos watched each month from July 2025 to June 2026, nearly all watched with a small overdue slice and June 2026 not yet due, beside a list of learners by branch office: Malaybalay City 6, Maramag 5, and 3 each at Valencia, Manolo Fortich, Kibawe, Aglayan and Kisolon, with 2 at Head Office." loading="lazy">
+            <figcaption>Videos watched, and staff by branch</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" data-reveal-on-scroll style="--i:4">
+            <img src="img/shot-08.jpg" alt="Phishing engagement by campaign panel — a bar chart comparing emails opened against links clicked across seven simulated phishing rounds dated from July 2025 to February 2026, with clicks appearing only in the third and fourth rounds and every other round drawing none." loading="lazy">
+            <figcaption>Opens and clicks, round by round</figcaption>
+          </figure>
+          <figure class="shot" tabindex="0" data-reveal-on-scroll style="--i:5">
+            <img src="img/shot-10.jpg" alt="Key findings and recommendations panel — five colour-coded rows reading: defences are holding with zero credentials compromised; act now because nobody is reporting suspicious email; act now because five learners are overdue or incomplete; focus on the small group who clicked, who cluster in two rounds; and on track, with healthy completion overall." loading="lazy">
+            <figcaption>The dashboard's own findings</figcaption>
+          </figure>
+        </div>
+      </div>
+      <aside class="notes">These four panels are the remaining slides from the original deck's security section, gathered onto one page. Click any of them to read it full size. The two to dwell on are the report button — zero uses is the real weakness, and it is fixable with a one-click report add-in — and the five staff who are overdue on training, who sit in four named branches. Do not read out who they are: the dashboard does name them, and that panel has deliberately been left out of this page and out of the repository.</aside>
+    </div>
+  </section>
+
+  <!-- ══ NETWORK ════════════════════════════════════════ -->
+  <section class="band" id="network" data-band-name="Network" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">03 · Network</p>
+        <h2 class="band-title">Network</h2>
+      </div>
+      <div class="card" data-reveal-on-scroll style="--i:1;max-width:80ch">
+        <p>Work on the coop's internet, cabling, and the connections between branches.</p>
+        <div class="not-recorded" style="margin-top:1rem">
+          <h3>Not recorded</h3>
+          <p>The May deck carried the heading "Network" and nothing else — no screenshot, no figures and no notes. The work was reported to Mancom on the day, but nothing about it was written down, so nothing is claimed here. This section has no summary of figures because there are none to summarise; a row of plausible-looking numbers would be an invention.</p>
+          <p class="tight">Writing the month's network work down as it happens — what was done, how much downtime there was, and any structured cabling installed — would let this section carry real figures from next month on.</p>
+        </div>
+        <p class="tight">The department tracks two things for the year: application uptime of 99% or better, and two structured cabling installations. Uptime is reported in the Annual Targets section.</p>
+      </div>
+      <aside class="notes">Be straight about this one. The slide in the original deck was the single word "Network" — the detail was spoken, not recorded. That is exactly the gap this reporting system is meant to close: from now on the month's network work gets written down as it happens, so next year's May report has something on it. If Mancom asks what was done, the honest answer is that it needs to come from the owner's own recollection this time.</aside>
+    </div>
+  </section>
+
+  <!-- ══ SUPPORT ════════════════════════════════════════ -->
+  <section class="band" id="support" data-band-name="Support" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">04 · Support</p>
+        <h2 class="band-title">Support</h2>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="6">0</span></p>
+          <p class="metric-label">Areas the deck listed</p>
+          <p class="metric-note">Six areas were listed as headings on the May Support slide: ATM cards, the ATM machine, branch maintenance, technical requests, Youth Camp and the information drive. This is a count of what the deck listed, not a measured workload.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Events supported</p>
+          <p class="metric-note">2 events are on record for May — Youth Camp and the information drive. They are the only two named in the deck and in the support log.</p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num">&mdash;</p>
+          <p class="metric-label">Requests counted</p>
+          <p class="metric-note">No counts were recorded for May. ATM cards issued, ATM call-outs, branch maintenance visits, technical requests and average response time are all blank in the support log, so no figure is shown for any of them.</p>
+        </div>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="card tilt listing" data-reveal-on-scroll data-from="left">
+          <h3>Where the department helped in May</h3>
+          <ul class="checks">
+            <li>ATM cards</li>
+            <li>ATM machine</li>
+            <li>Branch maintenance</li>
+            <li>Technical requests</li>
+            <li>Youth Camp</li>
+            <li>Information drive</li>
+          </ul>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <div class="not-recorded">
+            <h3>Not recorded</h3>
+            <p>The deck listed these six areas as headings only. How many ATM cards were issued, how many call-outs there were, how many branch visits were made and how quickly requests were answered were all reported to Mancom but never written down.</p>
+            <p>Pulling those five figures out of the ticketing system each month would let this section carry real counts from next month on.</p>
+          </div>
+          <p class="tight">The department's target is to start work on a request within 24 hours. There is no figure on record for May to measure that against.</p>
+        </div>
+      </div>
+      <aside class="notes">Six areas, no counts. The ticketing system holds the real numbers — ATM cards issued, call-outs, branch visits, technical requests and the average response time — and they should be pulled into the tracking file so this section carries figures next month. Youth Camp and the information drive are the two events the department supported, and both are named in the May deck.</aside>
+    </div>
+  </section>
+
+  <!-- ══ OTHERS ═════════════════════════════════════════ -->
+  <section class="band" id="others" data-band-name="Meetings &amp; Events" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">05 · Meetings, Events and Team</p>
+        <h2 class="band-title">Others</h2>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="4">0</span></p>
+          <p class="metric-label">Meetings listed</p>
+          <p class="metric-note">4 meetings are named below: the weekly Mancom meeting, the weekly policy review, the BLC system presentation and the SCL Dura discussion. A count of what the deck listed, not a measured total.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="1">0</span></p>
+          <p class="metric-label">Events listed here</p>
+          <p class="metric-note">1 event is named on this slide — Youth Camp. The information drive, the other event the department supported in May, is listed under Support. A count of what the deck listed, not a measured total.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Training sessions listed</p>
+          <p class="metric-note">2 sessions are named for May — Cybersecurity Awareness and Spiritual Enrichment. How many people attended either was never written down, so this counts sessions listed, not people trained.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Department items open</p>
+          <p class="metric-note">2 department items are named with no stage of completion recorded — the organisational structure and the hiring of an IT Specialist. Neither is shown as finished, because the deck does not say that either is.</p>
+        </div>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <div class="listing">
+            <div>
+              <h3>Meetings</h3>
+              <ul class="checks">
+                <li>Weekly Mancom meeting</li>
+                <li>Weekly policy review</li>
+                <li>BLC SMS meeting — system presentation</li>
+                <li>SCL Dura — Membership Information System and Queuing System</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Events</h3>
+              <ul class="checks"><li>Youth Camp</li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll data-from="right">
+          <div class="listing">
+            <div>
+              <h3>Training, seminars and webinars</h3>
+              <ul class="checks">
+                <li>Cybersecurity Awareness</li>
+                <li>Spiritual Enrichment</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Department</h3>
+              <ul class="checks">
+                <li data-done="false">Organizational structure</li>
+                <li data-done="false">Hiring of an IT Specialist</li>
+              </ul>
+              <p class="tight">Both were listed as headings in the deck with no stage of completion recorded, so neither is shown as finished.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">This is the "everything else" section and it is mostly about the department's own time. The two SCL Dura systems and the BLC presentation are the ones that tie back to the Software Development section. The organisational structure and the IT Specialist hire are both marked as open, because the deck names them without saying whether anything was completed — do not let either be read as done.</aside>
+    </div>
+  </section>
+
+  <!-- ══ ANNUAL TARGETS ═════════════════════════════════ -->
+  <section class="band" id="annual-targets" data-band-name="Annual Targets" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">06 · Where we stand against the year</p>
+        <h2 class="band-title">Annual Targets</h2>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="6">0</span></p>
+          <p class="metric-label">Targets shown below</p>
+          <p class="metric-note">6 rows from the department's 2026 deliverables sheet are charted below. They are the only figures in this report that come from an annual record rather than from the May deck.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="5">0</span></p>
+          <p class="metric-label">At or better than target</p>
+          <p class="metric-note">5 of the 6 bars below are at or past their 2026 target: 10 of 10 system improvements proposed, 1 of 1 cybersecurity training attended, 100% application uptime against a 99% target, 100% of approved improvements delivered on time against a 90% target, and 0 major security breaches against a target of 0.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="1">0</span></p>
+          <p class="metric-label">Not yet at target</p>
+          <p class="metric-note">1 of the 6 is short of its full-year figure: system maintenance completed stands at 50% against a 100% annual target.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Major security breaches</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            0 major security breaches have been recorded in 2026 against a target of 0. Here zero is the goal, not an empty cell.
+          </p>
+        </div>
+      </div>
+
+      <div class="card" data-reveal-on-scroll style="--i:1" id="target-bars"></div>
+      <p class="tight" data-reveal-on-scroll style="--i:2">Every bar above comes from the department's 2026 deliverables sheet. On the last one, zero is the goal — no major security breach has happened this year.</p>
+      <aside class="notes">This is the only part of the deck with real annual numbers behind it, and they come from the 2026 deliverables sheet rather than from the May PowerPoint. Two are worth a sentence each: system maintenance is at half of the year's target, which is roughly where it should be by mid-year; and the last bar reads empty on purpose, because zero major security breaches is the result we want. Uptime is measured at 100 per cent against a 99 per cent target, so the bar is full.</aside>
+    </div>
+  </section>
+
+  <!-- ══ CLOSING ════════════════════════════════════════
+       The closing photograph already carries "SALAMAT SA GUGMA!" in large
+       painted lettering. Repeating those words in HTML printed them straight
+       on top of the photograph's own and made both unreadable, so this band
+       lets the picture do the talking and puts the attribution beneath it. -->
+  <section class="band band--closing" id="thank-you" data-band-name="Thank you" data-backdrop="closing">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">Next month</p>
+        <h2 class="band-title">What this report says should happen next</h2>
+        <p>The May deck carried no plan for June. Every item below is a follow-up this report itself raises, gathered in one place.</p>
+      </div>
+
+      <div class="closing-panel" data-reveal-on-scroll style="--i:1">
+        <img class="closing-logo" src="../../assets/img/logo-bugemco.png"
+             alt="BUGEMCO — Making Lives Better">
+        <p class="salamat">
+          <span class="salamat-word" style="--w:0">Salamat</span>
+          <span class="salamat-word" style="--w:1">sa</span>
+          <span class="salamat-word salamat-accent" style="--w:2">Gugma!</span>
+        </p>
+        <div class="closing-next">
+          <h3>What this report says should happen next</h3>
+          <ul class="checks">
+            <li data-done="false">Capture a School Management System screenshot using test data, so that system can be shown publicly.</li>
+            <li data-done="false">Confirm the Coop Assurance dashboard's &ldquo;Recent Activity&rdquo; panel against the database, or blur the names, before that screenshot goes back in.</li>
+            <li data-done="false">Write the month's network work down as it happens, so next year's May section has something on it.</li>
+            <li data-done="false">Pull the ticketing system's figures — ATM cards issued, call-outs, branch visits, technical requests and response time — into the tracking files.</li>
+            <li data-done="false">Record May-only phishing totals in the department's phishing log, rather than relying on programme-to-date figures.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card closing-note" data-reveal-on-scroll style="--i:2">
+        <h3 class="card-title">ICT Department · May 2026</h3>
+        <p>Gipre F. Naparan — IT Supervisor, Software Development and Information Security</p>
+        <p class="tight">Where this report shows no figure, it is because the May deck did not carry one. Those blanks are deliberate.</p>
+        <p style="margin:1rem 0 0"><span class="demo-flag">Design demo — rebuilt from the May 2026 PowerPoint. Not published.</span></p>
+      </div>
+
+      <aside class="notes">Close the way the deck closes — "Salamat sa gugma" — but say it out loud, because it is now set as words rather than painted into a photograph, and half the room may not read Bisaya. Then one honest closing line for Mancom: where this rebuild shows no number, it is because the May deck did not carry one. Those blanks are deliberate, and the tracking files behind this system exist so that next month's report can fill them in instead of leaving them out.</aside>
+    </div>
+  </section>
+
+</main>
+
+<button class="to-top" type="button" aria-label="Back to the top">&uarr;</button>
+
+<!-- Classic script, deliberately not a module: it must still run when the
+     browser has blocked the modules below (opening the file directly). -->
+<script src="../../assets/js/fallback.js"></script>
+<script type="module" src="../../assets/js/boot.js"></script>
+<script type="module">
+  import { donut, targetBar } from '../../assets/js/charts.js';
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+
+  // Figures read directly off the awareness dashboard screenshot (shot-06):
+  // 23 completed, 4 overdue, 1 in progress, of 28 enrolled — 82% complete.
+  set('phish-donut', donut([
+    { label: 'Finished their training', value: 23, color: '#006633' },
+    { label: 'Overdue',                 value: 4,  color: '#E8721A' },
+    { label: 'Part-way through',        value: 1,  color: '#1880C0' }
+  ], { centre: '82%', alt: 'Ring chart: of 28 staff, 23 have finished their security training, 4 are overdue and 1 is part-way through — 82 per cent complete.' }));
+
+  // Every row below comes from tracking/targets/deliverables-2026.md.
+  set('target-bars', [
+    { label: 'System improvements proposed',              actual: 10,  target: 10           },
+    { label: 'System maintenance completed',              actual: 50,  target: 100, unit: '%' },
+    { label: 'Cybersecurity trainings attended',          actual: 1,   target: 1            },
+    { label: 'Application uptime',                        actual: 100, target: 99,  unit: '%' },
+    { label: 'Approved improvements delivered on time',   actual: 100, target: 90,  unit: '%' },
+    { label: 'Major security breaches (0 is the target)', actual: 0,   target: 0            }
+  ].map(targetBar).join(''));
+
+  // targetBar carries the percentage as a width attribute so it can be
+  // asserted without a DOM; hand it to the motion layer as data-fill.
+  document.querySelectorAll('.tbar-fill').forEach((el) => {
+    el.dataset.fill = parseInt(el.getAttribute('width'), 10);
+  });
+</script>
+</body>
+</html>

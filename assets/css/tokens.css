@@ -1,0 +1,143 @@
+/* ─────────────────────────────────────────────────────────────
+   BUGEMCO brand tokens.
+   Colours sampled directly from the PowerPoint template artwork.
+   Change a value here and every month's report updates.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  /* Brand — from the capsule stripes and the SALAMAT SA GUGMA lettering */
+  --green:        #006633;
+  --green-deep:   #004D26;
+  --green-light:  #2E8B57;
+  --yellow:       #FAFA00;
+  --yellow-warm:  #F5C518;
+
+  /* COOP logo palette — used only for chart series, never for chrome */
+  --coop-blue:    #0848A0;
+  --coop-orange:  #F06020;
+  --coop-red:     #E81838;
+  --coop-sky:     #1880C0;
+
+  /* Surfaces */
+  --card:         rgba(255, 255, 255, 0.82);
+  --card-solid:   #FFFFFF;
+  --card-edge:    rgba(0, 102, 51, 0.18);
+  --ink:          #22282B;
+  --ink-soft:     #5A6468;
+  --ink-faint:    #8B9498;
+
+  /* Status — plates. These five are measured against the badge text colours
+     in report.css and must not be nudged; two of them have almost no
+     headroom. */
+  --st-done:      #006633;
+  --st-progress:  #F5C518;
+  --st-delayed:   #E8721A;
+  --st-none:      #9AA3A7;
+  --st-risk:      #E81838;
+
+  /* Status — ink. The plate colours are chosen to carry WHITE or INK on top of
+     them; used the other way round, as text on a pale card, the brightest two
+     fail. --st-risk as a heading colour measured 3.98:1 against the blocker
+     panel, i.e. under AA. These are the same two hues taken down until they
+     pass as text, and they are for text only — never for a plate.
+       --st-risk-ink    #A50E26 on the blocker panel  6.8:1
+       --st-delayed-ink #8A3D00 on a pale amber panel 6.7:1 */
+  --st-risk-ink:    #A50E26;
+  --st-delayed-ink: #8A3D00;
+
+  /* Type
+     One scale, and the steps between the sizes are deliberately wide. The old
+     scale ran 3.5 / 1.75 / 1.15 / 0.8rem, which on a projector at the back of
+     a meeting room read as four shades of "text" rather than as a hierarchy:
+     a section opening looked like a slightly larger paragraph. Each step is
+     now roughly 1.4× the one below it, so the eye lands on the title first,
+     the sub-head second and the prose third without having to compare.
+
+     Nothing that carries meaning is allowed below 16px on a 1920-wide screen.
+     That is why --fs-caption is a full 1rem: badges, tags, metric labels and
+     figure captions all carry meaning, and every one of them used to render at
+     0.8rem / 12.8px — the first thing to fail from the back of the room. */
+  /* Poppins for headings, Inter for body — the same pairing the department's
+     BLC School Management System uses, so its products look related. Poppins
+     ships only 700 and 900; Inter is the fallback for any weight between, and
+     the fallback if the file fails to load. */
+  --font-head: 'Poppins', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --fs-title:    clamp(2.5rem, 5.1vw, 4.4rem);
+  --fs-section:  clamp(1.45rem, 2.25vw, 2.1rem);
+  --fs-lead:     clamp(1.15rem, 1.5vw, 1.45rem);   /* the sentence under a heading */
+  --fs-body:     clamp(1.02rem, 1.15vw, 1.18rem);
+  --fs-caption:  1rem;
+  --fs-eyebrow:  clamp(0.88rem, 0.92vw, 1.02rem);
+  --fs-stat:     clamp(3rem, 6.5vw, 6rem);
+
+  /* Tracking. Uppercase micro-labels need it; large headlines need the
+     opposite, or they look loose and amateur at 70px. */
+  --track-tight:  -0.02em;
+  --track-label:   0.14em;
+  --track-eyebrow: 0.2em;
+
+  /* Spacing — one scale, used everywhere */
+  --sp-1: 0.5rem;  --sp-2: 1rem;   --sp-3: 1.5rem;
+  --sp-4: 2rem;    --sp-5: 3rem;   --sp-6: 4rem;   --sp-7: 6rem;
+
+  /* Vertical rhythm. Three distances, and only three, so that "these belong
+     together" and "these are different subjects" are read as spacing rather
+     than guessed at. Every block-level margin in report.css uses one of them. */
+  --rhythm-tight: clamp(0.6rem, 0.8vw, 0.9rem);   /* inside one thought  */
+  --rhythm-block: clamp(1.4rem, 2vw, 2.1rem);     /* between blocks      */
+  --rhythm-group: clamp(2.4rem, 4vw, 3.6rem);     /* between subjects    */
+
+  --radius-sm:   10px;
+  --radius:      18px;
+  --radius-lg:   26px;
+  --radius-pill: 999px;   /* the capsule motif */
+
+  /* One brand line, reused. The 3px hairline on a card, the rule after an
+     eyebrow, the progress fill and the top-of-page progress bar are all the
+     same gradient — that repetition is most of what makes a page of separate
+     widgets read as one designed family. */
+  --brand-line: linear-gradient(90deg, var(--green), var(--green-light) 55%, var(--yellow));
+  --brand-fill: linear-gradient(90deg, var(--green-deep), var(--green) 55%, var(--green-light));
+
+  /* The dominant plate. One deep-green surface shared by the summary strip
+     that opens every section and the closing panel that ends the report, so
+     the two heaviest objects on the page are recognisably the same material
+     and the report is book-ended by its own brand. Carries WHITE content
+     only; never set text in green on top of it. */
+  --panel-deep: linear-gradient(140deg, #005A2C 0%, var(--green) 42%, #00401F 100%);
+  --panel-hairline: inset 0 0 0 1px rgba(255,255,255,0.16);
+  /* The yellow cap — the sharp accent. A 6px capsule-ended band of brand
+     yellow along the top of the dominant plate. Yellow is half the brand and
+     was only appearing in hairline gradients; this is where it lives now. */
+  --accent-cap: linear-gradient(90deg, var(--yellow), var(--yellow-warm) 55%, rgba(245,197,24,0) 90%);
+
+  /* Tints. Used for tracks, washes and quiet chips so those are never invented
+     ad hoc at slightly different alphas in five places. */
+  --tint-green-1: rgba(0, 102, 51, 0.06);
+  --tint-green-2: rgba(0, 102, 51, 0.10);
+  --tint-green-3: rgba(0, 102, 51, 0.16);
+  --track:        rgba(0, 64, 34, 0.13);
+
+  /* Elevation — a real ladder instead of a shadow invented per component.
+     Warm-dark green rather than grey, so shadows sit in the same light as the
+     photograph behind them. */
+  --shadow-1: 0 1px 2px rgba(0,40,20,0.05), 0 3px 10px rgba(0,40,20,0.05);
+  --shadow-2: 0 2px 6px rgba(0,40,20,0.05), 0 16px 38px rgba(0,40,20,0.10);
+  --shadow-3: 0 4px 10px rgba(0,40,20,0.06), 0 26px 60px rgba(0,40,20,0.14);
+  --shadow-4: 0 30px 80px rgba(0,40,20,0.28);
+  --inset-top: 0 1px 0 rgba(255,255,255,0.7) inset;
+
+  /* Layers — the stack from the spec */
+  --z-photo: 0; --z-capsule: 1; --z-glow: 2; --z-particle: 3;
+  --z-content: 10; --z-chrome: 20; --z-lightbox: 30;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 220ms; --dur-mid: 480ms; --dur-slow: 900ms;
+}
+
+/* Calm mode: one class on <html> flattens all motion. Set by effects.js. */
+html.calm {
+  --dur-fast: 1ms; --dur-mid: 1ms; --dur-slow: 1ms;
+}

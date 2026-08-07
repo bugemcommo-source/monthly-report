@@ -1,0 +1,38 @@
+/* Inter — SIL Open Font License. See assets/fonts/OFL.txt
+   Chosen as the closest free web match to Aptos Black used in the
+   PowerPoint template. Self-hosted so the report works with no internet. */
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/inter-variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Poppins — SIL Open Font License 1.1. See assets/fonts/OFL-Poppins.txt.
+   Headings only. This is the heading/body pairing the BLC SMS project uses
+   (Poppins for headings, Inter for body), adopted here for consistency across
+   the department's own products.
+
+   Two weights only, and deliberately so. Poppins ships as static files rather
+   than one variable font, so every weight is a separate ~150 KB download.
+   Bold and Black cover every heading in the report; a heading asking for 800
+   is matched to Black by the browser's own font-matching rules, which is why
+   no ExtraBold file is shipped.
+
+   Self-hosted as TTF because no WOFF2 build tool exists in this project and
+   the report must work with no internet. */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('../fonts/poppins-black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

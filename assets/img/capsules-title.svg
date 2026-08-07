@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <!-- Traced from assets/img/bg-title.jpg. Two clusters tilted about -41deg:
+       a small one in the top-left corner and the big signature cluster filling
+       the bottom-right. Solid pills are drawn as round-capped lines; the
+       outline-only pills are rounded rects with no fill. -->
+  <g fill="none" stroke-linecap="round">
+
+    <!-- ── top-left cluster ───────────────────────────────────── -->
+    <line x1="-60" y1="246" x2="103" y2="83"  stroke="#006633" stroke-width="76"/>
+    <line x1="170" y1="139" x2="415" y2="-52" stroke="#FAFA00" stroke-width="77"/>
+    <rect x="-94" y="252.5" width="273" height="40" rx="20"
+          transform="rotate(-45 42.5 272.5)" stroke="#2E8B57" stroke-width="4"/>
+
+    <!-- ── bottom-right cluster ───────────────────────────────── -->
+    <!-- solid pills -->
+    <line x1="1413" y1="1130" x2="1819" y2="795" stroke="#006633" stroke-width="74"/>
+    <line x1="1728" y1="709"  x2="1985" y2="478" stroke="#006633" stroke-width="75"/>
+    <line x1="1740" y1="575"  x2="1985" y2="370" stroke="#FAFA00" stroke-width="70"/>
+    <line x1="1128" y1="1110" x2="1382" y2="896" stroke="#FAFA00" stroke-width="34"/>
+    <line x1="1730" y1="1115" x2="1975" y2="910" stroke="#FAFA00" stroke-width="46"/>
+
+    <!-- outline-only pills -->
+    <rect x="1379.5" y="707.5" width="354" height="77" rx="38.5"
+          transform="rotate(-40.5 1556.5 746)" stroke="#006633" stroke-width="5"/>
+    <rect x="1754.5" y="830" width="297" height="70" rx="35"
+          transform="rotate(-40 1903 865)" stroke="#006633" stroke-width="5"/>
+    <rect x="1283.5" y="932" width="503" height="25" rx="12.5"
+          transform="rotate(-42.2 1535 944.5)" stroke="#006633" stroke-width="4"/>
+
+    <!-- short dashes that fill the gaps between the big pills -->
+    <g stroke="#006633" stroke-width="22">
+      <line x1="1339" y1="1033" x2="1380" y2="999"/>
+      <line x1="1450" y1="945"  x2="1491" y2="910"/>
+      <line x1="1559" y1="850"  x2="1600" y2="815"/>
+      <line x1="1697" y1="1029" x2="1738" y2="994"/>
+    </g>
+  </g>
+</svg>

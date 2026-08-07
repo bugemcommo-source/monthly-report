@@ -1,0 +1,1577 @@
+/* Layout for a scrolling report page.
+   Structure and space only — every animation lives in effects.css, and
+   removing that file must leave this still readable and complete. */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--ink);
+  background: #EEF2EF;
+  scroll-padding-top: 1rem;
+  /* A single long token — a URL, a ticket reference, a system name — is the
+     usual cause of a page that scrolls sideways on a 4:3 projector. This is
+     the cheapest guarantee that nothing does. */
+  overflow-wrap: break-word;
+  /* Figures line up in columns wherever they appear. */
+  font-variant-numeric: tabular-nums lining-nums;
+}
+/* ...but prose is not a spreadsheet: tabular figures in a sentence look like
+   a ransom note. Only the figures themselves keep the fixed advance. */
+p, li, .band-sub, .metric-note, .shot figcaption { font-variant-numeric: normal; }
+
+/* ─────────────────────────────────────────────────────────
+   THE BACKDROP
+   One fixed layer stack behind the whole document. The content scrolls over
+   it, and it moves at a fraction of that speed — that difference in rate is
+   the parallax. Nothing here is ever cropped in a way that matters, because
+   the brand mark now lives in the header as a real element instead of being
+   read off the edge of the artwork.
+   ───────────────────────────────────────────────────────── */
+.backdrop {
+  position: fixed; inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* The over-scan above and below is the parallax's travel budget: the layer
+   is taller than the screen so it can slide without its edge ever coming
+   into view. effects.css moves it by a fraction of its own height that is
+   deliberately smaller than the over-scan here — change one and check the
+   other. */
+.backdrop-photo {
+  position: absolute; inset: -20% 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 700ms var(--ease-in-out);
+  will-change: opacity, translate;
+}
+.backdrop-photo[data-photo="title"]   { background-image: url('../img/bg-title.jpg'); }
+.backdrop-photo[data-photo="content"] { background-image: url('../img/bg-content.jpg'); }
+.backdrop-photo[data-photo="closing"] { background-image: url('../img/bg-closing.jpg'); }
+
+/* Only the layer matching the section in view is visible; site.js sets
+   data-backdrop and these cross-fade. */
+.backdrop[data-backdrop="title"]   .backdrop-photo[data-photo="title"],
+.backdrop[data-backdrop="content"] .backdrop-photo[data-photo="content"],
+.backdrop[data-backdrop="closing"] .backdrop-photo[data-photo="closing"] { opacity: 1; }
+
+/* A wash over the PHOTO so text stays legible whichever artwork is showing.
+   Without it, contrast depends on which part of a photograph a paragraph
+   happens to land on, which is not something to leave to chance.
+
+   The z-index ladder below is load-bearing and was a real bug: a ::after
+   pseudo-element paints AFTER every child, so this wash was sitting on top of
+   the capsules, the glow and the particles instead of underneath them. The
+   whole animated layer was there the entire time, being viewed through 90%
+   white. The wash must sit between the photograph and the moving layers. */
+.backdrop-photo { z-index: 0; }
+.backdrop::after {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: 1;
+  /* Slightly brighter at the top than at the foot, so the page has a light
+     source rather than an even fog over it.
+     Both stops came down after seeing the page rendered: the wash was strong
+     enough to flatten the artwork and the moving layers into one pale field.
+     Text still sits on cards, which carry their own opaque background, so this
+     wash is not what protects legibility. */
+  background:
+    radial-gradient(130% 80% at 50% 0%, rgba(255,255,255,0.26), rgba(255,255,255,0) 62%),
+    linear-gradient(180deg, rgba(244,247,245,0.52), rgba(244,247,245,0.70));
+}
+
+/* A vignette, sitting ABOVE every moving layer and below all content (the
+   bands are z-index 1 in their own stacking context; this is z-index 5 inside
+   the backdrop, which is z-index 0). Without it the page is content floating
+   on a flat pale rectangle that runs to all four screen edges; with it the
+   composition has a frame and the cards sit forward of the artwork.
+   Kept very light: measured on the ink, the darkest corner still gives about
+   11:1 for body text, so this costs nothing in legibility. */
+.backdrop::before {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: radial-gradient(125% 85% at 50% 40%,
+    rgba(6,32,20,0) 42%, rgba(6,32,20,0.06) 72%, rgba(6,32,20,0.17) 100%);
+}
+.layer-capsules        { z-index: 2; }
+.layer-glow            { z-index: 3; }
+canvas.layer-particles { z-index: 4; }
+
+.layer-capsules {
+  position: absolute; inset: -30% 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url('../img/capsules-content.svg');
+  opacity: 0.85;
+  will-change: translate;
+}
+.backdrop[data-backdrop="title"] .layer-capsules { background-image: url('../img/capsules-title.svg'); }
+
+/* The closing section shows the plain building, NOT bg-closing.jpg. That file
+   has "SALAMAT SA GUGMA!" painted into the photograph, and the closing panel
+   now sets those words as real text — showing both would print the sign-off
+   twice. bg-closing.jpg is kept as the source the panel was recreated from. */
+.backdrop[data-backdrop="closing"] .backdrop-photo[data-photo="closing"] { opacity: 0; }
+.backdrop[data-backdrop="closing"] .backdrop-photo[data-photo="content"] { opacity: 1; }
+
+/* Sits above the wash now, so it reads properly instead of being smothered.
+   Three lights rather than two, in the brand colours, drifting on their own
+   slow cycle. */
+.layer-glow {
+  position: absolute; inset: 0;
+  /* Measured in a browser: at the old alphas these three lights were
+     indistinguishable from the flat wash beneath them. They sit ABOVE the wash
+     in the z-index ladder, so the only thing holding them back was their own
+     opacity. */
+  background:
+    radial-gradient(50vw 50vw at var(--gx, 22%) var(--gy, 26%), rgba(0,102,51,0.52), transparent 68%),
+    radial-gradient(44vw 44vw at var(--gx2, 80%) var(--gy2, 74%), rgba(250,250,0,0.46), transparent 68%),
+    radial-gradient(34vw 34vw at var(--gx3, 55%) var(--gy3, 12%), rgba(46,139,87,0.36), transparent 72%);
+}
+
+canvas.layer-particles { position: absolute; inset: 0; }
+
+/* ─────────────────────────────────────────────────────────
+   EDGE CHROME — no header bar
+   There is deliberately no header. A bar across the top eats the screen and
+   makes a page look like an application rather than a report. What is needed
+   is only: how far through am I, and how do I jump about. Both live on the
+   edges of the screen, out of the way of the artwork.
+   The logo is a real element in the opening section instead.
+   ───────────────────────────────────────────────────────── */
+.site-logo img {
+  display: block;
+  width: clamp(200px, 26vw, 340px);
+  height: auto;
+  margin-bottom: var(--sp-3);
+}
+
+/* A hairline of progress along the very top edge. No bar, no background
+   plate — just the line itself. */
+.site-progress {
+  position: fixed; left: 0; right: 0; top: 0; height: 3px;
+  z-index: 50;
+  pointer-events: none;
+}
+.site-progress-fill {
+  height: 100%; width: 100%;
+  transform-origin: left center;
+  transform: scaleX(var(--progress, 0));
+  background: linear-gradient(90deg, var(--green), var(--yellow));
+}
+
+/* ─────────────────────────────────────────────────────────
+   SECTION NAVIGATION — a rail of marks down the right edge
+   Each section is one small mark. The current one stretches into a capsule
+   (the brand's own shape). Hovering or focusing one shows its name, so the
+   labels are there when wanted and invisible when not.
+   ───────────────────────────────────────────────────────── */
+.site-nav {
+  position: fixed; right: clamp(0.6rem, 1.6vw, 1.4rem); top: 50%;
+  translate: 0 -50%;
+  z-index: 50;
+}
+.site-nav-list {
+  display: grid; gap: 0.55rem;
+  list-style: none; margin: 0; padding: 0;
+  justify-items: end;
+}
+.site-nav-link {
+  display: block; position: relative;
+  width: 10px; height: 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 102, 51, 0.30);
+  /* The section name stays in the DOM so it is announced, but must not paint
+     inside a 10px dot. font-size:0 collapses it without clipping: the older
+     text-indent + overflow:hidden pair also swallowed the ::after label, so
+     hovering a mark showed nothing at all. The label is restored below by the
+     pseudo-element's own font shorthand. */
+  font-size: 0; color: transparent;
+  transition: height 260ms var(--ease-out), background 260ms var(--ease-out);
+}
+.site-nav-link.is-current { height: 30px; background: var(--green); }
+.site-nav-link:hover { background: var(--green-light); }
+
+/* The name, revealed on hover or keyboard focus. */
+.site-nav-link::after {
+  content: attr(data-label);
+  position: absolute; right: 20px; top: 50%; translate: 0 -50%;
+  padding: 0.3rem 0.7rem; border-radius: var(--radius-pill);
+  background: rgba(10,25,18,0.92); color: #EAF3EE;
+  font: 700 0.85rem/1 var(--font-head); letter-spacing: 0.04em;
+  white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity 200ms var(--ease-out);
+}
+.site-nav-link:hover::after,
+.site-nav-link:focus-visible::after { opacity: 1; }
+
+@media (max-width: 700px) {
+  /* Too narrow for a rail beside the text — the marks move to the bottom
+     edge and lie flat. They are never removed: this page is nine screens
+     long and a phone reader needs to jump about at least as much. */
+  .site-nav {
+    right: auto; left: 50%; top: auto; bottom: 0.75rem;
+    translate: -50% 0;
+    max-width: 92vw; overflow-x: auto; scrollbar-width: none;
+    padding: 0.4rem 0.6rem; border-radius: var(--radius-pill);
+    background: rgba(255,255,255,0.82);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .site-nav-list { grid-auto-flow: column; align-items: center; }
+  .site-nav-link.is-current { height: 10px; width: 30px; }
+  .site-nav-link::after { display: none; }
+}
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BANDS — ordinary flowing sections, not slides
+   ───────────────────────────────────────────────────────── */
+/* Sections use the width of the screen. The old 1200px column left a third
+   of a wide monitor empty, which wastes exactly the space a projector has
+   most of. The right-edge nav rail needs about 3rem of clearance, so the
+   right padding is larger than the left. */
+.band {
+  position: relative; z-index: 1;
+  padding:
+    clamp(4rem, 10vh, 7.5rem)
+    clamp(3.25rem, 5vw, 5rem)
+    clamp(4rem, 10vh, 7.5rem)
+    clamp(1.5rem, 4vw, 4rem);
+}
+.band > * { max-width: 1800px; margin-inline: auto; }
+.band:focus { outline: none; }
+
+/* A hairline where one subject ends and the next begins. Sections used to run
+   into one another with nothing but white space between them, so a long report
+   read as one continuous document. The line fades out to the right so it never
+   becomes a hard box edge across the artwork, and it is drawn on the band
+   itself rather than between children, so a band can never lose it by having
+   its first block re-ordered. */
+.band + .band::before {
+  content: '';
+  position: absolute; top: 0;
+  left: clamp(1.5rem, 4vw, 4rem); right: clamp(3.25rem, 5vw, 5rem);
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(0,102,51,0.28), rgba(0,102,51,0.10) 38%, rgba(0,102,51,0) 78%);
+}
+/* The capsule motif, planted on the start of that hairline. The seam between
+   two subjects is now a designed beat — a solid brand capsule sitting on the
+   line — rather than only a fade that could belong to any template. */
+.band + .band::after {
+  content: '';
+  position: absolute; top: -5px;
+  left: clamp(1.5rem, 4vw, 4rem);
+  width: 56px; height: 11px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-fill);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 2px 6px rgba(0,40,20,0.20);
+}
+
+/* The closing panel is its own composed object and needs no rule above it.
+   Written as `.band + .band--closing` deliberately: the rule it has to beat is
+   itself a two-class selector, and a plain `.band--closing::before` loses the
+   cascade to it and does nothing at all. Both pseudo-elements must be silenced,
+   and these must stay BELOW the `.band + .band` rules they override. */
+.band + .band--closing::before,
+.band + .band--closing::after { display: none; }
+
+/* Vertical rhythm inside a band. Blocks that are separate subjects get the
+   group distance; everything else inherits the block distance from its own
+   component. Written as a sibling rule so it costs the HTML nothing. */
+.band > * + * { margin-top: var(--rhythm-block); }
+.band > * + .band-head { margin-top: var(--rhythm-group); }
+
+/* Only the hero fills the screen. Everything below is as tall as it needs to
+   be — that difference is most of what separates a website from slides.
+   svh, not vh, so mobile browser chrome doesn't cause a jump on first scroll. */
+.band--hero {
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  padding-top: clamp(3rem, 8vh, 6rem);
+}
+/* width:100% is needed, not just max-width. `.band > *` sets margin-inline:auto,
+   and an auto margin beats grid's default stretch — so the hero block was
+   shrink-wrapping to its longest line and sitting in a 789px column in the
+   middle of the screen, while every ordinary block-flow band below it filled
+   the width properly. */
+.band--hero > * { width: 100%; }
+
+/* The opening screen is the only place on the page allowed to be loud, and it
+   has to survive being the first thing on a projector while the room settles.
+   It gets its own step above --fs-title so that a section heading further down
+   is unmistakably subordinate to it — at 1920 the hero reads about 96px
+   against a section's 70px. */
+.band--hero .band-title {
+  font-size: clamp(2.9rem, 7vw, 6rem);
+  line-height: 0.98;
+  margin-bottom: var(--rhythm-block);
+}
+/* The keel: a thick capsule under the opening headline, running deep green
+   into full yellow. It is the eyebrow's 6px rule scaled up to match a 96px
+   title — same device, hero weight — and it anchors the yellow half of the
+   brand on the very first screen. Anchored dark-to-bright deliberately: pure
+   yellow alone is only ~1.4:1 against the pale backdrop and would wash out,
+   so the green end does the holding and the yellow end does the flaring. */
+.band--hero .band-title::after {
+  content: '';
+  display: block;
+  width: clamp(110px, 14vw, 220px);
+  height: 12px;
+  margin-top: clamp(0.9rem, 2vh, 1.5rem);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--green-deep), var(--green) 35%, var(--yellow-warm) 75%, var(--yellow));
+  box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 3px 10px rgba(0,60,30,0.22);
+}
+.band--hero .band-sub {
+  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  font-weight: 600;
+  color: var(--ink-soft);
+  max-width: 46ch;
+}
+.band--hero .eyebrow { margin-bottom: var(--rhythm-block); }
+.band--hero .band-head { margin-bottom: var(--rhythm-block); }
+
+/* A section opening is a set piece: mark, label, rule — then the title, then
+   one sentence. It gets more air beneath it than anything inside it, because
+   that difference is what tells a reader a new subject has started. */
+.band-head { margin-bottom: var(--rhythm-group); }
+
+.eyebrow {
+  font: 800 var(--fs-eyebrow)/1 var(--font-head);
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase;
+  color: var(--green);
+  display: flex; align-items: center; gap: 0.75rem;
+  margin: 0 0 var(--rhythm-tight);
+}
+/* The capsule motif, small, leading the label. Two marks — a solid capsule in
+   front and the gradient rule behind — make the eyebrow read as a designed
+   device rather than as a stray line of small caps. */
+.eyebrow::before {
+  content: '';
+  flex: none;
+  width: 22px; height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-line);
+}
+/* flex:none matters: the rule is a flex item with a fixed width, and without
+   it a long eyebrow label squeezes the mark down to nothing instead of
+   wrapping. effects.css animates this width from 0, which still works. */
+.eyebrow::after {
+  content: ''; flex: none;
+  height: 6px; width: clamp(40px, 8vw, 120px);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--green), var(--yellow));
+}
+
+/* Element-agnostic on purpose. The hero's title is an <h1> and every band
+   below it is an <h2>, so a rule written as `h1.band-title` styled the hero
+   and left every other band heading at the browser's default — small, grey
+   and indistinguishable from body text. The heading level is an outline
+   decision; the size is a design one. */
+.band-title {
+  font: 900 var(--fs-title)/1.02 var(--font-head);
+  margin: 0 0 var(--rhythm-tight);
+  color: var(--ink);
+  letter-spacing: var(--track-tight);
+  text-wrap: balance;
+}
+/* A title straight after its own eyebrow is one unit; anything else above it
+   is a new block. */
+.band-title + .band-sub { margin-top: 0; }
+
+/* The sentence under a title. It was 800-weight at nearly the title's own
+   size, which made two competing headlines; it is now clearly a subordinate
+   line — lighter, smaller, and set in the deep green so it still reads as
+   structure rather than as body copy. */
+.band-sub {
+  font: 700 var(--fs-lead)/1.35 var(--font-head);
+  margin: 0 0 var(--rhythm-tight);
+  color: var(--green-deep);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+h3 {
+  font: 800 clamp(1.05rem, 1.3vw, 1.25rem)/1.3 var(--font-head);
+  margin: 0 0 var(--rhythm-tight);
+  color: var(--green-deep);
+}
+p { margin: 0 0 var(--rhythm-tight); max-width: 68ch; }
+.band-head p { max-width: 66ch; color: var(--ink-soft); font-size: var(--fs-body); }
+/* Emphasis inside prose should be a change in colour AND weight, or it is
+   invisible on a projector. */
+strong, b { font-weight: 800; color: var(--green-deep); }
+.closing-panel strong, .closing-panel b, .notes strong, .notes b { color: var(--yellow); }
+/* Green emphasis inside a red panel reads as two arguments at once. */
+.blockers strong, .blockers b { color: var(--st-risk-ink); }
+
+.scroll-cue {
+  margin-top: var(--sp-5);
+  font: 700 var(--fs-caption)/1 var(--font-head);
+  letter-spacing: var(--track-eyebrow); text-transform: uppercase;
+  color: var(--ink-soft);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.scroll-cue::after {
+  content: ''; width: 2px; height: 34px; border-radius: 2px;
+  background: linear-gradient(180deg, var(--green), transparent);
+}
+
+/* ─────────────────────────────────────────────────────────
+   COMPONENTS
+   ───────────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  /* NO backdrop-filter here, deliberately, and it must not come back.
+     It was blur(16px) saturate(1.2). A page carries around thirty cards, and
+     each one makes the browser re-blur everything behind it on every frame —
+     including the drifting particles and the roaming glow, which never stop
+     changing. Measured in a real browser this held the page under 30fps, which
+     tripped the frame-rate watchdog, which switched on calm mode, which hides
+     the glow and the particles outright. The owner reported it as "the
+     animated background is gone". It had been throttled to death by the
+     frosted glass sitting in front of it.
+     The card is 82% opaque white over a pale wash, so the blur was doing
+     almost nothing anyone could see, at the cost of the one effect they could.
+     A slightly more opaque card gives the same separation for free. */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0) 42%),
+    rgba(255, 255, 255, 0.90);
+  border: 1px solid var(--card-edge);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 2.3vw, 2.25rem);
+  /* One step below the summary strip's shadow-3, deliberately. Cards are the
+     supporting tone; the strip is the dominant object. When everything sat at
+     the same elevation, nothing read first. The tilt hover still lifts a card
+     above this. */
+  box-shadow: var(--inset-top), var(--shadow-2);
+  transform-style: preserve-3d;
+}
+/* A hairline of brand colour along the top edge. One motif, repeated on every
+   card, is what makes a page of boxes read as a designed system. */
+.card::after {
+  content: '';
+  position: absolute; inset: 0 0 auto 0;
+  height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--brand-line);
+  opacity: 0.9;
+}
+.card > :last-child { margin-bottom: 0; }
+
+/* Card headings. These were the same size and weight as the body text, which
+   is why the page read as an undifferentiated document. */
+.card h3 {
+  margin: 0 0 0.5rem;
+  font: 800 clamp(1.05rem, 1.35vw, 1.3rem)/1.25 var(--font-head);
+  color: var(--green-deep);
+  letter-spacing: -0.005em;
+}
+/* A heading that follows content is a new block, so it needs air above it. */
+.card > * + h3 { margin-top: var(--sp-3); }
+.card p { margin: 0 0 0.75rem; }
+
+/* Gaps are the rhythm token, not an invented number, so the distance between
+   two cards is the same as between two blocks anywhere else. Cards in a row
+   keep the default stretch and stay the same height — a row of boxes with
+   ragged bottoms is the clearest sign of an undesigned page. */
+.grid { display: grid; gap: var(--rhythm-block); }
+.grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cols--wide-right { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--rhythm-block); align-items: start; }
+/* Two cards that answer the same question and belong beside each other — but
+   only when there is genuinely room. A chart that prints a figure at every
+   point needs width: at 1280 the pair still fits, but the figures render at
+   about ten pixels and nobody at the back of the room can read them. So the
+   pair stacks at 1400 and below rather than crowd.
+   The split matches .cols--wide-right on purpose. Two two-column rows stacked
+   with different gutters make the eye try to line up a seam that never lines
+   up, which reads as a mistake on a big screen. */
+.cols--pair { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--rhythm-block); align-items: start; }
+@media (max-width: 1400px) {
+  .cols--pair { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .grid--2, .grid--3, .cols--wide-right { grid-template-columns: 1fr; }
+}
+
+/* ── Chips: the badge and the tag ──────────────────────────
+   One shape, one size, two voices. A badge states a status and is meant to be
+   seen from the back of the room; a tag qualifies a figure and is meant to be
+   read only when someone looks. They share the capsule, the cap-height and the
+   dot spacing, so a card carrying both reads as one designed family rather
+   than as two unrelated widgets. */
+.badge {
+  display: inline-flex; align-items: center; gap: 0.5em;
+  padding: 0.4em 0.95em; border-radius: var(--radius-pill);
+  font: 800 var(--fs-caption)/1 var(--font-head);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+  /* A chip that sits flat on the card looks printed on; a hairline of its own
+     colour under it lifts it just enough to read as an object. */
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.28) inset,
+    0 2px 5px rgba(0,40,20,0.18);
+}
+.badge::before {
+  content: ''; flex: none;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: currentColor;
+  /* The dot is the same ink as the label, so it never introduces a colour that
+     was not measured for contrast. */
+  opacity: 0.9;
+}
+/* Text colour per badge is set by measured contrast, not by taste.
+   Badge text is now 1rem/16px rather than 0.8rem/12.8px, but bold 16px is
+   still below the 19px-bold "large text" threshold, so it needs the full
+   4.5:1 and every pairing below is unchanged and re-checked as such.
+   NOT ONE OF THESE COLOURS OR RATIOS WAS ALTERED in the design pass — risk
+   (4.55:1) and delayed (4.87:1) have almost no headroom and darkening the
+   ink or lightening the plate by even a little puts them under AA.
+   Measured against white and against --ink:
+     done     #006633 — white 7.12:1  ✓
+     risk     #E81838 — white 4.55:1  ✓
+     progress #F5C518 — white 1.63:1  ✗ → ink 9.16:1  ✓
+     delayed  #E8721A — white 3.06:1  ✗ → ink 4.87:1  ✓
+     none     #9AA3A7 — white 2.57:1  ✗ → ink 5.81:1  ✓
+   No brand colour is altered; only the text colour on top of it. */
+.badge[data-status="done"]       { background: var(--st-done); color: #fff; }
+.badge[data-status="risk"]       { background: var(--st-risk); color: #fff; }
+.badge[data-status="progress"]   { background: var(--st-progress); color: var(--ink); }
+.badge[data-status="delayed"]    { background: var(--st-delayed); color: var(--ink); }
+.badge[data-status="not-started"]{ background: var(--st-none); color: var(--ink); }
+
+/* ── Bars: progress and target ─────────────────────────────
+   Both were a flat 12–14px strip of pale green with a flat strip of solid
+   green inside it — the most unfinished thing on the page. They are now one
+   component with two sizes: a recessed groove with a real inner shadow, quarter
+   marks so a figure can be read off the bar from the back of the room, and a
+   fill with its own top highlight and a soft cast underneath, so it reads as
+   something sitting IN the groove rather than as a coloured rectangle.
+
+   The fill is driven by `width` (effects.css), never by transform. A filling
+   animation on transform would pin the property and silently kill the 3D card
+   tilt on any card that contains a bar. */
+.pbar-track,
+.tbar-track {
+  position: relative;
+  border-radius: var(--radius-pill);
+  background: var(--track);
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 3px rgba(0,40,20,0.22),
+    0 1px 0 rgba(255,255,255,0.55);
+}
+/* Quarter marks. Drawn on the track, under the fill, so they disappear as the
+   bar passes them — which is exactly the read you want: how far along am I. */
+.pbar-track::before,
+.tbar-track::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg,
+    transparent 0 calc(25% - 1px),
+    rgba(255,255,255,0.5) calc(25% - 1px),
+    rgba(255,255,255,0.5) 25%);
+  pointer-events: none;
+}
+.pbar-fill,
+.tbar-fill {
+  position: relative;
+  height: 100%; width: 0;
+  border-radius: var(--radius-pill);
+  background: var(--brand-fill);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.35) inset,
+    0 0 12px rgba(0,102,51,0.30);
+}
+
+.pbar { display: grid; gap: 0.5rem; margin: var(--rhythm-block) 0; }
+.pbar-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: var(--sp-2);
+  font-weight: 700;
+}
+/* The figure at the right of the head is the point of the bar, so it is set
+   like a figure: heavier, in the brand green, and tabular so a column of them
+   lines up down the card. */
+.pbar-head > :last-child:not(:only-child),
+.tbar-value {
+  font-weight: 800;
+  color: var(--green-deep);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.pbar-track { height: 18px; }
+.pbar-fill[data-tone="yellow"] {
+  background: linear-gradient(90deg, var(--yellow-warm), var(--yellow));
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.45) inset,
+    0 0 12px rgba(245,197,24,0.45);
+}
+
+.tbar { display: grid; gap: 0.45rem; margin-bottom: var(--rhythm-block); }
+.tbar-head { display: flex; justify-content: space-between; gap: var(--sp-2); font-size: var(--fs-body); }
+.tbar-label { font-weight: 700; color: var(--ink); }
+.tbar-track { height: 16px; }
+.tbar[data-state="behind"] .tbar-fill {
+  background: linear-gradient(90deg, #C85A10, var(--st-delayed));
+  box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 0 12px rgba(232,114,26,0.40);
+}
+/* The figure for a target that is behind reads in the warning ink, not the
+   brand green — the amber plate colour itself is only 2.7:1 as text on a pale
+   card, so --st-delayed-ink (6.7:1) is used instead. */
+.tbar[data-state="behind"] .tbar-value { color: var(--st-delayed-ink); }
+.tbar[data-state="ahead"]  .tbar-fill {
+  background: linear-gradient(90deg, var(--green), var(--green-light) 60%, var(--yellow));
+  box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 0 14px rgba(250,250,0,0.35);
+}
+
+/* ── Checklist ─────────────────────────────────────────── */
+.checks { list-style: none; margin: 0 0 var(--sp-2); padding: 0; display: grid; gap: 0.55rem; }
+
+/* The marker is positioned, NOT a grid column.
+   It used to be `display: grid; grid-template-columns: 22px 1fr`, which made
+   every ELEMENT inside the li its own grid item. A <strong> or <em> mid-sentence
+   became item three and dropped onto a new row with its spacing eaten, so
+   "waiting for its <strong>first</strong> presentation" rendered as
+       waiting for its
+   firstpresentation
+   Text must flow inline. Never put display:grid on a list item that contains
+   prose. */
+.checks li {
+  position: relative;
+  padding-left: 40px;
+  line-height: 1.55;
+}
+/* The marker is a chip, like every other small round thing on the page: a
+   plate, a hairline of white on top of it, and a small cast beneath. */
+.checks li::before {
+  content: '✓';
+  position: absolute; left: 0; top: 0.12em;
+  width: 25px; height: 25px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 0.82rem; font-weight: 900;
+  background: var(--st-done); color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.3) inset,
+    0 2px 5px rgba(0,64,34,0.28);
+}
+/* Not done yet is a real state and is drawn as an empty ring, not as a weaker
+   tick. A hollow mark and a filled mark can be told apart at a glance from the
+   back of a room; two ticks in different greens cannot. */
+.checks li[data-done="false"]::before {
+  content: '';
+  background: var(--tint-green-3);
+  box-shadow: inset 0 0 0 2px rgba(0,102,51,0.35);
+}
+.checks li[data-done="false"] { color: var(--ink-soft); }
+
+/* ── Blockers ──────────────────────────────────────────── */
+/* Same anatomy as the metric tile — a 6px status edge, a wash of the same
+   colour, one radius — so "here is a problem" is recognisably the same kind of
+   object as "here is a figure", rather than a differently-shaped warning box. */
+.blockers {
+  position: relative;
+  border-left: 6px solid var(--st-risk);
+  background:
+    linear-gradient(103deg, rgba(232,24,56,0.10) 0%, rgba(232,24,56,0.03) 60%),
+    var(--card-solid);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--sp-3) var(--sp-3);
+  margin: var(--rhythm-block) 0;
+  box-shadow: var(--shadow-1);
+}
+/* Was --st-risk #E81838, which measured 3.98:1 on this panel — under AA.
+   --st-risk-ink #A50E26 is the same red taken down to 6.8:1. */
+.blockers h3 {
+  color: var(--st-risk-ink);
+  text-transform: uppercase; letter-spacing: var(--track-label);
+  font-size: var(--fs-caption);
+  display: flex; align-items: center; gap: 0.55rem;
+}
+.blockers h3::before {
+  content: '';
+  flex: none;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--st-risk);
+  box-shadow: 0 0 0 4px rgba(232,24,56,0.15);
+}
+.blockers > :last-child { margin-bottom: 0; }
+
+/* ─────────────────────────────────────────────────────────
+   SCREENSHOTS
+   A screenshot of a system dropped straight onto a page reads as a stray
+   rectangle — the reader cannot tell where the report stops and the pictured
+   system starts. Every shot is therefore mounted in a window frame: a title
+   bar naming the screen, then the image, then a caption in the report's own
+   voice. The frame is the boundary, and it says "this is a different thing".
+
+   Shrunk to a third of a projector's width, no dashboard is legible. The frame
+   is a real <button>, so the full image is one click or one Enter away.
+   ───────────────────────────────────────────────────────── */
+/* The base .shot is the ORIGINAL pattern, and it stays: months built before
+   the window frame (May 2026, and templates/month.html) put the image and the
+   caption straight inside the <figure> and made the figure itself clickable.
+   Those months are published. Restyling .shot underneath them would break
+   pages nobody is going to rebuild.
+
+   margin:0 is load-bearing. <figure> carries a browser default of
+   `margin: 1em 40px`, which with width:100% pushed every screenshot 40px
+   right of the text column beside it. */
+.shot {
+  display: block; width: 100%; margin: 0; border: 0; padding: 0; cursor: zoom-in;
+  border-radius: var(--radius-lg); overflow: hidden;
+  background: var(--card-solid);
+  box-shadow: var(--shadow-3);
+  transition: box-shadow var(--dur-fast) var(--ease-out);
+}
+.shot:hover { box-shadow: var(--shadow-4); }
+.shot > img { display: block; width: 100%; height: auto; }
+.shot > figcaption {
+  padding: 0.7rem var(--sp-2) 0.85rem;
+  border-top: 1px solid rgba(0,102,51,0.12);
+  font-size: var(--fs-caption);
+  line-height: 1.45;
+  color: var(--ink-soft);
+  text-align: left;
+}
+
+/* The framed pattern. The <figure> becomes a plain wrapper and the frame
+   inside it carries everything, so the caption sits OUTSIDE the control —
+   read as a description of the picture rather than as the button's label. */
+.shot--framed {
+  border: 0; border-radius: 0; overflow: visible;
+  background: none; box-shadow: none; cursor: auto;
+}
+.shot--framed:hover { box-shadow: none; }
+.shot-frame {
+  display: block; width: 100%; margin: 0; padding: 0; cursor: zoom-in;
+  font: inherit; color: inherit; text-align: left;
+  border: 1px solid var(--card-edge);
+  border-radius: var(--radius); overflow: hidden;
+  background: var(--card-solid);
+  box-shadow: var(--shadow-2);
+  transition: box-shadow var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+.shot-frame:hover,
+.shot-frame:focus-visible { box-shadow: var(--shadow-3); transform: translateY(-2px); }
+.shot-frame:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+
+/* The title bar. Three dots on the left is the universally understood mark
+   for "this is an application window", which is exactly the claim being made. */
+.shot-bar {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(180deg, #F3F6F3, #E9EEEA);
+  border-bottom: 1px solid rgba(0,102,51,0.12);
+}
+.shot-dots {
+  flex: none; display: inline-block; width: 38px; height: 9px;
+  background:
+    radial-gradient(circle 4.5px at 4.5px 50%,  #E8B4AE 98%, transparent) 0 0/100% 100% no-repeat,
+    radial-gradient(circle 4.5px at 19px  50%,  #EDD3A6 98%, transparent) 0 0/100% 100% no-repeat,
+    radial-gradient(circle 4.5px at 33.5px 50%, #B7D6BE 98%, transparent) 0 0/100% 100% no-repeat;
+}
+.shot-name {
+  flex: 1 1 auto; min-width: 0;
+  font: 700 0.9rem/1.3 var(--font-head);
+  color: var(--green-deep);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.shot-zoom {
+  flex: none;
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  padding: 0.15rem 0.5rem; border-radius: 999px;
+  background: rgba(0,102,51,0.08);
+  font-size: 0.78rem; font-weight: 700; color: var(--green-deep);
+}
+.shot-frame img { display: block; width: 100%; height: auto; }
+
+/* Sits under the frame rather than inside it, and a full 1rem — it was
+   0.8rem, which is unreadable projected. */
+.shot--framed > figcaption {
+  padding: 0.6rem 0.1rem 0;
+  border-top: 0;
+  font-size: var(--fs-caption);
+  line-height: 1.45;
+  color: var(--ink-soft);
+  text-align: left;
+}
+
+/* ── A system, told beside its own screens ─────────────────
+   Two screenshots stacked in a half-width card come out about 280px wide on a
+   projector, which is a picture of a dashboard rather than a dashboard. These
+   systems get a full-width row instead: the account on the left, the screens
+   on the right, each roughly half the projected width. */
+.sys-stack { display: grid; gap: var(--rhythm-block); }
+.sys {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  align-items: start;
+}
+/* .card's spacing rules are written for direct children, and the two panes
+   are now in the way. Restated for the panes' own children. */
+.sys-text > :first-child, .sys-shots > :first-child { margin-top: 0; }
+.sys-text > :last-child, .sys-shots > :last-child { margin-bottom: 0; }
+.sys-text > * + h3 { margin-top: var(--sp-3); }
+.sys-shots { display: grid; gap: var(--sp-3); align-content: start; }
+@media (max-width: 1000px) {
+  .sys { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ── The enlarged view ─────────────────────────────────── */
+.lightbox {
+  position: fixed; inset: 0; z-index: 60;
+  /* auto rows with align-content:center, not `1fr auto`. With a 1fr row the
+     picture centres in the space above and the caption sinks to the bottom
+     edge, and the two stop reading as one object. */
+  display: grid; grid-template-rows: auto auto;
+  align-content: center; justify-items: center; gap: var(--sp-2);
+  background: rgba(6,20,14,0.96); cursor: zoom-out;
+  padding: clamp(1rem, 4vh, 3rem) clamp(1rem, 4vw, 3rem);
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+}
+/* Load-bearing. `.lightbox` sets display:grid, which outranks the browser's
+   own [hidden] { display: none } — so without this the closed overlay stays
+   laid out over the whole page at opacity 0, swallowing every click on the
+   report underneath it. */
+.lightbox[hidden] { display: none; }
+.lightbox.is-open { opacity: 1; }
+.lightbox img {
+  max-width: 100%; max-height: 82vh;
+  width: auto; height: auto;
+  border-radius: var(--radius);
+  box-shadow: 0 40px 90px rgba(0,0,0,0.55);
+  cursor: default;
+}
+.lightbox figure { display: contents; margin: 0; }
+.lightbox figcaption {
+  max-width: 70ch;
+  color: #E7EFE9; font-size: var(--fs-caption); line-height: 1.5; text-align: center;
+}
+.lightbox-close {
+  position: absolute; top: clamp(0.75rem, 2vw, 1.5rem); right: clamp(0.75rem, 2vw, 1.5rem);
+  width: 44px; height: 44px; padding: 0;
+  display: grid; place-items: center;
+  border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(255,255,255,0.92); color: var(--ink);
+  font-size: 1.6rem; line-height: 1;
+}
+.lightbox-close:hover { background: #fff; }
+.lightbox-close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .lightbox { transition: none; }
+  .shot-frame { transition: none; }
+  .shot-frame:hover, .shot-frame:focus-visible { transform: none; }
+}
+
+/* ─────────────────────────────────────────────────────────
+   THE DATA STANDARD
+   One shape per kind of fact, used in every section of every month. The point
+   is that the Mancom can scan the report: if a figure looks like this, they
+   already know what kind of thing it is. See docs/data-presentation-standard.md.
+   ───────────────────────────────────────────────────────── */
+
+/* Every section opens with this: the three or four headline facts, so a busy
+   reader can take only the strips and still have the whole month.
+
+   THE DOMINANT OBJECT ON THE PAGE. It used to be a bare grid of glass tiles,
+   indistinguishable from every other row of cards — which meant the figures
+   that ARE the report carried no more weight than their supporting prose. It
+   is now a solid plate of the deep brand green (the same material as the
+   closing panel), capped with the brand yellow, watermarked with the capsule
+   artwork, and the metric tiles sit on it as solid white objects. Every
+   section opens with this heavy green-and-yellow block, so the rhythm of the
+   whole report is: heading → THE FIGURES → the supporting detail.
+
+   min(250px, 100%) so the tile floor can never force sideways scroll on a
+   narrow 4:3 projection or a phone. */
+.summary-strip {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+  gap: clamp(0.9rem, 1.5vw, 1.5rem);
+  margin-bottom: var(--rhythm-group);
+  padding: clamp(1.4rem, 2.4vw, 2.4rem);
+  padding-top: clamp(1.7rem, 2.8vw, 2.8rem);
+  border-radius: var(--radius-lg);
+  background: var(--panel-deep);
+  box-shadow: var(--shadow-3), var(--panel-hairline);
+}
+/* The capsule motif, watermarked into the plate — the same artwork the
+   backdrop and the closing panel carry, so the strip visibly belongs to the
+   brand rather than being a green rectangle. Absolutely positioned, so it is
+   out of flow and can never become a grid item. z-index -1 with isolation
+   keeps it above the plate and below every tile. */
+.summary-strip::before {
+  content: '';
+  position: absolute; inset: -15% 0;
+  z-index: -1;
+  background: url('../img/capsules-title.svg') center / cover no-repeat;
+  opacity: 0.22;
+  pointer-events: none;
+}
+/* The yellow cap. Cards carry a 3px green-to-yellow hairline; the dominant
+   plate carries a 6px band of full yellow. Same device, one weight up —
+   that difference in weight is the hierarchy. Yellow #FAFA00 against the
+   plate's green measures about 6.4:1, so the cap carries from the back of
+   the room. */
+.summary-strip::after {
+  content: '';
+  position: absolute; inset: 0 0 auto 0;
+  height: 6px;
+  background: var(--accent-cap);
+  pointer-events: none;
+}
+
+/* The metric tile — the standard anatomy for a single number.
+   figure · label · context. The context line is not optional: a bare
+   percentage with no unit is exactly how "phish failure rate" ended up
+   meaning two opposite things in two different documents. */
+.metric {
+  position: relative;
+  overflow: hidden;
+  /* Solid white, not glass. On the deep-green plate a translucent tile goes
+     muddy; an opaque one reads as a real object sitting IN FRONT of the
+     plate — which is the whole depth story: backdrop, glass cards, then
+     these. The radius steps down from the plate's (18px inside 26px), the
+     way a properly nested corner should. */
+  background: var(--card-solid);
+  border: 1px solid var(--card-edge);
+  border-left: 6px solid var(--green);
+  border-radius: var(--radius);
+  padding: clamp(1.3rem, 2vw, 1.9rem);
+  display: grid; align-content: start; gap: 0.2rem;
+  box-shadow: var(--inset-top), var(--shadow-2);
+  /* A grid column is not automatically allowed to be narrower than its widest
+     unbreakable child, so a long word or a wide chip silently pushed the tile
+     wider than its track and the rest was clipped. This lets the tile be as
+     narrow as it is told to be, and makes long words break instead. */
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+/* Nothing inside a tile may be wider than the tile. */
+.metric > * { max-width: 100%; }
+/* A soft wash of the tile's own status colour, so the state is legible from
+   the whole tile rather than from a 6px stripe. currentColor is set per
+   modifier below. */
+.metric::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(103deg, currentColor 0%, transparent 58%);
+  opacity: 0.07;
+  pointer-events: none;
+}
+.metric > * { position: relative; }
+/* `color` drives the wash above; border-left-color follows it. Setting one
+   property per state keeps the two from drifting apart. */
+.metric--good    { color: var(--st-done);     border-left-color: var(--st-done); }
+.metric--watch   { color: var(--st-progress); border-left-color: var(--st-progress); }
+.metric--behind  { color: var(--st-delayed);  border-left-color: var(--st-delayed); }
+.metric--risk    { color: var(--st-risk);     border-left-color: var(--st-risk); }
+.metric--unknown { color: var(--st-none);     border-left-color: var(--st-none); }
+
+.metric-num {
+  margin: 0 0 0.1rem;
+  font: 900 clamp(2.8rem, 4.8vw, 4.4rem)/0.95 var(--font-head);
+  color: var(--green-deep);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+.metric--unknown .metric-num { color: var(--ink-faint); }
+.metric-label {
+  margin: 0;
+  font: 800 var(--fs-caption)/1.3 var(--font-head);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--ink-soft);
+}
+/* The context line is a different kind of statement from the figure above it,
+   so it is separated by a hairline rather than by guesswork. Tiles with no
+   context line simply have no line. */
+.metric-note {
+  margin: 0.7rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(0,102,51,0.14);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: none;
+}
+
+/* Small tags that sit beside a figure. They exist so three things can never
+   be left to guesswork: which way is good, what period it covers, and where
+   the number came from. */
+/* The quiet half of the chip family: same capsule, same size, no shadow, no
+   uppercase and a tinted plate instead of a solid one. It was 0.7rem/11.2px,
+   which on a projector was decoration rather than information. */
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 0.28em 0.75em;
+  margin: 0 0.35rem 0.3rem 0;
+  border-radius: var(--radius-pill);
+  font: 700 var(--fs-caption)/1.25 var(--font-head);
+  letter-spacing: 0.01em;
+  background: var(--tint-green-2); color: var(--green-deep);
+  border: 1px solid rgba(0,102,51,0.14);
+  vertical-align: middle;
+  /* NOT nowrap. "Network & System Administration section" is wider than a
+     metric tile, and with nowrap it ran straight off the edge and was cut in
+     half by the tile's overflow. A tag has to be able to wrap and to shrink to
+     the space it is given — it is a label, not a fixed object. */
+  white-space: normal;
+  max-width: 100%;
+  text-align: left;
+}
+.tag--lower  { background: var(--tint-green-2);   color: var(--green-deep); border-color: rgba(0,102,51,0.14); }
+/* #6B4E00 on this yellow tint composited over the card measures 6.4:1 — the
+   alpha went 0.22 → 0.24, which moved it from 6.6:1 to 6.4:1. Still well
+   clear of the 4.5:1 floor for text this size. */
+.tag--period { background: rgba(245,197,24,0.24); color: #6B4E00;           border-color: rgba(180,140,0,0.30); }
+/* --ink-soft #5A6468 on this grey tint over the card measures 5.1:1. The
+   plate was rgba(0,0,0,0.05); it is now the ink at 0.06, which is the same
+   value warmed to match the rest of the page. Ratio 5.2:1 → 5.1:1. */
+.tag--source { background: rgba(34,40,43,0.06);   color: var(--ink-soft);   border-color: rgba(34,40,43,0.12); }
+
+/* "Not recorded" is a first-class result, not an empty cell. A blank invites
+   someone to read it as zero; this says plainly that nobody measured it, and
+   what would have to happen for a figure to appear next month. */
+.not-recorded, .unknown {
+  border: 1px dashed var(--st-none);
+  border-left: 6px solid var(--st-none);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: rgba(154,163,167,0.10);
+  padding: var(--sp-3);
+  margin: var(--rhythm-block) 0;
+}
+.not-recorded h3, .unknown h3 {
+  color: var(--ink-soft);
+  text-transform: uppercase; letter-spacing: var(--track-label);
+  font-size: var(--fs-caption);
+  display: flex; align-items: center; gap: 0.55rem;
+}
+/* The same mark as the blockers panel, in the "nobody measured this" grey, so
+   the two absent-information states are read as a pair. */
+.not-recorded h3::before, .unknown h3::before {
+  content: '';
+  flex: none;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--st-none);
+  box-shadow: 0 0 0 4px rgba(154,163,167,0.20);
+}
+.not-recorded p:last-child, .unknown p:last-child { margin-bottom: 0; }
+
+/* ── Big stats ─────────────────────────────────────────── */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--sp-4); margin-top: var(--rhythm-block); }
+.stat-num {
+  font: 900 var(--fs-stat)/0.9 var(--font-head);
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--track-tight);
+}
+/* A short capsule under each figure ties the big numbers to the same motif as
+   the eyebrow, the badges and the bars. */
+.stat-lab {
+  font-size: var(--fs-caption); font-weight: 700;
+  color: var(--ink-soft); text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  margin-top: 0.75rem; padding-top: 0.75rem;
+  position: relative;
+}
+.stat-lab::before {
+  content: '';
+  position: absolute; left: 0; top: 0;
+  width: 34px; height: 4px; border-radius: var(--radius-pill);
+  background: var(--brand-line);
+}
+
+/* ── Charts ────────────────────────────────────────────── */
+/* Same reasoning as the gauge: labels drawn inside a viewBox grow with it, so
+   a chart allowed to run the full width of a band prints its axis text at
+   headline size. Capped and centred. */
+.ch-donut, .ch-line { width: 100%; height: auto; max-height: 300px; overflow: visible; }
+.ch-line { max-width: 900px; margin-inline: auto; display: block; }
+.ch-centre { font: 900 2rem var(--font-head); fill: var(--green); }
+
+/* ── Chart keys ────────────────────────────────────────── */
+/* A ring of colours with no figures is decoration. Every slice is named,
+   counted and given its share, in a tabular grid so the numbers line up. */
+.ch-wrap { display: grid; gap: var(--rhythm-block); }
+.ch-key { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+.ch-key-row {
+  display: grid;
+  grid-template-columns: 14px 1fr auto auto;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background: var(--tint-green-1);
+  font-size: var(--fs-body);
+}
+/* The key is a table of figures, so it is banded like one. */
+.ch-key-row:nth-child(odd) { background: var(--tint-green-2); }
+.ch-key-dot {
+  width: 13px; height: 13px; border-radius: 4px;
+  align-self: center;
+  box-shadow: 0 1px 2px rgba(0,40,20,0.25);
+}
+.ch-key-label { color: var(--ink); }
+.ch-key-val {
+  font: 900 1.15rem/1 var(--font-head);
+  color: var(--green-deep);
+  font-variant-numeric: tabular-nums;
+}
+.ch-key-pct {
+  min-width: 3.4em; text-align: right;
+  font-weight: 700; color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+/* Data labels drawn inside the chart. These are viewBox units, so they scale
+   with the SVG rather than being 13 device pixels — the point of the bump is
+   that they hold their own against a 3.5px stroke, not the 16px floor, which
+   the key beside the chart is what actually satisfies. */
+/* ─────────────────────────────────────────────────────────
+   BUTTONS
+   ───────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  padding: 0.75em 1.4em;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font: 800 var(--fs-body)/1.1 var(--font-head);
+  cursor: pointer;
+  background: var(--green); color: #fff;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.22) inset, 0 8px 20px rgba(0,40,20,0.22);
+  transition: translate var(--dur-fast, 220ms) var(--ease-out),
+              box-shadow var(--dur-fast, 220ms) var(--ease-out);
+}
+.btn:hover  { translate: 0 -2px; box-shadow: 0 14px 30px rgba(0,40,20,0.28); }
+.btn:active { translate: 0 0; }
+.btn:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+/* #006633 on white measures 6.9:1; the ghost variant keeps the same ink. */
+.btn--ghost {
+  background: var(--card-solid); color: var(--green-deep);
+  border-color: rgba(0,102,51,0.35);
+  box-shadow: 0 6px 16px rgba(0,40,20,0.10);
+}
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: var(--rhythm-block, 1.25rem); }
+
+/* ─────────────────────────────────────────────────────────
+   DOCUMENT PANELS
+   A full-screen sheet that scrolls on its own, so a long document can be read
+   without pushing the rest of the month down the page.
+   ───────────────────────────────────────────────────────── */
+.doc-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-items: center;
+  padding: clamp(0.5rem, 3vh, 2.5rem);
+  background: rgba(6, 28, 18, 0.62);
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 220ms var(--ease-out);
+}
+.doc-overlay.is-open { opacity: 1; }
+.doc-overlay[hidden] { display: none; }
+
+.doc-panel {
+  width: min(1100px, 100%);
+  max-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--card-solid);
+  border-radius: var(--radius-lg, 26px);
+  box-shadow: 0 40px 100px rgba(0, 30, 15, 0.45);
+  overflow: hidden;
+  translate: 0 14px;
+  transition: translate 260ms var(--ease-out);
+}
+.doc-overlay.is-open .doc-panel { translate: 0 0; }
+
+.doc-head {
+  display: flex; align-items: center; gap: 1rem;
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(1.1rem, 2.4vw, 2rem);
+  background: var(--panel-deep, linear-gradient(140deg, #005A2C, #006633 42%, #00401F));
+  color: #fff;
+}
+.doc-head h2 { margin: 0; font: 900 clamp(1.15rem, 1.8vw, 1.6rem)/1.2 var(--font-head); color: #fff; }
+.doc-head p  { margin: 0.2rem 0 0; font-size: var(--fs-caption); color: rgba(255,255,255,0.86); }
+.doc-head > div { min-width: 0; }
+.doc-close {
+  margin-left: auto; flex: none;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 0; cursor: pointer;
+  background: rgba(255,255,255,0.16); color: #fff;
+  font-size: 1.5rem; line-height: 1;
+  display: grid; place-items: center;
+}
+.doc-close:hover { background: rgba(255,255,255,0.28); }
+.doc-close:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+/* The scrolling part. This is the only thing on the page that scrolls while a
+   panel is open — the document behind it is pinned. */
+.doc-body {
+  /* min-height:0 is load-bearing. A grid item's default minimum size is its
+     content, so a `1fr` row silently grows to fit the whole document and
+     overflow-y never has anything to do — the panel just gets taller than the
+     screen and the text runs off the bottom with no way to reach it. */
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(1.2rem, 3vw, 2.75rem);
+  scroll-behavior: smooth;
+}
+.doc-body > :first-child { margin-top: 0; }
+.doc-body h3 {
+  margin: var(--rhythm-group, 2rem) 0 0.6rem;
+  font: 800 clamp(1.05rem, 1.4vw, 1.3rem)/1.25 var(--font-head);
+  color: var(--green-deep);
+}
+.doc-body h3:first-of-type { margin-top: 0; }
+.doc-body p, .doc-body li { max-width: 78ch; }
+
+/* A plain, readable table for the figures. */
+.doc-table { width: 100%; border-collapse: collapse; margin: 0.8rem 0 1.4rem; }
+.doc-table th, .doc-table td {
+  text-align: left; vertical-align: top;
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid rgba(0,102,51,0.14);
+}
+.doc-table th { width: 42%; font-weight: 800; color: var(--green-deep); }
+.doc-table td { font-variant-numeric: tabular-nums; }
+.doc-table tr:last-child th, .doc-table tr:last-child td { border-bottom: 0; }
+.doc-table .row--total th, .doc-table .row--total td {
+  background: rgba(0,102,51,0.07);
+  font-size: 1.05em; font-weight: 800; color: var(--green-deep);
+}
+
+/* The proposal reproduced as a document: narrower measure, letter spacing. */
+.doc-letter { max-width: 80ch; }
+.doc-letter .doc-rule { border: 0; border-top: 1px solid rgba(0,102,51,0.18); margin: 1.6rem 0; }
+.doc-redacted {
+  display: inline-block;
+  padding: 0.1em 0.55em; border-radius: 5px;
+  background: rgba(34,40,43,0.10); color: var(--ink-soft);
+  font-style: italic; font-size: 0.95em;
+}
+.doc-note {
+  border-left: 5px solid var(--st-progress, #F5C518);
+  background: rgba(245,197,24,0.12);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+}
+.doc-note :last-child { margin-bottom: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .doc-overlay, .doc-panel { transition: none; }
+  .doc-body { scroll-behavior: auto; }
+}
+
+/* ── Waiting board ─────────────────────────────────────── */
+/* Five systems, what each waits for, and who holds it. As a table it can be
+   read down a column — five prose bullets cannot. */
+.wait-board {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.4rem;
+  margin: var(--rhythm-tight, 0.75rem) 0 var(--rhythm-block, 1.25rem);
+  font-size: var(--fs-caption);
+}
+.wait-board thead th {
+  text-align: left;
+  font: 800 var(--fs-caption)/1.2 var(--font-head);
+  letter-spacing: var(--track-label, 0.08em); text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 0 0.75rem 0.25rem;
+}
+.wait-board tbody tr { background: var(--card-solid); }
+.wait-board tbody th,
+.wait-board tbody td {
+  padding: 0.7rem 0.75rem;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 400;
+  color: var(--ink);
+}
+.wait-board tbody th {
+  font-weight: 800; color: var(--green-deep);
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.wait-board tbody td:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+
+.pill {
+  display: inline-block;
+  padding: 0.25em 0.7em;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  white-space: nowrap;
+}
+/* Colour carries how far along the conversation already is. */
+.pill--1 { background: rgba(232,24,56,0.12);  color: var(--st-risk-ink, #A50E26); }
+.pill--2 { background: rgba(245,197,24,0.26); color: #6B4E00; }
+.pill--3 { background: rgba(0,102,51,0.12);   color: var(--green-deep); }
+.pill--t { background: rgba(34,40,43,0.08);   color: var(--ink-soft); }
+
+/* Visually hidden, still read aloud. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ── Gauge: a value against a limit ────────────────────── */
+/* Capped, and deliberately.
+   Text inside an SVG scales with the viewBox, so in a full-width card a 13px
+   label rendered at roughly 35px — "limit 24h" came out bigger than the card's
+   own heading. The cap keeps the drawing near its intended size and the type
+   near its intended size with it. */
+.gauge { margin: 0 auto; max-width: 860px; }
+.gauge svg { width: 100%; height: auto; overflow: visible; }
+.gauge-track { fill: var(--track); }
+.gauge-band  { fill: url(#none); fill: var(--green-light); opacity: 0.55; }
+.gauge-limit { stroke: var(--st-delayed); stroke-width: 3; stroke-linecap: round; }
+.gauge-limit-label { font: 700 13px var(--font-head); fill: var(--ink-soft); }
+.gauge-marker { fill: var(--green-deep); stroke: #fff; stroke-width: 4; }
+.gauge-value  { font: 900 22px var(--font-head); fill: var(--green-deep); }
+.gauge figcaption { margin-top: 0.5rem; font-size: var(--fs-caption); color: var(--ink-soft); }
+
+/* ── Progress ring: N of M ─────────────────────────────── */
+.pring { margin: 0; display: grid; justify-items: center; gap: 0.5rem; }
+.pring svg { width: 100%; max-width: 200px; height: auto; overflow: visible; }
+.pring-track { stroke: var(--track); }
+.pring-arc   { stroke: var(--green); }
+.pring-num   { font: 900 40px var(--font-head); fill: var(--green-deep); }
+.pring-of    { font-size: 22px; fill: var(--ink-soft); }
+.pring-pct   { font: 800 16px var(--font-head); fill: var(--ink-soft); }
+.pring figcaption { font-size: var(--fs-caption); color: var(--ink-soft); text-align: center; }
+
+/* ── Stage flow: a set of things spread across stages ──── */
+.stage-flow {
+  list-style: none; margin: 0 0 var(--rhythm-block); padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: 0.75rem;
+  counter-reset: stage;
+}
+.stage {
+  display: grid; gap: 0.15rem;
+  padding: 0.9rem 1rem 1rem;
+  border-radius: var(--radius);
+  background: var(--card-solid);
+  box-shadow: var(--shadow-1, 0 6px 18px rgba(0,40,20,0.10));
+  min-width: 0;
+}
+.stage-bar { display: block; height: 6px; border-radius: var(--radius-pill); margin-bottom: 0.5rem; }
+.stage-num {
+  font: 900 clamp(2rem, 3vw, 2.8rem)/1 var(--font-head);
+  color: var(--green-deep); font-variant-numeric: tabular-nums;
+}
+.stage-label {
+  font: 800 var(--fs-caption)/1.3 var(--font-head);
+  letter-spacing: var(--track-label, 0.08em); text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.stage-pct { font-size: var(--fs-caption); color: var(--ink-faint, var(--ink-soft)); }
+
+.ch-value {
+  font: 800 13px var(--font-head);
+  fill: var(--green-deep);
+}
+/* Same chip as .tag, so the percentage beside a bar and the qualifier beside a
+   figure are visibly the same kind of thing. */
+.tbar-pct {
+  display: inline-block;
+  margin-left: 0.6rem;
+  padding: 0.15em 0.6em;
+  border-radius: var(--radius-pill);
+  background: var(--tint-green-2);
+  border: 1px solid rgba(0,102,51,0.14);
+  color: var(--green-deep);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.ch-path   { stroke: var(--green); stroke-width: 3.5; stroke-linejoin: round; stroke-linecap: round; fill: none; }
+.ch-dot    { fill: var(--card-solid); stroke: var(--green); stroke-width: 3; }
+/* Axis labels are read off a projected chart, so they are not allowed to be
+   the faintest thing on the page: --ink-soft at 12px became --ink at 13px. */
+.ch-xlabel { font-size: 13px; font-weight: 600; fill: var(--ink); }
+
+/* ─────────────────────────────────────────────────────────
+   CLOSING PANEL
+   Rebuilt as a real designed screen rather than a flat picture of one.
+   bg-closing.jpg has "SALAMAT SA GUGMA!" painted into the photograph, so it
+   could never scale, never reflow on a phone, never animate, and never be
+   read out or found by search. Here the words are words.
+   ───────────────────────────────────────────────────────── */
+.band--closing { padding-bottom: clamp(5rem, 14vh, 10rem); }
+
+.closing-panel {
+  position: relative; isolation: isolate;
+  overflow: hidden;
+  border-radius: calc(var(--radius) * 1.5);
+  padding: clamp(2.5rem, 7vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+  color: #fff;
+  /* The same plate as the summary strips — one material, used twice: it opens
+     every section and it closes the report. */
+  background: var(--panel-deep);
+  /* An inner hairline of light around the whole panel: the difference between
+     a green rectangle and a solid object. */
+  box-shadow: var(--shadow-4), var(--panel-hairline);
+}
+/* Anything green-on-green inside the panel is invisible. These are defensive:
+   the eyebrow's brand green measures 1.05:1 against this plate. */
+.closing-panel .eyebrow { color: var(--yellow); }
+.closing-panel .eyebrow::before,
+.closing-panel .eyebrow::after { background: linear-gradient(90deg, var(--yellow), rgba(255,255,255,0.35)); }
+.closing-panel .band-title, .closing-panel .band-sub { color: #fff; }
+.closing-panel .tag {
+  background: rgba(255,255,255,0.14); color: #fff;
+  border-color: rgba(255,255,255,0.28);
+}
+/* The capsule motif again, as a watermark inside the panel. */
+.closing-panel::before {
+  content: ''; position: absolute; inset: -12%;
+  z-index: -1;
+  background: url('../img/capsules-title.svg') center / cover no-repeat;
+  opacity: 0.30;
+}
+
+.closing-logo { width: clamp(200px, 26vw, 380px); height: auto; margin: 0 auto var(--sp-4); display: block; }
+
+/* Line-height 0.95 on a 6.5rem uppercase headline left no room underneath, and
+   the phrase also rises 10px on its breathing loop — so the August list ran
+   into the sign-off. The headline owns its own space now. */
+.salamat {
+  margin: 0 0 clamp(2rem, 5vh, 3.5rem);
+  font: 900 clamp(2.4rem, 8.5vw, 6.5rem)/1.06 var(--font-head);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  padding-bottom: 0.12em;
+}
+.salamat .salamat-accent { color: var(--yellow); display: inline-block; }
+
+.closing-next {
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  padding-top: var(--sp-4);
+  border-top: 1px solid rgba(255,255,255,0.22);
+  text-align: left;
+}
+.closing-next h3 { color: var(--yellow); }
+.closing-next .checks li::before {
+  background: var(--yellow); color: var(--green-deep);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+/* On the dark panel the pending ring has to be drawn in white, not in the
+   green used against a pale card, or it vanishes entirely. */
+.closing-next .checks li[data-done="false"]::before {
+  background: rgba(255,255,255,0.16);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.55);
+}
+/* The muted grey used for a pending item on a white card is unreadable on
+   green. White at 0.85 measures 5.7:1 against the panel. */
+.closing-next .checks li[data-done="false"] { color: rgba(255,255,255,0.85); }
+.closing-next .checks li { color: #fff; }
+.closing-panel p { color: rgba(255,255,255,0.90); }
+.closing-panel a { color: var(--yellow); }
+
+/* ── Back to top ───────────────────────────────────────── */
+.to-top {
+  position: fixed; right: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 40;
+  display: grid; place-items: center;
+  width: 46px; height: 46px; padding: 0;
+  border: 1px solid var(--card-edge); border-radius: 50%;
+  background: rgba(255,255,255,0.92); color: var(--green-deep);
+  font-size: 1.1rem; cursor: pointer;
+  opacity: 0; visibility: hidden;
+  transition: opacity 250ms var(--ease-out), visibility 250ms;
+}
+.to-top.is-shown { opacity: 1; visibility: visible; }
+
+/* ── Speaker notes ─────────────────────────────────────── */
+/* Hidden by default; P toggles them on for the presenter only. */
+.notes { display: none; }
+body.show-notes .notes {
+  display: block;
+  margin-top: var(--rhythm-block);
+  padding: var(--sp-2) var(--sp-3);
+  border-left: 6px solid var(--yellow-warm);
+  background: rgba(10,25,18,0.92);
+  color: #EAF3EE;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  box-shadow: var(--shadow-2);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+}
+
+/* ── Narrow screens ────────────────────────────────────── */
+@media (max-width: 480px) {
+  body { font-size: 1rem; }
+  .band { padding-left: 1.1rem; padding-right: 1.1rem; }
+  .card { padding: var(--sp-2); }
+}
+
+/* ── Print ─────────────────────────────────────────────── */
+@media print {
+  .backdrop, .site-progress, .site-nav, .to-top, canvas.layer-particles,
+  .lightbox, .scroll-cue { display: none !important; }
+  /* Speaker notes are the presenter's private prompts, never part of a handout. */
+  .notes { display: none !important; }
+  body { background: #fff; color: #000; }
+  .band { padding: 1.5cm 0; break-inside: avoid; }
+  .card { box-shadow: none; border: 1px solid #ccc; background: #fff; }
+  /* Shadows print as grey mud on an office laser. */
+  .badge, .metric, .shot, .blockers, .checks li::before,
+  .pbar-track, .tbar-track, .pbar-fill, .tbar-fill { box-shadow: none !important; }
+  /* The closing panel is a full-bleed dark green plate. Printed, it empties a
+     toner cartridge and turns white text invisible. */
+  .closing-panel {
+    background: #fff !important;
+    color: #000;
+    box-shadow: none;
+    border: 2px solid var(--green);
+  }
+  .closing-panel::before { display: none; }
+  /* Same reasoning for the other dark plate: printed, the summary strip
+     becomes a plain ruled box and the tiles keep their own borders. */
+  .summary-strip {
+    background: #fff !important;
+    box-shadow: none;
+    border: 2px solid var(--green);
+    padding: 0.5cm;
+  }
+  .summary-strip::before, .summary-strip::after { display: none; }
+  .band + .band::after { display: none; }
+  .band--hero .band-title::after { background: var(--green); box-shadow: none; }
+  .closing-panel p, .closing-next .checks li,
+  .closing-next .checks li[data-done="false"] { color: #000; }
+  .salamat, .closing-next h3, .salamat .salamat-accent { color: var(--green) !important; }
+  .closing-next .checks li::before { background: var(--green); color: #fff; }
+  .band + .band::before { background: #ccc; }
+}

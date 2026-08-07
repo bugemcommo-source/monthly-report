@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICT Department Monthly Report — July 2026 | BUGEMCO</title>
+<meta name="description" content="ICT Department monthly report for July 2026 — the whole department: Software Development and Information Security, and Network and System Administration.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../assets/css/fonts.css">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/report.css">
+<link rel="stylesheet" href="../../assets/css/effects.css">
+</head>
+<body>
+
+<!-- Fixed artwork behind the whole document. It scrolls slower than the
+     content, which is what reads as depth. -->
+<div class="backdrop" data-backdrop="title" aria-hidden="true">
+  <div class="backdrop-photo" data-photo="title"></div>
+  <div class="backdrop-photo" data-photo="content"></div>
+  <div class="backdrop-photo" data-photo="closing"></div>
+  <div class="layer-capsules"></div>
+  <div class="layer-glow"></div>
+</div>
+
+<div class="site-progress" aria-hidden="true"><div class="site-progress-fill"></div></div>
+<nav class="site-nav" aria-label="Report sections"></nav>
+
+<main class="site">
+
+  <!-- ══ OVERVIEW ═══════════════════════════════════════ -->
+  <section class="band band--hero" id="overview" data-band-name="Overview" data-backdrop="title">
+    <div>
+      <p class="site-logo" data-reveal-on-scroll style="--i:0">
+        <img src="../../assets/img/logo-bugemco.png" alt="BUGEMCO — Making Lives Better">
+      </p>
+      <p class="eyebrow" data-reveal-on-scroll style="--i:1">BUGEMCO · Making Lives Better</p>
+      <h1 class="band-title" data-reveal>ICT DEPARTMENT</h1>
+      <h2 class="band-sub" data-reveal-on-scroll style="--i:2">Monthly Report</h2>
+      <p data-reveal-on-scroll style="--i:3"><strong>July 2026</strong></p>
+      <p class="who" data-reveal-on-scroll style="--i:4">
+        Software Development &amp; Information Security &nbsp;·&nbsp;
+        Network &amp; System Administration
+      </p>
+      <p data-reveal-on-scroll style="--i:5">
+        July was a month of finished work waiting on decisions. Three systems are now
+        live and in daily use, four more are built and ready but cannot move until a
+        presentation date is set, and every branch is fully up to date on security
+        patches.
+      </p>
+
+      <div class="summary-strip" data-reveal-on-scroll style="--i:5">
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3">0</span></p>
+          <p class="metric-label">Systems live and in use</p>
+          <p class="metric-note">3 of the 10 systems we track are finished and in daily use — the Membership Information System, the Queuing System and the SMS Blast Facility.</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="4">0</span></p>
+          <p class="metric-label">Built, waiting for a date</p>
+          <p class="metric-note">4 systems are finished and ready to show, but no presentation date has been set for any of them. The work is done; the calendar is the hold-up.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="100" data-suffix="%">0</span></p>
+          <p class="metric-label">Branches fully patched</p>
+          <p class="metric-note">All 7 branches are 100% up to date on operating system security updates. Installing these updates is the single most effective protection any organisation has.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Security incidents</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            No security incident was reported in July, against a target of zero for the year. This is a confirmed nil return, not a missing figure.
+          </p>
+        </div>
+      </div>
+
+      <p class="scroll-cue" data-reveal-on-scroll style="--i:6">Scroll to read</p>
+      <aside class="notes">This report covers the whole ICT Department. Work by the Network and System Administration section is labelled as theirs throughout, so no section is credited with another's work.</aside>
+    </div>
+  </section>
+
+  <!-- ══ SOFTWARE DEVELOPMENT ═══════════════════════════ -->
+  <section class="band" id="software-development" data-band-name="Software Development" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">01 · Software Development</p>
+        <h2 class="band-title">Three systems live. Four waiting on a date.</h2>
+        <p>Ten systems are tracked by the department. This is where each one stood at the end of July 2026.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3">0</span></p>
+          <p class="metric-label">Live and in use</p>
+          <p class="metric-note">3 systems are finished and being used every day: the Membership Information System, the Queuing System and the SMS Blast Facility. These are the first hard evidence against the annual target of 6 digitalisation projects in use, which had no figure recorded against it until now.</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="4">0</span></p>
+          <p class="metric-label">Finished, not yet shown</p>
+          <p class="metric-note">4 systems are built and ready to present. Two of them have never been presented at all.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Being built now</p>
+          <p class="metric-note">2 systems are under active development — the Policy and Procedure Directory and the Record Management System.</p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num"><span data-count="1">0</span></p>
+          <p class="metric-label">Not started</p>
+          <p class="metric-note">1 system has not begun — the Finance Management System. No work has been done on it yet.</p>
+        </div>
+      </div>
+
+      <div class="cols--wide-right" style="margin-bottom:var(--sp-5)">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3>The ten systems at a glance</h3>
+          <div id="systems-donut"></div>
+          <p>Every system the department tracks, grouped by how far it has got. The
+             two green slices together — live, and finished but not yet shown — are
+             seven of the ten.</p>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>The one thing that would unblock the most work</h3>
+          <p>Five systems are held up. None needs money, people or development time.</p>
+          <table class="wait-board">
+            <caption class="sr-only">Systems waiting, and what each is waiting for</caption>
+            <thead>
+              <tr><th scope="col">System</th><th scope="col">Waiting for</th><th scope="col">Waiting on</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">CAC-IIS</th><td><span class="pill pill--1">1st presentation</span></td><td>A date</td></tr>
+              <tr><th scope="row">Credit Management System</th><td><span class="pill pill--1">1st presentation</span></td><td>A date</td></tr>
+              <tr><th scope="row">BLC School Management System</th><td><span class="pill pill--2">2nd presentation</span></td><td>Accounting</td></tr>
+              <tr><th scope="row">Mart Online Store</th><td><span class="pill pill--3">3rd presentation</span></td><td>Accounting &amp; Credit</td></tr>
+              <tr><th scope="row">Queuing System</th><td><span class="pill pill--t">Staff training</span></td><td>BUGEMCO &amp; SCL Dura</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Setting these dates is the single most useful thing management could
+             do this month.</strong></p>
+        </div>
+      </div>
+
+      <!-- The ten systems as a journey rather than a sentence. -->
+      <div class="card" data-reveal-on-scroll style="margin-bottom:var(--sp-5)">
+        <h3>Where the ten systems sit</h3>
+        <div id="systems-flow"></div>
+      </div>
+
+      <!-- ── Live and in use ── -->
+      <h3 class="band-sub" data-reveal-on-scroll>Live and in use</h3>
+      <div class="grid grid--3" style="margin-bottom:var(--sp-5)">
+        <div class="card tilt" data-reveal-on-scroll style="--i:0">
+          <h3>Membership Information System</h3>
+          <p><span class="badge" data-status="done">Live and in use</span></p>
+          <p>Holds member information. It is no longer a project being built — it is a
+             running system the coop depends on.</p>
+          <h3>What happened this month</h3>
+          <ul class="checks">
+            <li>In daily use throughout the month</li>
+            <li>A large number of bugs were reported, and fixing them is continuing</li>
+            <li>The reports the system produces were improved</li>
+          </ul>
+        </div>
+
+        <div class="card tilt" data-reveal-on-scroll style="--i:1">
+          <h3>Queuing System</h3>
+          <p><span class="badge" data-status="done">Deployed and stable</span></p>
+          <p>Manages the queue of members waiting to be served. Supplied by SCL Dura, an
+             outside supplier, rather than built in-house.</p>
+          <h3>What happened this month</h3>
+          <ul class="checks">
+            <li>Deployed and running well</li>
+            <li>Problems that came up during roll-out have been resolved</li>
+            <li>The system is now stable</li>
+          </ul>
+          <div class="blockers">
+            <h3>Still outstanding</h3>
+            <p>Administration and Marketing staff have not been trained on it yet. A
+               date has to be agreed between BUGEMCO and SCL Dura, and neither side has
+               set one. Staff using a system they were never shown how to use is how a
+               good system gets a bad name.</p>
+          </div>
+        </div>
+
+        <div class="card tilt" data-reveal-on-scroll style="--i:2">
+          <h3>SMS Blast Facility</h3>
+          <p><span class="badge" data-status="done">Live, no problems</span></p>
+          <p>Sends text messages to many members at once.</p>
+          <h3>What happened this month</h3>
+          <ul class="checks">
+            <li>Ran through the month with no problems</li>
+            <li>Used by the Membership Information System</li>
+            <li>Used for custom-made text blast campaigns</li>
+          </ul>
+          <p><strong>An opportunity:</strong> only one system is connected to it so far.
+             The facility is built and paid for, and other systems could use it without
+             any new development.</p>
+        </div>
+      </div>
+
+      <!-- ── Finished, waiting for a date ──
+           Full-width rows rather than a 2x2 grid of cards. Three of these four
+           systems are finished and have screens to show, and a dashboard shrunk
+           into a quarter of the page is a picture of a dashboard rather than a
+           dashboard. Account on the left, screens on the right. -->
+      <h3 class="band-sub" data-reveal-on-scroll>Finished — waiting for a presentation date</h3>
+      <div class="sys-stack" style="margin-bottom:var(--sp-5)">
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>CAC-IIS — Coop Assurance Center Insurance Information System</h3>
+            <p><span class="badge" data-status="delayed">Waiting for 1st presentation</span></p>
+            <p>The system for the Coop Assurance Center, holding the coop's insurance
+               information — members and clients, policies, premium collections, claims
+               and renewals in one place.</p>
+            <h3>What happened this month</h3>
+            <ul class="checks">
+              <li>The first version of the system was finished</li>
+              <li>It is ready to be shown</li>
+            </ul>
+            <div class="blockers">
+              <h3>Waiting on</h3>
+              <p>A date for the first presentation. This system has never been presented.</p>
+            </div>
+          </div>
+          <div class="sys-shots">
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/cacis-login.jpg"
+                      aria-label="Enlarge the CAC-IIS sign-in screen">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">CAC-IIS · Sign in</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/cacis-login.jpg" width="1600" height="690" loading="lazy" decoding="async"
+                     alt="The CAC-IIS sign-in screen: the Coop Assurance Center name and the line
+                          'Every member, policy and peso — assured', with a username and password box
+                          beside it.">
+              </button>
+              <figcaption>The way in. The screen notes that only authorised staff may sign in and
+                 that activity is recorded.</figcaption>
+            </figure>
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/cacis-dashboard.jpg"
+                      aria-label="Enlarge the CAC-IIS dashboard">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">CAC-IIS · Dashboard</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/cacis-dashboard.jpg" width="1600" height="445" loading="lazy" decoding="async"
+                     alt="The CAC-IIS dashboard: a ring showing 98 per cent collected, and a chart of
+                          premium collections month by month from mid-2025 to mid-2026.">
+              </button>
+              <figcaption>The dashboard staff open first. The figures shown are test data, not the
+                 coop's real collections.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>CMS — Credit Management System</h3>
+            <p><span class="badge" data-status="delayed">Waiting for 1st presentation</span></p>
+            <p>The system for managing member credit. It scores every loan application the
+               same way in every branch, against the same eight factors, and records why
+               each decision was made.</p>
+            <h3>What happened this month</h3>
+            <ul class="checks">
+              <li>The system was finished</li>
+              <li>It is ready to be shown</li>
+            </ul>
+            <div class="blockers">
+              <h3>Waiting on</h3>
+              <p>A date for the first presentation. This system has never been presented.</p>
+            </div>
+          </div>
+          <div class="sys-shots">
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/cms-login.jpg"
+                      aria-label="Enlarge the Credit Management System sign-in screen">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">CreditMS · Sign in</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/cms-login.jpg" width="1600" height="695" loading="lazy" decoding="async"
+                     alt="The Credit Management System sign-in screen, headed 'The same six C's, scored
+                          the same way, in every branch', with a sample scorecard scoring 88 out of 115
+                          and a sign-in box beside it.">
+              </button>
+              <figcaption>The sample scorecard on the way in shows the idea in one picture: eight
+                 factors, one score, and a band that decides.</figcaption>
+            </figure>
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/cms-dashboard.jpg"
+                      aria-label="Enlarge the Credit Management System dashboard">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">CreditMS · Dashboard</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/cms-dashboard.jpg" width="1600" height="697" loading="lazy" decoding="async"
+                     alt="The Credit Management System dashboard: total transactions, approval rate,
+                          average score and how many are awaiting a decision, with a breakdown of
+                          decision outcomes and what the system recommended.">
+              </button>
+              <figcaption>Every application's position at a glance, and — separately — what the system
+                 recommended, so a manager can see where staff agreed with it and where they did not.
+                 Test data.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>BLC School Management System</h3>
+            <p><span class="badge" data-status="delayed">Waiting for 2nd presentation</span></p>
+            <p>The system BUGEMCO Learning Center uses to run the school — enrolling
+               students, keeping records, grading and billing.</p>
+            <h3>What happened this month</h3>
+            <ul class="checks">
+              <li>The financial and accounting side of the system was reworked</li>
+              <li>The rework came out of the first presentation to the Accounting
+                  Department, who asked for large changes to how the money side works</li>
+              <li>The rework is finished</li>
+            </ul>
+            <div class="blockers">
+              <h3>Waiting on</h3>
+              <p>A date from the Accounting Department for the second presentation.</p>
+            </div>
+          </div>
+          <div class="sys-shots">
+            <h3>Where the parts stand</h3>
+            <ul class="checks">
+              <li><strong>Enrollment</strong> — done</li>
+              <li><strong>Student Records</strong> — done</li>
+              <li data-done="false"><strong>Finance and accounting</strong> — ongoing</li>
+            </ul>
+            <p>No screens are shown for this system. Every page of it has a real student
+               on it, and this report is published on a public website.</p>
+          </div>
+        </div>
+
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>BUGEMCO Mart Online Store</h3>
+            <p><span class="badge" data-status="delayed">Waiting for 3rd presentation</span></p>
+            <p>Lets members buy from BUGEMCO Mart online, including buying against their
+               credit line rather than paying cash.</p>
+            <h3>What happened this month</h3>
+            <ul class="checks">
+              <li>Work focused on credit line availment — how a member uses their credit
+                  line to buy from the Mart online</li>
+              <li>A new process for this was worked out and built</li>
+            </ul>
+            <div class="blockers">
+              <h3>Waiting on two things</h3>
+              <p><strong>Approval of the new credit line process from Accounting and
+                 Credit.</strong> Letting a member buy against their credit line touches
+                 lending rules, not only software, so the process is not settled until both
+                 departments approve it.</p>
+              <p><strong>A date for the third presentation.</strong></p>
+            </div>
+          </div>
+          <div class="sys-shots">
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/mart-login.jpg"
+                      aria-label="Enlarge the BUGEMCO Mart online store sign-in screen">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">BUGEMCO Mart · Sign in</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/mart-login.jpg" width="1600" height="699" loading="lazy" decoding="async"
+                     alt="The BUGEMCO Mart online store sign-in screen: 'Welcome back — sign in to keep
+                          shopping at BUGEMCO Mart', with links to create an account or go to the
+                          member portal.">
+              </button>
+              <figcaption>What a member sees. A shopper can create an ordinary account, or come in
+                 through the member portal if they are a member of the coop.</figcaption>
+            </figure>
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/mart-admin.jpg"
+                      aria-label="Enlarge the BUGEMCO Mart credit management console">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">BUGEMCO Mart · Credit management</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/mart-admin.jpg" width="1600" height="623" loading="lazy" decoding="async"
+                     alt="The BUGEMCO Mart admin console showing member credit health: outstanding
+                          receivables, past due amount, active credit members and credit utilisation,
+                          with a chart of availment against collection and a summary of how overdue
+                          the balances are.">
+              </button>
+              <figcaption>The staff side — the credit line work of this month. This is where the Mart
+                 sees what members have taken on credit and how much of it is overdue.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── In build, and not started ── -->
+      <h3 class="band-sub" data-reveal-on-scroll>Being built, and not yet begun</h3>
+      <div class="grid grid--3">
+        <div class="card tilt" data-reveal-on-scroll style="--i:0">
+          <h3>Policy and Procedure Directory</h3>
+          <p><span class="badge" data-status="progress">Filling in the content</span></p>
+          <p>One place to find the coop's policies and procedures.</p>
+          <h3>What happened this month</h3>
+          <ul class="checks">
+            <li>The directory itself is set up and working</li>
+            <li>Ongoing work is putting the content in</li>
+          </ul>
+        </div>
+
+        <div class="card tilt" data-reveal-on-scroll style="--i:1">
+          <h3>RMS — Record Management System</h3>
+          <p><span class="badge" data-status="progress">Early stage</span></p>
+          <h3>What happened this month</h3>
+          <ul class="checks">
+            <li>Work is at the early stage — building the foundation of the system</li>
+          </ul>
+        </div>
+
+        <div class="card tilt" data-reveal-on-scroll style="--i:2">
+          <h3>FMS — Finance Management System</h3>
+          <p><span class="badge" data-status="not-started">Not started</span></p>
+          <p>A system for managing coop finances.</p>
+          <h3>What happened this month</h3>
+          <ul class="checks">
+            <li data-done="false">No work has begun on this system yet</li>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="notes">No system carries a "percent complete" figure, because none has ever been measured. A dash is shown rather than a guess. Recording a simple measure for each system — parts finished out of parts planned — would let this section show real progress from next month on.</aside>
+    </div>
+  </section>
+
+  <!-- ══ INFORMATION SECURITY ═══════════════════════════ -->
+  <section class="band" id="information-security" data-band-name="Information Security" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">02 · Information Security</p>
+        <h2 class="band-title">Training and testing are paused, and a proposal is ready</h2>
+        <p>The coop's 12-month subscription to <strong>Wizer</strong> — the platform that
+           provided security awareness training and phishing testing — came to an end. It
+           was not renewed while a replacement is looked at. A proposal is ready to bring
+           to the Mancom.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Security incidents</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            No security incident was reported in July, against a target of zero for the year. A confirmed nil return.
+          </p>
+        </div>
+        <div class="metric metric--risk">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Phishing tests run</p>
+          <p class="metric-note">No fake test emails were sent to staff in July, because the platform that sends them is no longer subscribed. While it is off, the phishing target cannot be measured at all.</p>
+        </div>
+        <div class="metric metric--risk">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Awareness sessions run</p>
+          <p class="metric-note">No security awareness training was run in July, for the same reason — the training material came with the same subscription.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="100" data-suffix="%">0</span></p>
+          <p class="metric-label">Branches fully patched</p>
+          <p class="metric-note">
+            <span class="tag tag--source">Network &amp; System Administration section</span>
+            All 7 branches are 100% up to date on operating system security updates.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid--2" style="margin-bottom:var(--sp-5)">
+        <div class="card tilt" data-reveal-on-scroll style="--i:0">
+          <h3>What is switched off, and why it matters</h3>
+          <p>Two things stopped when the subscription ended:</p>
+          <ul class="checks">
+            <li data-done="false">The short lessons that teach staff how to spot a scam</li>
+            <li data-done="false">The harmless fake scam emails that test whether the lessons stuck</li>
+          </ul>
+          <p>Staff are the most common way an attacker gets in. Training and testing are
+             what keep that door closed, and both are paused.</p>
+          <p>This is not a shortfall in effort. The department chose to look at what is
+             available before committing to another multi-year term.</p>
+          <div class="blockers">
+            <h3>While it is paused</h3>
+            <p>The phishing target cannot be measured. Not missed — not measurable.</p>
+          </div>
+        </div>
+
+        <div class="card tilt" data-reveal-on-scroll style="--i:1">
+          <h3>The proposal</h3>
+          <p><span class="badge" data-status="risk">Proposal only — nothing approved</span></p>
+          <p><strong>KnowBe4</strong>, a security awareness training and phishing testing
+             platform, supplied through <strong>MASS-SPECC</strong>, the federation
+             BUGEMCO belongs to.</p>
+          <p>The figures, the terms and the document itself are behind the two buttons
+             below, so they are there when the committee wants them and out of the way
+             when it does not.</p>
+          <div class="btn-row">
+            <button type="button" class="btn" data-doc-open="proposal-summary">
+              Summary of the proposal
+            </button>
+            <button type="button" class="btn btn--ghost" data-doc-open="proposal-document">
+              Read the full proposal
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="card" data-reveal-on-scroll style="--i:0">
+          <h3>Policies and guidelines</h3>
+          <h3>In draft</h3>
+          <ul class="checks">
+            <li data-done="false"><strong>Communication, Digital Medium and Email
+                Usage</strong> — being drafted, references being gathered</li>
+            <li data-done="false"><strong>Software Patch Management</strong> — draft
+                pending</li>
+          </ul>
+        </div>
+        <div class="card" data-reveal-on-scroll style="--i:1">
+          <h3>Server weaknesses</h3>
+          <p><strong>No weaknesses were found on the coop's main servers in July.</strong>
+             <span class="tag tag--lower">Lower is better</span></p>
+          <p>The check was carried out and came back clean.</p>
+          <p>The full <strong>vulnerability assessment</strong> — the deeper, once-a-year
+             check of every system — is an annual exercise and is not due this month.</p>
+        </div>
+      </div>
+
+      <aside class="notes">Every figure in this section is a confirmed nil return, not a missing one. Where something was not measured it is said plainly rather than shown as a zero, because a zero and a blank mean very different things.</aside>
+    </div>
+  </section>
+
+  <!-- ══ NETWORK AND SYSTEM ADMINISTRATION ══════════════ -->
+  <section class="band" id="network" data-band-name="Network &amp; Systems" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">03 · Network and System Administration</p>
+        <h2 class="band-title">Every branch fully patched, and answers in under four hours</h2>
+        <p>Reported by the Network and System Administration section for July 2026.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="7">0</span></p>
+          <p class="metric-label">Branches fully patched</p>
+          <p class="metric-note">All 7 branches are at 100% on operating system security updates. Patches are the fixes software makers release to close known weaknesses; keeping them current is the most effective single protection there is.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3.69" data-decimals="2">0</span></p>
+          <p class="metric-label">Hours to respond, on average</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            A request was picked up in 3.69 hours on average, against a target of 24 hours or less. Comfortably inside target.
+          </p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="21">0</span></p>
+          <p class="metric-label">Working days with a good backup</p>
+          <p class="metric-note">21 of July's 23 working days ended with a successful backup — 91.30%. The backup runs each day during working hours. A backup is a spare copy of the coop's data, kept so it can be restored if anything is lost or damaged. Two days did not complete, and whether those two were re-run afterwards is not recorded.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="3">0</span></p>
+          <p class="metric-label">Branches fully up to date on network patching</p>
+          <p class="metric-note">3 of 7 branches are up to date on network patching, 2 are in progress and 2 are still pending.</p>
+        </div>
+      </div>
+
+      <div class="cols--wide-right" style="margin-bottom:var(--sp-4)">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>Backups that completed</h3>
+          <div id="backup-ring"></div>
+          <p>The backup runs each working day. Two days in July did not complete;
+             whether they were re-run afterwards is not recorded.</p>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>Branch preventive maintenance — third quarter</h3>
+          <p>Routine upkeep across the seven branches.</p>
+          <div class="pbar">
+            <div class="pbar-head"><span>Operating system patching</span><span>7 of 7 branches complete</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="100"></div></div>
+          </div>
+          <div class="pbar">
+            <div class="pbar-head"><span>Network patching — up to date</span><span>3 of 7 branches</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="43" data-tone="yellow"></div></div>
+          </div>
+          <div class="pbar">
+            <div class="pbar-head"><span>Hardware upkeep — under way</span><span>4 of 7 branches</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="57" data-tone="yellow"></div></div>
+          </div>
+          <div class="pbar">
+            <div class="pbar-head"><span>Printer maintenance — under way</span><span>4 of 7 branches</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="57" data-tone="yellow"></div></div>
+          </div>
+          <p><strong>Operating system patching is complete everywhere.</strong> Hardware
+             upkeep, network patching and printer maintenance are still working through the
+             quarter, which is what a third-quarter programme in progress looks like.</p>
+        </div>
+      </div>
+
+      <!-- The two internet cards sit side by side: the whole coop on the left,
+           the branches that make it up on the right. The July drop is only
+           explainable by reading one against the other, so they are shown
+           together rather than a screen apart. -->
+      <div class="cols--pair">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>Internet use across the coop</h3>
+          <div id="starlink-trend"></div>
+          <p>Gigabytes used across all seven branches, per billing period. Each period is
+             named after the month it starts in. Totals added up from the branch figures.</p>
+          <p><strong>July's drop is almost entirely MBO and VBO.</strong> Had those two
+             branches used what they used in June, July would sit near 4,900 GB — close to
+             the months before it. That is why the two figures are being confirmed before
+             anything is read into the fall.</p>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>Internet use by branch — July</h3>
+          <p>One terabyte is taken as one thousand gigabytes. The longest bar is the
+             heaviest user, not an allowance — no branch is given a limit.</p>
+          <div id="branch-bars"></div>
+          <p><strong>The two yellow rows are being checked.</strong> MBO and VBO come in
+             at 1 GB and 10 GB, against 345 GB and 967 GB the month before, while every
+             other branch is in its normal range. Their bars are a fixed short length,
+             not a measurement — read the figures. The Network section has been asked
+             whether this is a counting error or a real drop.</p>
+        </div>
+      </div>
+
+      <aside class="notes">Branch-by-branch patching status is deliberately not published. Naming which branches are behind would show anyone which sites are least protected. The totals are shown instead; the branch detail belongs in the meeting.</aside>
+    </div>
+  </section>
+
+  <!-- ══ SUPPORT ════════════════════════════════════════ -->
+  <section class="band" id="support" data-band-name="Support" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">04 · Support</p>
+        <h2 class="band-title">Helping people use what we have built</h2>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3.69" data-decimals="2">0</span></p>
+          <p class="metric-label">Hours to respond, on average</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            <span class="tag tag--source">Network &amp; System Administration section</span>
+            Requests were picked up in 3.69 hours on average, against a target of 24 hours or less.
+          </p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="6">0</span></p>
+          <p class="metric-label">Areas of website work</p>
+          <p class="metric-note">Six kinds of work were done on the coop website in July. This counts the kinds of work listed, not the amount of work done.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3">0</span></p>
+          <p class="metric-label">Live systems being supported</p>
+          <p class="metric-note">Every system that goes live adds to the daily support the department carries. Three are now in use.</p>
+        </div>
+      </div>
+
+      <div class="card" data-reveal-on-scroll style="margin-bottom:var(--sp-3)">
+        <h3>How quickly a request is picked up</h3>
+        <div id="response-gauge"></div>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="card tilt" data-reveal-on-scroll style="--i:0">
+          <h3>Supporting the systems in use</h3>
+          <p class="eyebrow">Software Development &amp; Information Security</p>
+          <ul class="checks">
+            <li>System support for the staff using the systems already deployed —
+                answering questions, sorting out problems, showing people how to do
+                things</li>
+            <li>Multimedia output support — helping produce visual and media material
+                for the coop</li>
+          </ul>
+          <p>This is the running cost of having three systems live, and it grows with
+             every system that goes into use.</p>
+        </div>
+
+        <div class="card tilt" data-reveal-on-scroll style="--i:1">
+          <h3>The coop website — BUGEMCO.com</h3>
+          <p class="eyebrow">Network &amp; System Administration</p>
+          <ul class="checks">
+            <li>Coaching and mentoring with the Membership Department</li>
+            <li>Fixing online transactions</li>
+            <li>Updating news</li>
+            <li>Creating pages</li>
+            <li>Handling members' concerns</li>
+            <li>Updating branch information and contact details</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <aside class="notes">Response time is measured; the number of individual requests is not counted, so it is not shown.</aside>
+    </div>
+  </section>
+
+  <!-- ══ MEETINGS, EVENTS AND TEAM ══════════════════════ -->
+  <section class="band" id="others" data-band-name="Meetings &amp; Events" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">05 · Meetings, Events and Team</p>
+        <h2 class="band-title">Seven kinds of meeting, inside and outside the coop</h2>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="7">0</span></p>
+          <p class="metric-label">Kinds of meeting attended</p>
+          <p class="metric-note">Seven kinds of meeting were attended in July. This counts the kinds listed, not how many sittings each one had — the weekly meetings ran every week.</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Trainings and seminars attended</p>
+          <p class="metric-note">None recorded in July. The annual target is 4 for the year and nothing has been recorded against it so far, which is very likely an under-count rather than a true zero — sessions attended earlier in the year were never counted.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Coop events supported</p>
+          <p class="metric-note">None in July — a confirmed nil return, not a missing figure. March had four events and May had two, so a quiet month here is worth stating rather than leaving blank.</p>
+        </div>
+      </div>
+
+      <div class="grid grid--2">
+        <div class="card tilt" data-reveal-on-scroll style="--i:0">
+          <h3>Inside the coop</h3>
+          <ul class="checks">
+            <li><strong>Mancom Meeting</strong> — weekly</li>
+            <li><strong>Policy Review</strong> — weekly</li>
+            <li><strong>Department Meeting</strong> — the ICT department's own</li>
+            <li><strong>System owners</strong> — presenting the in-house systems to the
+                departments that own them</li>
+          </ul>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll style="--i:1">
+          <h3>With outside parties</h3>
+          <ul class="checks">
+            <li><strong>SCL Dura</strong> — supplier of the Queuing System</li>
+            <li><strong>MASS-SPECC</strong> — on Core 3.0 tickets</li>
+            <li><strong>ACCESS branding auditors</strong> — an audit against the ACCESS
+                standard, <em>A Competitive Choice for Excellence in Service and
+                Soundness</em>, which measures how well a cooperative serves its members
+                and how sound it is as an organisation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" data-reveal-on-scroll style="margin-top:var(--sp-3)">
+        <h3>What the ACCESS audit raised for ICT</h3>
+        <ul class="checks">
+          <li data-done="false"><strong>Website improvement</strong></li>
+          <li data-done="false"><strong>Support integration</strong> — bringing support
+              together rather than running it in separate pieces</li>
+          <li data-done="false"><strong>Infrastructure improvement</strong> — the
+              equipment and networks underneath everything else</li>
+        </ul>
+      </div>
+
+      <aside class="notes">The weekly Mancom and Policy Review meetings were previously only written down when something notable came out of them, which is why earlier months look thinner than they were. From July they are recorded every month.</aside>
+    </div>
+  </section>
+
+  <!-- ══ AUGUST ═════════════════════════════════════════
+       A section of its own. It used to sit inside the sign-off panel, which
+       made the month's plan read as part of the thank-you. The sign-off says
+       one thing and nothing else. -->
+  <section class="band" id="august" data-band-name="August" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">06 · Next month</p>
+        <h2 class="band-title">August 2026</h2>
+      </div>
+
+      <!-- The two sections plan separately, so August is shown as two lists
+           side by side rather than one pooled list. The report credits each
+           section's work to that section throughout; the plan for next month
+           follows the same rule. -->
+      <div class="grid grid--2">
+        <div class="card tilt" data-reveal-on-scroll data-from="left" style="--i:0">
+          <h3>Software Development &amp; Information Security</h3>
+          <ul class="checks">
+            <li data-done="false">Present the <strong>security awareness platform
+                proposal</strong> for evaluation</li>
+            <li data-done="false">Hold the <strong>system presentations</strong> that are
+                waiting for dates</li>
+            <li data-done="false"><strong>Digital Literacy: Cybersecurity Awareness for
+                members</strong> — a session teaching members how to keep themselves safe
+                online</li>
+            <li data-done="false">Continue development of the current systems</li>
+            <li data-done="false"><strong>Portable power station</strong> — approved, and
+                procurement is under way. A large rechargeable battery that keeps
+                equipment running when mains power is out</li>
+          </ul>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll data-from="right" style="--i:1">
+          <h3>Network &amp; System Administration</h3>
+          <ul class="checks">
+            <li data-done="false"><strong>BLC network, first installation</strong> —
+                putting the network in at the BLC site</li>
+            <li data-done="false">Continue <strong>preventive maintenance</strong> for the
+                third quarter — the routine upkeep already under way at the branches</li>
+            <li data-done="false"><strong>Policy presentation to Mancom</strong></li>
+            <li data-done="false"><strong>Damulog extended office</strong> — network
+                support for that office</li>
+            <li data-done="false"><strong>ATM machine configuration update</strong>, with
+                ITC</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CLOSING ════════════════════════════════════════
+       The sign-off, and nothing else. No lists, no headings, no content that
+       belongs to the month. -->
+  <section class="band band--closing" id="thank-you" data-band-name="Thank you" data-backdrop="closing">
+    <div>
+      <div class="closing-panel" data-reveal-on-scroll>
+        <img class="closing-logo" src="../../assets/img/logo-bugemco.png"
+             alt="BUGEMCO — Making Lives Better">
+        <p class="salamat">
+          <span class="salamat-word" style="--w:0">Salamat</span>
+          <span class="salamat-word" style="--w:1">sa</span>
+          <span class="salamat-word salamat-accent" style="--w:2">Gugma!</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<button class="to-top" type="button" aria-label="Back to the top">&uarr;</button>
+
+<!-- ══ PROPOSAL — SUMMARY ═══════════════════════════════════
+     Every figure below is read from the proposal document itself. Nothing is
+     calculated except the four derived costs, which are marked as such. -->
+<div class="doc-overlay" id="proposal-summary" role="dialog" aria-modal="true"
+     aria-labelledby="proposal-summary-title" hidden>
+  <div class="doc-panel">
+    <div class="doc-head">
+      <div>
+        <h2 id="proposal-summary-title">Security Awareness Platform — summary</h2>
+        <p>KnowBe4, supplied through MASS-SPECC · proposal dated 5 September 2024</p>
+      </div>
+      <button type="button" class="doc-close" data-doc-close aria-label="Close">&times;</button>
+    </div>
+    <div class="doc-body">
+
+      <div class="doc-note">
+        <p><strong>Nothing here is approved.</strong> This is a supplier's proposal held
+           on file. It has not been accepted, no budget has been committed, and the
+           timing is not settled.</p>
+      </div>
+
+      <h3>What it is</h3>
+      <table class="doc-table">
+        <tbody>
+          <tr><th scope="row">Product</th><td>KnowBe4 Security Awareness Training and Simulated Phishing Platform</td></tr>
+          <tr><th scope="row">Level</th><td>Diamond</td></tr>
+          <tr><th scope="row">Supplied by</th><td>MASS-SPECC, the cooperative development centre BUGEMCO belongs to</td></tr>
+          <tr><th scope="row">Proposal dated</th><td>5 September 2024</td></tr>
+          <tr><th scope="row">Currently used instead</th><td>Nothing. The previous platform, Wizer, ran for 12 months covering 29 employees at Php 50,000, and has ended.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>How many people, and for how long</h3>
+      <table class="doc-table">
+        <tbody>
+          <tr><th scope="row">Staff covered</th><td>100 accounts</td></tr>
+          <tr><th scope="row">Minimum the programme requires</th><td>25 employees</td></tr>
+          <tr><th scope="row">Length of subscription</th><td>3 years</td></tr>
+        </tbody>
+      </table>
+
+      <h3>The money</h3>
+      <table class="doc-table">
+        <tbody>
+          <tr><th scope="row">Cost per account, for the full 3 years</th><td>Php 10,000.00</td></tr>
+          <tr class="row--total"><th scope="row">Total, 100 accounts for 3 years</th><td>Php 1,000,000.00</td></tr>
+          <tr><th scope="row">VAT</th><td>12%, already included in the figures above</td></tr>
+          <tr><th scope="row">Works out at, per year <em>(calculated)</em></th><td>Php 333,333.33</td></tr>
+          <tr><th scope="row">Per staff member per year <em>(calculated)</em></th><td>Php 3,333.33</td></tr>
+          <tr><th scope="row">Per staff member per month <em>(calculated)</em></th><td>Php 277.78</td></tr>
+        </tbody>
+      </table>
+      <p>The last three lines are worked out from the two figures above them. They are
+         not quoted in the proposal, and are shown because a million pesos over three
+         years and 100 people is easier to judge broken down.</p>
+
+      <h3>Compared with Wizer, what the coop had before</h3>
+      <table class="doc-table">
+        <thead>
+          <tr><th scope="col">&nbsp;</th><th scope="col">Wizer <em>(what we had)</em></th><th scope="col">KnowBe4 <em>(proposed)</em></th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">People covered</th><td>29 employees</td><td>100 accounts</td></tr>
+          <tr><th scope="row">Length</th><td>1 year</td><td>3 years</td></tr>
+          <tr class="row--total"><th scope="row">Total cost</th><td>Php 50,000.00</td><td>Php 1,000,000.00</td></tr>
+          <tr><th scope="row">Cost per year</th><td>Php 50,000.00</td><td>Php 333,333.33</td></tr>
+          <tr><th scope="row">Per person per year</th><td>Php 1,724.14</td><td>Php 3,333.33</td></tr>
+          <tr><th scope="row">Per person per month</th><td>Php 143.68</td><td>Php 277.78</td></tr>
+        </tbody>
+      </table>
+
+      <div class="doc-note">
+        <p><strong>Read per person, not per total.</strong> KnowBe4 costs about
+           <strong>1.9 times as much per person per year</strong> as Wizer — roughly 93%
+           more. That is the like-for-like comparison.</p>
+        <p><strong>The yearly bill rises much further than that</strong>, because the
+           number of people covered rises too: from 29 to 100. Php 50,000 a year becomes
+           Php 333,333 a year — about <strong>6.7 times</strong> the annual spend. Most of
+           that increase buys coverage the coop did not have, not a dearer product.</p>
+        <p>Two things make this less than a clean comparison, and both should be settled
+           before the figures are used to decide anything. The KnowBe4 quote covers
+           <strong>100 accounts</strong> — if the coop needs 29, or 60, the price should be
+           re-quoted for the real number. And it is <strong>a three-year commitment
+           against a one-year one</strong>, which is a different kind of decision even at
+           the same price.</p>
+      </div>
+
+      <h3>How it would be paid</h3>
+      <table class="doc-table">
+        <tbody>
+          <tr><th scope="row">Source of funds</th><td>The proposal states the cost can be met from the cooperative's <strong>CETF</strong> — the Cooperative Education and Training Fund, which exists for staff training</td></tr>
+          <tr><th scope="row">First payment</th><td>50% on approval of the engagement</td></tr>
+          <tr><th scope="row">Second payment</th><td>50% on training roll-out</td></tr>
+          <tr><th scope="row">Budget year intended</th><td>Not this year. The intention is to fund it from an annual budget rather than buy it mid-year — part of the proposal, not a decision taken</td></tr>
+        </tbody>
+      </table>
+
+      <h3>What the subscription includes</h3>
+      <ul class="checks">
+        <li>Web-based, self-paced security awareness training and phishing simulation</li>
+        <li>Over <strong>1,000</strong> awareness training items</li>
+        <li>Unlimited access to over <strong>5,000</strong> phishing templates</li>
+        <li>Customisable phishing templates and landing pages</li>
+        <li>Automated Security Awareness Program (ASAP) — builds a training programme quickly</li>
+        <li>Over <strong>60</strong> advanced reports, plus a "Virtual Risk Officer" that points out where the risk sits</li>
+        <li>Unlimited simulated social engineering attacks by email</li>
+      </ul>
+
+      <h3>What the management fee covers</h3>
+      <ul class="checks">
+        <li>A corporate email account for each user</li>
+        <li>SMS notifications and reminders</li>
+        <li>Training impact reporting twice a year</li>
+        <li>Advisory and consultation support</li>
+      </ul>
+
+      <h3>The catch</h3>
+      <div class="doc-note">
+        <p><strong>The prices are not a live quote.</strong> The proposal states they are
+           valid for <strong>7 days</strong> from the date of the quotation, and are
+           subject to change. That date was <strong>5 September 2024</strong> — nearly two
+           years ago.</p>
+        <p>The figures show the shape and size of the commitment. <strong>A fresh
+           quotation must be requested before any amount is approved.</strong></p>
+      </div>
+
+      <h3>Still open</h3>
+      <ul class="checks">
+        <li data-done="false">The move from Wizer to KnowBe4 is <strong>not approved</strong></li>
+        <li data-done="false">The two platforms have <strong>not been compared in detail</strong>. The main point in KnowBe4's favour so far is that it comes through the federation</li>
+        <li data-done="false">Whether 100 accounts is still the right number has not been checked</li>
+        <li data-done="false">No fresh quotation has been requested</li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROPOSAL — THE DOCUMENT ══════════════════════════════
+     The proposal reproduced for reading. Names, job titles, the supplier's
+     email address and the coop's street address are withheld: this page is
+     public, and none of them is needed to judge the offer. -->
+<div class="doc-overlay" id="proposal-document" role="dialog" aria-modal="true"
+     aria-labelledby="proposal-document-title" hidden>
+  <div class="doc-panel">
+    <div class="doc-head">
+      <div>
+        <h2 id="proposal-document-title">The proposal, as received</h2>
+        <p>Scroll to read · press Esc to close</p>
+      </div>
+      <button type="button" class="doc-close" data-doc-close aria-label="Close">&times;</button>
+    </div>
+    <div class="doc-body">
+      <article class="doc-letter">
+
+        <div class="doc-note">
+          <p>Reproduced from the document held by the department. Personal names, job
+             titles, the supplier's email address and the coop's street address are
+             replaced with <span class="doc-redacted">a marker like this</span>, because
+             this report is published on a public website. Everything about the offer
+             itself is unchanged.</p>
+        </div>
+
+        <p><strong>5 September 2024</strong></p>
+        <p><span class="doc-redacted">Chairperson</span><br>
+           BUKIDNON GOVERNMENT EMPLOYEES MULTI-PURPOSE COOPERATIVE (BUGEMCO)<br>
+           <span class="doc-redacted">address withheld</span><br>
+           Malaybalay City, Bukidnon, Philippines</p>
+        <p><strong>ATTENTION:</strong> <span class="doc-redacted">Chief Executive Officer</span></p>
+
+        <hr class="doc-rule">
+
+        <p>Warm Co-operative Greetings!</p>
+
+        <p>As cyber threats continue to evolve in sophistication and complexity, it is
+           crucial for your cooperative to establish a robust security culture within your
+           organization. This proactive approach will ensure that all employees are
+           equipped with the necessary knowledge and tools to protect against potential
+           threats, fostering a secure and resilient environment. Continuous learning
+           about phishing, social engineering, and other cyberattacks is essential to
+           mitigate these risks.</p>
+
+        <p>In line with this, we are pleased to present our proposal for the
+           <strong>KnowBe4 Security Awareness Training and Simulated Phishing
+           Platform</strong> for the officers and staff of Bukidnon Government Employees
+           Multi-Purpose Cooperative (BUGEMCO). KnowBe4 is a renowned provider of the
+           world's largest integrated Security Awareness Training and Simulated Phishing
+           platform, specifically designed to address the ongoing issue of social
+           engineering.</p>
+
+        <p>Recognizing the significance of the human element in security, KnowBe4 offers a
+           comprehensive, new-school awareness training approach. It aims to assist
+           organizations in effectively managing the problem of social engineering through
+           user-friendly and intuitive training delivered via a web browser. Additionally,
+           the platform provides unlimited simulated social engineering attacks via
+           email.</p>
+
+        <p>With a KnowBe4 subscription, you gain access to the world's largest security
+           awareness training library, which is regularly updated with fresh content. It
+           is worth noting that the subscription is affordable, even for smaller
+           cooperatives. The key features and advantages of KnowBe4's platform include:</p>
+
+        <ul class="checks">
+          <li>Web-based, self-paced Security Awareness Training and Phishing Simulation platform</li>
+          <li>Software-as-a-Service subscription priced per seat, per year</li>
+          <li>Access to a vast library of over 1,000 Awareness Training content items</li>
+          <li>Unlimited access to 5,000+ phishing templates for testing your team or employees</li>
+          <li>Customizable phishing templates and landing pages for more realistic testing</li>
+          <li>Automated Security Awareness Program (ASAP) tool for building a customized training program quickly</li>
+          <li>60+ advanced reports and a Virtual Risk Officer to identify risks</li>
+          <li>Minimum requirement of 25 employees per training program</li>
+        </ul>
+
+        <p>By implementing KnowBe4's platform, BUGEMCO can enhance its information
+           security measures and mitigate the risk of data breaches caused by internal
+           sources. The platform's user-friendly interface and comprehensive features make
+           it an ideal choice for cooperatives seeking an effective security awareness
+           training and simulated phishing solution.</p>
+
+        <h3>Investment cost</h3>
+        <table class="doc-table">
+          <thead>
+            <tr><th scope="col">Description</th><th scope="col">Quantity</th><th scope="col">Unit cost for 3 years / account</th><th scope="col">Total cost</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">KnowBe4 Security Awareness Training Subscription, Diamond Level — 3 years' subscription, inclusive of the management fee</th>
+              <td>100 slots</td>
+              <td>Php 10,000.00</td>
+              <td>Php 1,000,000.00</td>
+            </tr>
+            <tr class="row--total">
+              <th scope="row">Total</th><td></td><td>Php 10,000.00</td><td>Php 1,000,000.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Terms and conditions</h3>
+        <p><strong>The management fee includes:</strong></p>
+        <ul class="checks">
+          <li>Corporate email account per user</li>
+          <li>SMS notification and reminders</li>
+          <li>Bi-annual training impact and reporting</li>
+          <li>Advisory and consultation support</li>
+        </ul>
+        <p><strong>Price and VAT:</strong> the price quoted includes a 12% VAT.</p>
+        <p><strong>Payment terms:</strong> the cost of the training can be covered by the
+           Cooperative's CETF.</p>
+        <ul class="checks">
+          <li>50% upon approval of the engagement</li>
+          <li>50% upon training roll-out</li>
+        </ul>
+        <p><strong>Validity and changes:</strong> the prices quoted are valid for 7 days
+           from the date of the quotation and are subject to change. Changes will be
+           provided with written communication.</p>
+
+        <hr class="doc-rule">
+
+        <p>If you require further information regarding this proposal, please contact us
+           via email at <span class="doc-redacted">email address withheld</span>. If you
+           find this proposal acceptable, please indicate your conformity by signing on
+           the space provided below.</p>
+
+        <p>Thank you for your continued patronage of the services offered by MASS-SPECC.
+           We look forward to serving your cooperative in building a culture of
+           security.</p>
+
+        <p>Sincerely,<br>
+           <span class="doc-redacted">Chief Executive Officer, MASS-SPECC</span></p>
+
+        <p><strong>CONCURRENCE:</strong><br>
+           <span class="doc-redacted">Chief Executive Officer, BUGEMCO</span></p>
+
+      </article>
+    </div>
+  </div>
+</div>
+
+<script src="../../assets/js/fallback.js"></script>
+<script type="module" src="../../assets/js/boot.js"></script>
+<script type="module">
+  import { donut, lineChart, gauge, progressRing, stageFlow, targetBar } from '../../assets/js/charts.js';
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+
+  set('systems-donut', donut([
+    { label: 'Live and in use',            value: 3, color: '#0B7A3B' },
+    { label: 'Finished, awaiting a date',  value: 4, color: '#F5C518' },
+    { label: 'Being built',                value: 2, color: '#7FBF9B' },
+    { label: 'Not started',                value: 1, color: '#C9CFCB' }
+  ], { centre: '10', alt: 'Ten systems: three live, four finished and awaiting a presentation date, two being built, one not started' }));
+
+  // Totals added up from the per-branch Starlink figures, in gigabytes, taking
+  // one terabyte as one thousand gigabytes.
+  // Each period is labelled by the month it starts in — "Jan" is the Jan–Feb
+  // billing period, and so on. Shorter labels, and they do not collide on a
+  // 4:3 projection.
+  // "Jul" is the Jul–Aug period. The owner confirmed it holds July's use with
+  // nothing from August in it, which is why it belongs in a July report. Its
+  // MBO and VBO figures are still being confirmed — see the note on the card.
+  set('starlink-trend', lineChart([
+    { label: 'Jan', value: 3891 },
+    { label: 'Feb', value: 5410 },
+    { label: 'Mar', value: 5223 },
+    { label: 'Apr', value: 4131 },
+    { label: 'May', value: 5517 },
+    { label: 'Jun', value: 5316 },
+    { label: 'Jul', value: 3616 }
+  ], { alt: 'Total internet use across all seven branches by billing period, in gigabytes' }));
+
+  // The ten systems as a journey, in the order work moves through.
+  set('systems-flow', stageFlow([
+    { label: 'Not started',   value: 1, color: '#C9CFCB' },
+    { label: 'Being built',   value: 2, color: '#7FBF9B' },
+    { label: 'Finished',      value: 4, color: '#F5C518' },
+    { label: 'Live and in use', value: 3, color: '#0B7A3B' }
+  ], { alt: 'Ten systems across four stages of work' }));
+
+  // 3.69 hours against a 24-hour limit. The sentence is forgettable; the
+  // picture of a marker sitting near the left-hand end is not.
+  set('response-gauge', gauge({
+    value: 3.69, max: 24, unit: 'h',
+    label: 'Average time to pick up a request',
+    caption: 'Requests were picked up in 3.69 hours on average, against a limit of 24 hours'
+  }));
+
+  set('backup-ring', progressRing({
+    value: 21, total: 23, label: 'Working days in July with a good backup'
+  }));
+
+  // Branch internet use for July, largest first. One terabyte is taken as one
+  // thousand gigabytes; the label keeps the figure as reported. The bars are
+  // drawn against the largest branch, not a target — nobody is set a quota for
+  // internet use, so the longest bar is simply the heaviest user.
+  // Two rows cannot be drawn to scale. MBO's 1 GB is 0.08% of the longest bar
+  // and VBO's 10 GB is 0.81%, both of which round to an empty track — and an
+  // empty track reads as "no data" or "the chart broke", not as "almost
+  // nothing was used". They are given a minimum length so the row is visible,
+  // and coloured yellow so nobody reads their length as a measurement: 1 GB
+  // and 10 GB would look the same at that size, and these are the two figures
+  // the Network section is being asked to confirm. The exact figure is printed
+  // at the end of every row.
+  const FLOOR = 2.5;
+  set('branch-bars', [
+    { label: 'KBO',  actual: 1230 },
+    { label: 'MCBO', actual: 1150 },
+    { label: 'MFBO', actual: 510  },
+    { label: 'KsBO', actual: 365  },
+    { label: 'ABO',  actual: 350  },
+    { label: 'VBO',  actual: 10   },
+    { label: 'MBO',  actual: 1    }
+  ].map(({ label, actual }) => {
+    const share = (actual / 1230) * 100;
+    const floored = actual > 0 && share < FLOOR;
+    const pct = floored ? FLOOR : share;
+    const tone = floored ? ' data-tone="yellow"' : '';
+    return `<div class="pbar"><div class="pbar-head">` +
+      `<span>${label}</span><span>${actual.toLocaleString('en-US')} GB</span></div>` +
+      `<div class="pbar-track"><div class="pbar-fill" data-fill="${pct}"${tone}></div></div></div>`;
+  }).join(''));
+
+  // The Annual Targets section was removed at the owner's request. The figures
+  // stay recorded in tracking/targets/ and can be brought back into any month
+  // by restoring the section and its targetBar rows.
+</script>
+</body>
+</html>

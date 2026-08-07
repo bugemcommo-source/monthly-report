@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICT Department Monthly Reports | BUGEMCO</title>
+<meta name="description" content="Monthly reports from the ICT Department of BUGEMCO — Software Development and Information Security, and Network and System Administration.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/report.css">
+<link rel="stylesheet" href="assets/css/effects.css">
+<style>
+  /* Page-specific only. The backdrop, the edge chrome, the card surface and
+     the badge all come from the shared sheets, so the front page and the
+     reports look like one thing. */
+
+  .who { font: 700 var(--fs-body)/1.5 var(--font-head); color: var(--green-deep); margin: 0.8rem 0 0; }
+
+  .months {
+    display: grid; gap: var(--sp-3);
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+  @media (max-width: 640px) { .months { grid-template-columns: 1fr; } }
+
+  /* The whole card is the link, so the click target is the card and not just
+     the month name. */
+  a.month {
+    display: grid; gap: 0.7rem; align-content: start;
+    color: inherit; text-decoration: none;
+    transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+  a.month:hover, a.month:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 70px rgba(0, 40, 20, 0.26);
+  }
+  a.month h3 { font: 900 1.5rem/1.15 var(--font-head); margin: 0; color: var(--ink); }
+  a.month .summary { margin: 0; color: var(--ink-soft); }
+  a.month .meta {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center;
+    font: 700 var(--fs-caption)/1 var(--font-head);
+    color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.1em;
+    max-width: none;
+  }
+  a.month .go { margin: 0; font-weight: 800; color: var(--green); }
+
+  .site-foot { color: var(--ink-soft); font-size: 0.9rem; max-width: 70ch; margin-top: var(--sp-5); }
+  .site-foot p { margin: 0 0 0.5rem; max-width: 70ch; }
+</style>
+</head>
+<body>
+
+<!-- Fixed artwork behind the whole document, exactly as on a report page. -->
+<div class="backdrop" data-backdrop="title" aria-hidden="true">
+  <div class="backdrop-photo" data-photo="title"></div>
+  <div class="backdrop-photo" data-photo="content"></div>
+  <div class="backdrop-photo" data-photo="closing"></div>
+  <div class="layer-capsules"></div>
+  <div class="layer-glow"></div>
+</div>
+
+<!-- No header bar. Progress runs along the top edge of the screen and the
+     section rail down the right edge, so nothing steals a strip of the page. -->
+<div class="site-progress" aria-hidden="true"><div class="site-progress-fill"></div></div>
+<nav class="site-nav" aria-label="Page sections"></nav>
+
+<main class="site">
+
+  <section class="band band--hero" id="overview" data-band-name="Overview" data-backdrop="title">
+    <div>
+      <p class="site-logo" data-reveal-on-scroll style="--i:0">
+        <img src="assets/img/logo-bugemco.png" alt="BUGEMCO — Making Lives Better">
+      </p>
+      <p class="eyebrow" data-reveal-on-scroll style="--i:0">BUGEMCO · Making Lives Better</p>
+      <h1 class="band-title" data-reveal>ICT Department</h1>
+      <p class="who" data-reveal-on-scroll style="--i:1">Software Development &amp; Information Security &nbsp;·&nbsp; Network &amp; System Administration</p>
+      <p data-reveal-on-scroll style="--i:2">Monthly reports from the ICT Department of BUGEMCO, covering both sections of the department.</p>
+      <p class="scroll-cue" data-reveal-on-scroll style="--i:3">Scroll for the reports</p>
+    </div>
+  </section>
+
+  <section class="band" id="reports" data-band-name="Reports" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">Reports</p>
+        <h2 class="band-title">Choose a month</h2>
+      </div>
+
+      <div class="months">
+        <a class="card tilt month" href="reports/2026-07-july/index.html" data-reveal-on-scroll style="--i:0">
+          <h3>July 2026</h3>
+          <p class="meta">
+            <span class="badge" data-status="done">Current</span>
+            <span>7 sections</span>
+          </p>
+          <p class="summary">Three systems now live and in daily use, four more built and waiting on a presentation date, every branch fully patched — and security training switched off pending a decision.</p>
+          <p class="go">Open the report →</p>
+        </a>
+        <a class="card tilt month" href="reports/2026-05-may/index.html" data-reveal-on-scroll style="--i:1">
+          <h3>May 2026</h3>
+          <p class="meta">
+            <span class="badge" data-status="progress">Design demo</span>
+            <span>8 sections</span>
+          </p>
+          <p class="summary">Four systems shown to Mancom, a security awareness programme with no password given away, and the year's targets so far.</p>
+          <p class="go">Open the report →</p>
+        </a>
+      </div>
+
+      <div class="site-foot" data-reveal-on-scroll style="--i:1">
+        <p><strong>July 2026 is the current report</strong>, and the first to cover the whole department — both Software Development and Information Security, and Network and System Administration.</p>
+        <p><strong>May 2026 is a design demo.</strong> It was rebuilt from the May PowerPoint to show what these reports look like, and it is not a published record. Where the original deck carried no figure, the rebuilt page says so rather than estimating one.</p>
+        <p>Each report is one long page you simply scroll. Press <strong>C</strong> for calm mode if the movement is distracting, press <strong>P</strong> to show the presenter's notes, and click any screenshot to see it full size — <strong>Esc</strong> closes it again.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<button class="to-top" type="button" aria-label="Back to the top">&uarr;</button>
+
+<!-- Classic script, deliberately not a module: it must still run when the
+     browser has blocked the module below (opening the file directly). -->
+<script src="assets/js/fallback.js"></script>
+<script type="module" src="assets/js/boot.js"></script>
+</body>
+</html>

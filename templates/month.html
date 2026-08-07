@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICT Department Monthly Report — {{MONTH_NAME}} {{YEAR}} | BUGEMCO</title>
+<meta name="description" content="ICT Department monthly report for {{MONTH_NAME}} {{YEAR}} — the whole department: Software Development and Information Security, and Network and System Administration.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../assets/css/fonts.css">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/report.css">
+<link rel="stylesheet" href="../../assets/css/effects.css">
+</head>
+<body>
+
+<!-- Fixed artwork behind the whole document. It scrolls slower than the
+     content, which is what reads as depth. -->
+<div class="backdrop" data-backdrop="title" aria-hidden="true">
+  <div class="backdrop-photo" data-photo="title"></div>
+  <div class="backdrop-photo" data-photo="content"></div>
+  <div class="backdrop-photo" data-photo="closing"></div>
+  <div class="layer-capsules"></div>
+  <div class="layer-glow"></div>
+</div>
+
+<!-- No header bar. Progress runs along the top edge of the screen and the
+     section rail down the right edge, so nothing steals a strip of the page. -->
+<div class="site-progress" aria-hidden="true"><div class="site-progress-fill"></div></div>
+<nav class="site-nav" aria-label="Report sections"></nav>
+
+<main class="site">
+
+  <!-- ══ OVERVIEW ═══════════════════════════════════════ -->
+  <section class="band band--hero" id="overview" data-band-name="Overview" data-backdrop="title">
+    <div>
+      <p class="site-logo" data-reveal-on-scroll style="--i:0">
+        <img src="../../assets/img/logo-bugemco.png" alt="BUGEMCO — Making Lives Better">
+      </p>
+      <p class="eyebrow" data-reveal-on-scroll style="--i:1">BUGEMCO · Making Lives Better</p>
+      <h1 class="band-title" data-reveal>ICT DEPARTMENT</h1>
+      <h2 class="band-sub" data-reveal-on-scroll style="--i:2">Monthly Report</h2>
+      <p data-reveal-on-scroll style="--i:3">
+        <strong>{{MONTH_NAME}} {{YEAR}}</strong>
+      </p>
+      <!-- The report covers the whole department, not one section. Both
+           sections are named, so neither one's work is presented as the
+           other's. Keep this line whenever the report is rebuilt. -->
+      <p class="who" data-reveal-on-scroll style="--i:4">
+        Software Development &amp; Information Security &nbsp;·&nbsp;
+        Network &amp; System Administration
+      </p>
+      <p data-reveal-on-scroll style="--i:5">{{OVERVIEW_SENTENCE}}</p>
+
+      <!-- THE SUMMARY STRIP. Every section below opens with one of these too.
+           See docs/data-presentation-standard.md — it is a rule, not a
+           suggestion. Three or four .metric tiles, each one:
+             .metric-num   the figure, counting up
+             .metric-label what it is
+             .metric-note  the same fact written out in words — "5 of 120
+                           staff clicked the test email (4.2%)", never a bare
+                           percentage — plus any tag it needs:
+                             .tag--lower   lower-is-better, so a good 0 does
+                                           not read like a bad one
+                             .tag--period  whenever the figure does not cover
+                                           exactly the report month
+                             .tag--source  read off a screenshot rather than
+                                           taken from a tracking file
+           Edge colour: --good at or better than target · --watch moving,
+           nothing wrong · --behind · --risk needs a Mancom decision ·
+           --unknown not measured (figure is an em dash, never a 0).
+           If a section has no recorded figures at all, DELETE its strip and
+           put a .not-recorded panel there instead. A strip of invented
+           numbers is the one thing that must never happen. -->
+      <div class="summary-strip" data-reveal-on-scroll style="--i:5">
+        <div class="metric metric--{{HEADLINE_1_TONE}}">
+          <p class="metric-num"><span data-count="{{HEADLINE_1_VALUE}}">0</span></p>
+          <p class="metric-label">{{HEADLINE_1_LABEL}}</p>
+          <p class="metric-note">{{HEADLINE_1_NOTE}}</p>
+        </div>
+        <div class="metric metric--{{HEADLINE_2_TONE}}">
+          <p class="metric-num"><span data-count="{{HEADLINE_2_VALUE}}">0</span></p>
+          <p class="metric-label">{{HEADLINE_2_LABEL}}</p>
+          <p class="metric-note">{{HEADLINE_2_NOTE}}</p>
+        </div>
+        <div class="metric metric--{{HEADLINE_3_TONE}}">
+          <p class="metric-num"><span data-count="{{HEADLINE_3_VALUE}}">0</span></p>
+          <p class="metric-label">{{HEADLINE_3_LABEL}}</p>
+          <p class="metric-note">{{HEADLINE_3_NOTE}}</p>
+        </div>
+      </div>
+
+      <p class="scroll-cue" data-reveal-on-scroll style="--i:6">Scroll to read</p>
+      <aside class="notes">{{OVERVIEW_NOTES}}</aside>
+    </div>
+  </section>
+
+  <!-- ══ SOFTWARE DEVELOPMENT ═══════════════════════════ -->
+  <section class="band" id="software-development" data-band-name="Software Development" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">01 · Software Development</p>
+        <h2 class="band-title">{{SOFTDEV_HEADLINE}}</h2>
+        <p>{{SOFTDEV_INTRO}}</p>
+      </div>
+
+      <!-- Three or four .metric tiles. Typically: systems reported, modules
+           finished this month, systems blocked. A system whose tracking file
+           records no completion figure gets a metric--unknown tile with an em
+           dash and a note saying it was never written down — never a
+           percentage nobody measured. -->
+      <div class="summary-strip" data-reveal-on-scroll>{{SOFTDEV_STRIP}}</div>
+
+      <!-- Repeat this block once per system. -->
+      <div class="cols--wide-right" style="margin-bottom:var(--sp-5)">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3>{{PROJECT_NAME}}</h3>
+          <p><span class="badge" data-status="{{PROJECT_STATUS_KEY}}">{{PROJECT_STATUS_LABEL}}</span></p>
+          <p>{{PROJECT_PLAIN_ENGLISH}}</p>
+          {{PROJECT_PROGRESS_BLOCK}}
+          <h3>What happened this month</h3>
+          <ul class="checks">{{PROJECT_DONE_ITEMS}}</ul>
+          {{PROJECT_BLOCKERS_BLOCK}}
+        </div>
+        <figure class="shot" data-reveal-on-scroll data-from="right">
+          <img src="img/{{PROJECT_SHOT}}" alt="{{PROJECT_SHOT_ALT}}" loading="lazy">
+          <figcaption>{{PROJECT_SHOT_CAPTION}} · Click to enlarge</figcaption>
+        </figure>
+      </div>
+
+      <aside class="notes">{{SOFTDEV_NOTES}}</aside>
+    </div>
+  </section>
+
+  <!-- ══ INFORMATION SECURITY ═══════════════════════════ -->
+  <section class="band" id="information-security" data-band-name="Information Security" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">02 · Information Security</p>
+        <h2 class="band-title">{{SECURITY_HEADLINE}}</h2>
+        <p>{{SECURITY_INTRO}}</p>
+      </div>
+
+      <!-- The section where the tags matter most. The click rate is always
+           .tag--lower. Any figure whose campaigns run past the report month
+           carries a .tag--period naming the real end date, and anything read
+           off the awareness dashboard carries a .tag--source. -->
+      <div class="summary-strip" data-reveal-on-scroll>{{SECURITY_STRIP}}</div>
+
+      <div class="grid grid--2">
+        <div class="card tilt" data-reveal-on-scroll style="--i:0">
+          <h3>Phishing simulation</h3>
+          <div id="phish-donut"></div>
+          <p>{{PHISH_PLAIN_ENGLISH}}</p>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll style="--i:1">
+          <h3>How we are trending</h3>
+          <div id="phish-trend"></div>
+          <p>{{TREND_PLAIN_ENGLISH}}</p>
+        </div>
+      </div>
+
+      <aside class="notes">{{SECURITY_NOTES}}</aside>
+    </div>
+  </section>
+
+  <!-- ══ NETWORK ════════════════════════════════════════ -->
+  <section class="band" id="network" data-band-name="Network" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">03 · Network</p>
+        <h2 class="band-title">{{NETWORK_HEADLINE}}</h2>
+      </div>
+      <!-- Delete this strip outright if the month's network work was never
+           written down, and let the .not-recorded panel in the card below
+           carry the section on its own. Uptime and cabling installations are
+           the two figures the network log can supply when they exist. -->
+      <div class="summary-strip" data-reveal-on-scroll>{{NETWORK_STRIP}}</div>
+      <div class="card" data-reveal-on-scroll>{{NETWORK_BODY}}</div>
+      <aside class="notes">{{NETWORK_NOTES}}</aside>
+    </div>
+  </section>
+
+  <!-- ══ SUPPORT ════════════════════════════════════════ -->
+  <section class="band" id="support" data-band-name="Support" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">04 · Support</p>
+        <h2 class="band-title">{{SUPPORT_HEADLINE}}</h2>
+      </div>
+      <!-- ATM cards issued, call-outs, branch visits, technical requests and
+           average response time come from the ticketing system by way of
+           tracking/support-network/support-log.md. Any of them still blank
+           there is a metric--unknown tile or is left out — not a zero. -->
+      <div class="summary-strip" data-reveal-on-scroll>{{SUPPORT_STRIP}}</div>
+      <div class="grid grid--3">{{SUPPORT_CARDS}}</div>
+      <aside class="notes">{{SUPPORT_NOTES}}</aside>
+    </div>
+  </section>
+
+  <!-- ══ OTHERS ═════════════════════════════════════════ -->
+  <section class="band" id="others" data-band-name="Meetings &amp; Events" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">05 · Meetings, Events and Team</p>
+        <h2 class="band-title">{{OTHERS_HEADLINE}}</h2>
+      </div>
+      <!-- Counts of meetings, events and training sessions listed are
+           legitimate figures. Say in each .metric-note that they count what
+           was listed, not a measured total — a count of sessions run is not a
+           count of people trained. -->
+      <div class="summary-strip" data-reveal-on-scroll>{{OTHERS_STRIP}}</div>
+      <div class="grid grid--2">{{OTHERS_CARDS}}</div>
+      <aside class="notes">{{OTHERS_NOTES}}</aside>
+    </div>
+  </section>
+
+  <!-- ══ ANNUAL TARGETS ═════════════════════════════════ -->
+  <section class="band" id="annual-targets" data-band-name="Annual Targets" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">06 · Where we stand against the year</p>
+        <h2 class="band-title">Annual Targets</h2>
+        <p>{{TARGET_INTRO}}</p>
+      </div>
+      <!-- How many of the bars below are at or better than target, and how
+           many are not. Count the rows you actually charted — nothing else.
+           The breaches row is lower-is-better and carries a .tag--lower. -->
+      <div class="summary-strip" data-reveal-on-scroll>{{TARGETS_STRIP}}</div>
+      <div class="card" data-reveal-on-scroll id="target-bars"></div>
+      <aside class="notes">{{TARGET_NOTES}}</aside>
+    </div>
+  </section>
+
+  <!-- ══ CLOSING ════════════════════════════════════════ -->
+  <section class="band band--closing" id="thank-you" data-band-name="Thank you" data-backdrop="closing">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">Next month</p>
+        <h2 class="band-title">{{CLOSING_HEADLINE}}</h2>
+      </div>
+      <div class="closing-panel" data-reveal-on-scroll>
+        <img class="closing-logo" src="../../assets/img/logo-bugemco.png"
+             alt="BUGEMCO — Making Lives Better">
+        <p class="salamat">
+          <span class="salamat-word" style="--w:0">Salamat</span>
+          <span class="salamat-word" style="--w:1">sa</span>
+          <span class="salamat-word salamat-accent" style="--w:2">Gugma!</span>
+        </p>
+        <div class="closing-next">
+          <h3>What is coming next month</h3>
+          <ul class="checks">{{NEXT_MONTH_ITEMS}}</ul>
+        </div>
+      </div>
+      <aside class="notes">{{CLOSING_NOTES}}</aside>
+    </div>
+  </section>
+
+</main>
+
+<button class="to-top" type="button" aria-label="Back to the top">&uarr;</button>
+
+<!-- Classic script, deliberately not a module: it must still run when the
+     browser has blocked the modules below (opening the file directly). -->
+<script src="../../assets/js/fallback.js"></script>
+<script type="module" src="../../assets/js/boot.js"></script>
+<script type="module">
+  import { donut, lineChart, targetBar } from '../../assets/js/charts.js';
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  set('phish-donut', donut({{PHISH_SLICES}}, { centre: '{{PHISH_CENTRE}}', alt: '{{PHISH_ALT}}' }));
+  set('phish-trend', lineChart({{TREND_POINTS}}, { alt: '{{TREND_ALT}}' }));
+  set('target-bars', {{TARGET_ROWS}}.map(targetBar).join(''));
+  // targetBar carries the percentage as a width attribute so it can be
+  // asserted without a DOM; hand it to the motion layer as data-fill.
+  document.querySelectorAll('.tbar-fill').forEach((el) => {
+    el.dataset.fill = parseInt(el.getAttribute('width'), 10);
+  });
+</script>
+</body>
+</html>

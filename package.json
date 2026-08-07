@@ -1,0 +1,15 @@
+{
+  "name": "ict-monthly-report",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tools/test/",
+    "design": "node tools/check-design.mjs",
+    "design:shots": "node tools/check-design.mjs http://localhost:8080/reports/2026-07-july/index.html --shots",
+    "shots": "node tools/check-shots.mjs",
+    "docviewer": "node tools/check-docviewer.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

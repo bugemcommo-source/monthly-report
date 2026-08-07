@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <!-- Traced from assets/img/bg-content.jpg. On the content background the
+       capsules are HORIZONTAL, not tilted: one green pill sitting behind and
+       slightly outboard of one yellow pill, in the top-right and bottom-left. -->
+  <g fill="none" stroke-linecap="round">
+    <!-- top-right: green behind and above, running off the right edge -->
+    <line x1="1313" y1="18"   x2="1975" y2="18"   stroke="#006633" stroke-width="62"/>
+    <line x1="1353" y1="50"   x2="1975" y2="50"   stroke="#FAFA00" stroke-width="51"/>
+    <!-- bottom-left: green behind and below, running off the left edge -->
+    <line x1="-55"  y1="1072" x2="826"  y2="1072" stroke="#006633" stroke-width="60"/>
+    <line x1="-55"  y1="1034" x2="786"  y2="1034" stroke="#FAFA00" stroke-width="52"/>
+  </g>
+</svg>

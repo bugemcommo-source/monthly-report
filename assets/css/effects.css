@@ -1,0 +1,267 @@
+/* All motion. Delete this file and the report is static but complete —
+   every figure, bar, chart and word still says the same thing. */
+
+/* Custom properties are text to the animation engine unless their type is
+   declared, so an unregistered one snaps at the halfway point instead of
+   sliding. */
+@property --gx  { syntax: '<percentage>'; inherits: false; initial-value: 22%; }
+@property --gy  { syntax: '<percentage>'; inherits: false; initial-value: 26%; }
+@property --gx2 { syntax: '<percentage>'; inherits: false; initial-value: 80%; }
+@property --gy2 { syntax: '<percentage>'; inherits: false; initial-value: 74%; }
+@property --gx3 { syntax: '<percentage>'; inherits: false; initial-value: 55%; }
+@property --gy3 { syntax: '<percentage>'; inherits: false; initial-value: 12%; }
+@property --progress { syntax: '<number>'; inherits: false; initial-value: 0; }
+
+/* ─────────────────────────────────────────────────────────
+   REVEAL ON SCROLL
+   Elements sit hidden until the page script adds .is-revealed as they come
+   into view. The class is now added AND removed, so a reveal replays every
+   time its element re-enters the viewport.
+
+   That changes what the timings have to be. A 700ms reveal with a 90ms stagger
+   is a pleasant one-off, but it is played over and over by anyone scrolling
+   back to check a figure, and at that point every extra 100ms reads as the
+   page being slow rather than as the page being smooth. The distances and
+   durations below are deliberately shorter than they were: the movement is
+   still legible as movement, but a section is fully readable in about a third
+   of a second and a row of six cards has finished inside half a second.
+
+   translate, NOT transform. A filling animation wins the cascade, so
+   animating transform here would permanently pin it and silently kill the 3D
+   tilt on any card that also reveals.
+   ───────────────────────────────────────────────────────── */
+[data-reveal-on-scroll] {
+  opacity: 0;
+  translate: 0 22px;
+  transition:
+    opacity 460ms var(--ease-out),
+    translate 460ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 55ms);
+}
+[data-reveal-on-scroll].is-revealed { opacity: 1; translate: 0 0; }
+
+/* Leaving is not a performance. Going back up the page, elements drop their
+   stagger and fade out fast, so returning to a section never means waiting for
+   the previous section to finish tidying itself away. */
+[data-reveal-on-scroll]:not(.is-revealed) {
+  transition-duration: 200ms;
+  transition-delay: 0ms;
+}
+
+/* Sideways variants, for content that reads better arriving from an edge. */
+[data-reveal-on-scroll][data-from="left"]  { translate: -26px 0; }
+[data-reveal-on-scroll][data-from="right"] { translate:  26px 0; }
+[data-reveal-on-scroll][data-from="left"].is-revealed,
+[data-reveal-on-scroll][data-from="right"].is-revealed { translate: 0 0; }
+
+/* ── Screenshot clip-wipe ──────────────────────────────── */
+.shot[data-reveal-on-scroll] img {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 620ms var(--ease-in-out) 60ms;
+}
+.shot[data-reveal-on-scroll].is-revealed img { clip-path: inset(0 0 0 0); }
+
+/* ── Section heading sweep — the capsule motif, moving ─── */
+.band-head[data-reveal-on-scroll] .eyebrow::after { width: 0; transition: width 560ms var(--ease-out) 120ms; }
+.band-head[data-reveal-on-scroll].is-revealed .eyebrow::after { width: clamp(40px, 8vw, 120px); }
+
+/* ─────────────────────────────────────────────────────────
+   BACKDROP PARALLAX
+   site.js writes --scroll-y; how far the artwork should move for it is a
+   design decision and lives here, not in JavaScript.
+
+   The photo travels a fraction of the scroll distance and the capsules a
+   different fraction, so the two separate as you go — that difference is what
+   reads as depth. Values are small on purpose: the artwork carries the
+   cooperative's building, and dragging it around the screen looks cheap.
+
+   Driven by --scroll-fraction (0 at the top of the document, 1 at the
+   bottom), NOT by --scroll-y. A per-pixel rate has no idea how long the page
+   is: at 0.06 of a 9,000px report the photograph had slid 555px by the
+   closing section, ran out of image, and left a hard horizontal edge with
+   flat background below it for half the screen. A fraction spreads exactly
+   the same travel over whatever length the page happens to be, so the edge
+   can never arrive.
+
+   The percentages are of each layer's OWN height, and each is smaller than
+   that layer's over-scan in report.css (14% of 140% = 19.6% against a 20%
+   budget; 18% of 160% = 28.8% against 30%). Raise one and raise the other.
+   ───────────────────────────────────────────────────────── */
+.backdrop-photo  { translate: 0 calc(var(--scroll-fraction, 0) * -14%); }
+.layer-capsules  { translate: 0 calc(var(--scroll-fraction, 0) * -18%); }
+
+.layer-glow { animation: glowRoam 24s ease-in-out infinite alternate; }
+@keyframes glowRoam {
+  from { --gx: 16%; --gy: 20%; --gx2: 86%; --gy2: 80%; --gx3: 44%; --gy3:  6%; opacity: 0.85; }
+  to   { --gx: 38%; --gy: 46%; --gx2: 62%; --gy2: 54%; --gx3: 68%; --gy3: 26%; opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────────────────
+   WHY THERE IS NO animation-timeline: view() HERE
+   Reveals do now replay on re-entry, so the old objection — that a scroll
+   timeline scrubs in both directions — is no longer the reason. The reason
+   that remains is the stagger: --i is a transition-delay, and a
+   timeline-driven animation ignores it, so a row of six cards all arrive at
+   once instead of in sequence. A scroll timeline also ties the progress of the
+   fade to the scroll position, which means a slow scroller sits looking at
+   half-faded text. The class-based transition above stages properly, finishes
+   on its own clock whatever the reader does, and is what runs everywhere.
+   ───────────────────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────────────────
+   COMPONENT MOTION
+   ───────────────────────────────────────────────────────── */
+
+/* 3D tilt toward the pointer. */
+.tilt {
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  transform: perspective(1100px) rotateX(calc(var(--ty, 0) * -3.5deg)) rotateY(calc(var(--tx, 0) * 4.5deg)) translateZ(0);
+}
+.tilt:hover { box-shadow: 0 30px 70px rgba(0,40,20,0.24); }
+
+/* ── THE ONE THAT KILLED EVERY REVEAL ──────────────────────
+   `transition` is a SHORTHAND: it replaces the whole list, it does not add to
+   it. `.tilt` above is declared after `[data-reveal-on-scroll]` and has the
+   same specificity, so on any element that is both — which is very nearly
+   every card on the page — the tilt's `transform, box-shadow` list replaced
+   the reveal's `opacity, translate` list outright.
+
+   The class still went on and off exactly as designed, and the element still
+   ended up in the right final state. It simply got there in one frame. The
+   owner's report was "no on-scroll animation, it just appeared", and measuring
+   opacity frame by frame showed it going 0 → 1 between two consecutive frames.
+
+   So the two lists have to be stated together, on a selector that carries both
+   conditions. Order matters: the delays below are positional and line up with
+   the four properties in the same order. */
+.tilt[data-reveal-on-scroll] {
+  transition:
+    opacity 460ms var(--ease-out),
+    translate 460ms var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+  /* Only the reveal is staggered. The tilt must answer the pointer at once. */
+  transition-delay: calc(var(--i, 0) * 55ms), calc(var(--i, 0) * 55ms), 0s, 0s;
+}
+/* Leaving is quick and unstaggered, same as the plain reveal. */
+.tilt[data-reveal-on-scroll]:not(.is-revealed) {
+  transition-duration: 200ms, 200ms, var(--dur-fast), var(--dur-fast);
+  transition-delay: 0s;
+}
+
+/* Bars grow on arrival. effects.js paints 0% first and defers the real value
+   two frames, so there is a rendered "before" state to animate away from.
+   Width, never transform — see the note at the top of this file. */
+.pbar-fill, .tbar-fill {
+  width: var(--fill, 0%);
+  transition: width 850ms var(--ease-out) 80ms;
+}
+
+/* Charts stroke themselves in. Shortened along with the reveals: a donut that
+   takes a second and a half to draw is charming once and tiresome the fourth
+   time someone scrolls back to it. */
+.is-revealed .ch-arc, [data-reveal-on-scroll].is-revealed .ch-arc {
+  stroke-dasharray: 1000; stroke-dashoffset: 1000;
+  animation: draw 900ms var(--ease-out) both;
+  animation-delay: calc(120ms + var(--i, 0) * 120ms);
+}
+.is-revealed .ch-path {
+  stroke-dasharray: 2000; stroke-dashoffset: 2000;
+  animation: draw 1s var(--ease-out) 140ms both;
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.is-revealed .ch-dot {
+  animation: pop var(--dur-fast) var(--ease-out) both;
+  animation-delay: calc(320ms + var(--i, 0) * 80ms);
+}
+@keyframes pop { from { r: 0; opacity: 0; } to { opacity: 1; } }
+
+/* Hero title, letter by letter. */
+.reveal-char {
+  display: inline-block;
+  animation: charIn 620ms var(--ease-out) both;
+  animation-delay: calc(var(--c, 0) * 26ms);
+}
+@keyframes charIn {
+  from { opacity: 0; translate: 0 0.5em; rotate: x -70deg; }
+  to   { opacity: 1; translate: 0 0; rotate: none; }
+}
+
+/* The sign-off arrives a word at a time. It is the last thing on the page and
+   the only place a flourish is welcome. */
+.salamat .salamat-word {
+  display: inline-block;
+  opacity: 0;
+  translate: 0 0.35em;
+  transition: opacity 620ms var(--ease-out), translate 620ms var(--ease-out);
+  transition-delay: calc(var(--w, 0) * 130ms);
+}
+[data-reveal-on-scroll].is-revealed .salamat .salamat-word,
+.is-revealed.salamat .salamat-word { opacity: 1; translate: 0 0; }
+html.calm .salamat .salamat-word { opacity: 1 !important; translate: 0 0 !important; }
+
+/* Once the words have arrived, the sign-off keeps breathing. The float and
+   the glow are on the PHRASE, not the words — the words own `translate` for
+   their arrival, and an animation on the same property would overwrite it. */
+[data-reveal-on-scroll].is-revealed .salamat {
+  animation: salamatBreathe 5.5s var(--ease-in-out) 1.2s infinite alternate;
+}
+@keyframes salamatBreathe {
+  from { translate: 0 0;     text-shadow: 0 0 0 rgba(250,250,0,0); }
+  to   { translate: 0 -10px; text-shadow: 0 14px 46px rgba(250,250,0,0.30); }
+}
+
+/* "Gugma" warms and cools on its own slower cycle, so the accent is never
+   quite still. Animating `color` is safe: if the animation never runs the
+   word simply stays its own solid yellow. */
+[data-reveal-on-scroll].is-revealed .salamat .salamat-accent {
+  animation: gugmaGlow 3.4s var(--ease-in-out) 1.6s infinite alternate;
+}
+@keyframes gugmaGlow {
+  from { color: var(--yellow); }
+  to   { color: #FFF9B0; }
+}
+
+.scroll-cue { animation: cueBob 2.4s ease-in-out infinite alternate; }
+@keyframes cueBob { from { translate: 0 0; } to { translate: 0 8px; } }
+
+.to-top:hover { background: #fff; box-shadow: 0 12px 28px rgba(0,40,20,0.18); }
+
+/* ─────────────────────────────────────────────────────────
+   CALM MODE
+   One class on <html> flattens everything. It removes DECORATION only —
+   every number, bar width, chart and word stays exactly as it was. If calm
+   mode ever hides information, that is a bug, not a trade-off.
+   ───────────────────────────────────────────────────────── */
+html.calm canvas.layer-particles,
+html.calm .layer-glow { display: none !important; }
+
+html.calm *, html.calm *::before, html.calm *::after {
+  animation: none !important;
+  transition-duration: 1ms !important;
+}
+html.calm [data-reveal-on-scroll] { opacity: 1 !important; translate: 0 0 !important; }
+html.calm .shot img { clip-path: none !important; }
+html.calm .band-head .eyebrow::after { width: clamp(40px, 8vw, 120px) !important; }
+html.calm .pbar-fill, html.calm .tbar-fill { width: var(--fill, 0%); }
+html.calm .ch-arc, html.calm .ch-path { stroke-dashoffset: 0 !important; }
+html.calm .ch-dot { opacity: 1 !important; }
+html.calm .reveal-char { opacity: 1 !important; }
+html.calm .tilt { transform: none !important; }
+html.calm .backdrop-photo, html.calm .layer-capsules { translate: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+  /* !important and the [data-from] selectors are both load-bearing. The
+     sideways variants are two-class selectors, so a plain
+     [data-reveal-on-scroll] rule here loses the cascade to them and every
+     left/right block stayed parked 26px off its column — permanently, now
+     that .is-revealed is removed again on the way out of the viewport. */
+  [data-reveal-on-scroll],
+  [data-reveal-on-scroll][data-from="left"],
+  [data-reveal-on-scroll][data-from="right"] { opacity: 1 !important; translate: 0 0 !important; }
+  .shot img { clip-path: none !important; }
+  /* Decoration, but it is the mark that identifies a section opening, and with
+     motion off it would otherwise stay at width 0 forever. */
+  .band-head .eyebrow::after { width: clamp(40px, 8vw, 120px) !important; }
+}
