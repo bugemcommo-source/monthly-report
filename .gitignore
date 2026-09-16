@@ -1,0 +1,38 @@
+# ─────────────────────────────────────────────────────────────
+# NEVER UPLOAD. This repository is PUBLIC.
+# ─────────────────────────────────────────────────────────────
+
+# Personal performance data, raw unedited screenshots, anything confidential
+private/
+
+# Raw monthly screenshot dumps before optimisation and redaction review
+intake/
+
+# Source spreadsheets and PowerPoints (may contain member or personal data)
+*.xlsx
+*.xlsm
+*.pptx
+*.docx
+*.pdf
+
+# Local Claude Code settings — carry machine paths and personal file names.
+# Do not rely on the global ignore for this; a fresh clone has no global ignore.
+.claude/settings.local.json
+
+# Working files
+.tmp/
+*.log
+
+# Browser-check leftovers (Playwright writes screenshots into the repo root
+# during QA, and it cannot be redirected elsewhere). Root level only, so real
+# report images under reports/*/img/ are unaffected.
+.playwright-mcp/
+/*.png
+/*.jpg
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Playwright and its browser downloads, and the design-check screenshots
+node_modules/
+tools/design-shots/
