@@ -37,25 +37,29 @@ The first presentation was then held in **August 2026**, so what is outstanding 
 
 ## Screens on record
 
-One screenshot is in the July report: the **sign-in screen**.
+Two screenshots are in the July report: the **sign-in screen** and the **top half of the
+dashboard**.
 
-**The dashboard screenshot was removed on 16 September 2026 and must not be restored until
-one question is answered: does this system run on invented figures, or on the coop's real
-data?**
+**The dashboard question is settled.** The owner confirmed on 16 September 2026, in his own
+words, that the CAC-IIS figures are invented — the same confirmation he gave for the Credit
+Management System on the same day. The dashboard is restored.
 
-The file had recorded the figures as test data, but that was read off the screen and never
-confirmed. The same assumption was made about the BUGEMCO Mart console and proved wrong —
-the owner confirmed on 15 September that Mart runs on the coop's actual data for testing.
-Until CAC-IIS is confirmed either way, a dashboard leading on a collection rate and a year
-of premium collections is not publishable.
+**It is published cropped, and the crop is not cosmetic.** The lower half of that screen
+carries a "Collections by branch" chart naming **all seven branches** with a collection
+figure against each, ranked. Branch identities are never published on this site — the
+network figures are lettered and the key is held in `private/` precisely so branches cannot
+be identified. Restoring the screen whole would have handed over the full branch roster.
 
-**It goes back the moment the answer is "invented".** One sentence from the owner restores
-it. Nothing else about the system changes — its work is described in words and the sign-in
-screen carries no figures.
+The owner was shown this and chose the crop on 16 September 2026. The crop is set in
+`tools/prepare-system-shots.ps1` as a height limit, so re-running the tool cannot restore
+the branch panel by accident.
 
-**The same question is open for the Credit Management System**, whose dashboard shows total
-transactions and an approval rate with no confirmation on file either way. Ask about both
-together; the answer is likely the same.
+**What is published:** a collection rate dial and a premium-collections-over-time chart.
+No member, no account, no branch.
+
+**The Mart admin console is a different matter and stays withdrawn.** It was inspected on
+16 September 2026 and shows a named member with their member number, branch and outstanding
+balance, alongside real receivable totals. No confirmation reaches that one.
 
 **Read off the screens, not confirmed by the owner** — treat as indicative until checked:
 

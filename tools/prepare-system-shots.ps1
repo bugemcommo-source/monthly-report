@@ -5,11 +5,12 @@
   shot-01.jpg, shot-02.jpg..., this one names each image after the system it
   shows and CROPS it first.
 
-  Three images this script used to produce are no longer published at all, and
-  their entries have been removed from the job list below. Cropping was not
-  enough for any of them: a crop removes what you can see and leaves the question
-  of what the rest of the screen is drawn from. All are explained in the tracking
-  files, which are the record. Do not restore them here.
+  Two images this script used to produce are no longer published at all, and their
+  entries have been removed from the job list below. Cropping was not enough for
+  either: a crop removes what you can see and leaves the question of what the rest
+  of the screen is drawn from. A third image, the CAC-IIS dashboard, IS published
+  cropped — see the note above its entry before changing its crop height. All are
+  explained in the tracking files, which are the record.
 
   The remaining crops trim a browser-extension button that floats in the
   bottom-right corner of every capture. It is not part of any of these systems
@@ -34,31 +35,35 @@ $keep = Join-Path $root 'private\raw-screenshots\2026-07'
 New-Item -ItemType Directory -Force -Path $dst, $keep | Out-Null
 
 # file, output name, crop height in ORIGINAL pixels (width is always full)
-# Three images this script used to produce have been deliberately removed from the
+# Two images this script used to produce have been deliberately removed from the
 # published report and must not come back by re-running a tool.
 #
-#   - the CAC-IIS dashboard, withdrawn 16 September 2026. Its figures were recorded
-#     as test data, but that was read off the screen and never confirmed, and the
-#     same assumption proved wrong for another system. It returns only when the
-#     owner confirms the data is invented.
 #   - the Mart admin console, withdrawn 15 September 2026. That system runs on the
-#     coop's actual data, so its figures were real.
+#     coop's actual data. Inspected again 16 September 2026: it carries a named
+#     member with their member number, branch and outstanding balance, beside real
+#     receivable totals. Nothing restores this one.
 #   - the Mart sign-in screen, withdrawn 16 September 2026 during the August publish
 #     scan, for the same reason as the admin console. The report describes the screen
 #     in words instead.
 #
-# The two CreditMS screenshots were withdrawn on 16 September 2026 and RESTORED the
-# same day: the owner confirmed in so many words that the CreditMS figures are
-# invented, which is the confirmation the CAC-IIS entry above is still waiting for.
-# Their jobs are back in the list below.
+# THE CAC-IIS DASHBOARD IS CROPPED, AND THE CROP IS THE POINT. CropH=810 stops just
+# above the second row of that screen. The row below it is a "Collections by branch"
+# chart naming ALL SEVEN BRANCHES with a figure against each. Branches are never named
+# on the public site — the network figures are lettered and the key lives in private/.
+# Raising CropH republishes the branch roster. Do not raise it.
 #
-# These entries are deleted from the list below rather than commented out, because a
+# The two CreditMS screenshots and the CAC-IIS dashboard were withdrawn on
+# 16 September 2026 and restored the same day: the owner confirmed in so many words
+# that the figures in both systems are invented.
+#
+# Removed entries are deleted from the list below rather than commented out, because a
 # commented line is one keystroke from running. See tracking/projects/cac-iis.md and
-# tracking/projects/mart-online-store.md. Do not re-add any of them without the owner.
+# tracking/projects/mart-online-store.md. Do not re-add either without the owner.
 $jobs = @(
   @{ In='Screenshot 2026-08-06 210156.png'; Out='cacis-login.jpg';     CropH=1240; Why='trims the floating extension button' }
   @{ In='Screenshot 2026-08-06 212917.png'; Out='cms-login.jpg';       CropH=1250; Why='trims the floating extension button' }
   @{ In='Screenshot 2026-08-06 213121.png'; Out='cms-dashboard.jpg';   CropH=1250; Why='trims the floating extension button' }
+  @{ In='Screenshot 2026-08-06 214057.png'; Out='cacis-dashboard.jpg'; CropH=810;  Why='CUTS the bottom row, which names all seven branches with their collection figures' }
 )
 
 $codec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object { $_.MimeType -eq 'image/jpeg' }
