@@ -1387,6 +1387,19 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   background: none; box-shadow: none; cursor: auto;
 }
 .shot--framed:hover { box-shadow: none; }
+
+/* A placeholder where a screenshot is deliberately not published. No image, no
+   frame — just the caption, set apart so it reads as a stated absence rather
+   than a picture that failed to load. */
+.shot--note {
+  border: 1px dashed var(--rule, rgba(0,0,0,.2));
+  border-radius: var(--radius-card, 12px);
+  background: none; box-shadow: none; cursor: auto;
+  padding: var(--sp-3, 1rem);
+}
+.shot--note > figcaption {
+  margin: 0; text-align: left;
+}
 .shot-frame {
   display: block; width: 100%; margin: 0; padding: 0; cursor: zoom-in;
   font: inherit; color: inherit; text-align: left;

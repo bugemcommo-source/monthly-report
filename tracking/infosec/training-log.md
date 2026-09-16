@@ -38,12 +38,35 @@ The head count and the venue were not supplied and the owner asked not to be pre
 them, so the dash stands — it is not a zero. The report says "two sessions conducted" and
 gives no attendance figure.
 
+## Sessions the department attended
+
+Trainings, seminars and forums the **ICT department itself went to**. A third table on
+purpose: this is not a session the department delivered, and mixing it into either table
+above would put a wrong number in front of Mancom. These count towards BSC
+**"Trainings and seminars attended"** (target 4).
+
+| Date | What it was | Who attended | Notes |
+|---|---|---|---|
+| 2026-08 | **Endpoint security forum** | ICT department | Organised by **Netplay eScan** (owner, 16 September 2026). Counts as **one of the four**, not a fifth. Exact date, online or in person, and outcomes **not supplied** |
+
+**Endpoints** are the machines people work on — desktops, laptops and phones. They are the
+usual way an attacker gets in.
+
+**It was the supplier's own forum.** Netplay eScan organised it, and eScan is the third
+security awareness platform provider the department is evaluating — meeting set for
+September 2026, see `awareness-platform-proposal.md`. The August report states this on the
+slide rather than presenting the forum as neutral training. *The owner confirmed on
+16 September 2026 that this is the same eScan.*
+
+This is the **first of the four BSC trainings with a name against it.** The other three
+have never been listed. See `../targets/bsc-annual-2026.md`.
+
 ## Two different counts
 
 Three separate things are easy to mix up here. They are not interchangeable, and
 adding them together would put a wrong number in front of Mancom.
 
-1. **Sessions run for staff** — the table above. Three are on record for 2026. This
+1. **Sessions run for staff** — the first table above. Three are on record for 2026. This
    is a count of sessions the department delivered. No target in the source material
    is expressed this way, so this count is not reported against a target.
 
@@ -53,10 +76,13 @@ adding them together would put a wrong number in front of Mancom.
    The figure to report is **1 of 1**. Do not report three against it.
 
 3. **BSC "Trainings and seminars attended"** — target 4. A separate, wider count
-   covering all trainings and seminars, not only security ones. **Recorded as 4 of 4 in
-   the August 2026 intake, on the owner's statement that they are complete. No list of the
-   four sessions exists.** See the note in `../targets/bsc-annual-2026.md` before this
-   figure is shown to Mancom, and `../team/meetings-events.md`.
+   covering all trainings and seminars the department **attended**, not only security
+   ones, and not sessions it ran. **Recorded as 4 of 4 in the August 2026 intake, on the
+   owner's statement that they are complete.** The **endpoint security forum** (August
+   2026) is the first of the four with a name against it — the owner confirmed on
+   16 September 2026 that it is one of the four, not a fifth. **The other three are still
+   unlisted.** See the note in `../targets/bsc-annual-2026.md` before this figure is shown
+   to Mancom, and `../team/meetings-events.md`.
 
 ## Notes
 

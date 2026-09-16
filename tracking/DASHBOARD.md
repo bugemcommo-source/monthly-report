@@ -104,7 +104,7 @@ from the owner would turn it back into a win.
 | Average response time | 3.69 hours | **4 hours**, against a 24-hour target |
 | Backups | 21 of 23 — 91.30% | **No figure reported for August.** The detail is held in `private/`, not published — see the note in `support-network/network-log.md` |
 | Server vulnerabilities | None found | **3 assets with open ports, in use and secured.** Zero ransomware threats, zero assets at risk, zero attack events |
-| Security alarms *(new)* | — | **2 branches clear, 4 with faults, 1 with no alarm fitted** — installation ongoing in September |
+| Security alarms *(new)* | — | **Survey carried out; follow-up work in hand.** Held internally and not published, on the owner's ruling of 16 September 2026 |
 | Hardware / printer upkeep | 4 ongoing, 3 pending | **Hardware 4 ongoing, 3 pending. Printers 3 up to date, 3 ongoing, 1 pending** |
 
 **The good news is the patching.** Network patching went from 3 branches up to date to 5,
@@ -124,7 +124,7 @@ rather than presented.
 
 **Three publishing rules apply to this section — see `support-network/network-log.md`.**
 Branch-by-branch patching status, the coop's server names, and — new this month —
-**branch-level security alarm faults** must never go on the public site.
+**anything at all about branch security alarms** must never go on the public site.
 
 ## Annual targets
 
@@ -154,7 +154,7 @@ Nothing else on either scorecard came back behind.
 | Target | Where it stands | Note |
 |---|---|---|
 | **Digital agreements standardised** | **— (5 drafted)** | All five drafted 20 August. **Not counted as met** — the owner's decision, 16 September 2026, reversing his earlier call: none has been presented to Mancom, approved or issued. Reported as work delivered, not as a target reached |
-| **BSC — trainings and seminars attended** | **4 of 4 — owner states complete** | Stated complete in the August intake. **No list of sessions exists.** If Mancom asks which four, there is nothing on file |
+| **BSC — trainings and seminars attended** | **4 of 4 — owner states complete** | Stated complete in the August intake. **Only one of the four is named** — the endpoint security forum organised by **Netplay eScan**, attended by the ICT department in August 2026 (confirmed 16 Sept 2026). The other three are not on file |
 | Deliverable #2 — software development training attended | **1 of 1 — owner states complete** | Same statement, same gap |
 | **BSC — IT support response time** | **4 hours against 24 hours or less** | August 2026 figure, from the Network and System Administration August report, supplied 15 September. Well inside target. July was 3.69 hours — a small rise, both months comfortably within target. **Lower is better.** |
 | Deliverable #1 — cybersecurity training attended | 1 of 1 | |
@@ -212,8 +212,11 @@ A dash means nothing has been recorded. It is not a zero and must never be shown
 **August, still open**
 - **What did Mancom say** about the security awareness platform proposal — approved,
   deferred, or asked for more?
-- **What does eScan actually offer**, and at what price? Nothing about them goes in a
-  report beyond "a third provider is being looked at" until that is known.
+- **What does eScan actually offer**, and at what price? Until that is recorded in
+  `infosec/awareness-platform-proposal.md`, **nothing about what eScan offers, what it
+  costs, or how good it is goes in a report.** Plain facts about the department's dealings
+  with them — a meeting held, a forum attended — may be reported. That is the single
+  version of this rule, revised 16 September 2026; the older, broader wording is retired.
 - **Security incidents and phishing for August** — skipped in the intake, so both show as
   *not reported*. A "none" would make them a win again.
 - **A named list of the four trainings attended.** Four names would turn a claim into a
@@ -243,14 +246,16 @@ A dash means nothing has been recorded. It is not a zero and must never be shown
   normal. Counting artefact, or two branches that have stopped using their connection?
 - Backups, 21 of 23 in July — what happened on the two days that failed, and was the
   backup re-run?
+- **Repository history clean-up — needs the owner's decision.** Two items removed from the
+  published pages on 16 September 2026 are still reachable in the repository's history,
+  because removing a file from the current commit does not remove it from earlier ones.
+  Detail is held internally. **Clearing it needs a history rewrite and a force-push**, the
+  same operation this repo went through once before. Nothing else will do it.
 
 ## Closed in August
 
-- **The Mart screenshot.** The owner confirmed the system runs on the coop's actual data
-  for testing and that the figures are too specific to report. The admin console image was
-  removed from the July report and the removal was pushed to the public site on
-  15 September 2026. **Still outstanding: the file remains in the repository's history, and
-  a rebuild is needed to clear it.**
+- **The Mart screenshot.** Not published. The sign-in screen is described in words instead.
+  *(History clean-up remains open — see above.)*
 - **CAC-IIS presentation number.** July recorded it as waiting for the 1st presentation.
   The 1st was held in August; it is the 2nd that is now outstanding.
 - **The Mart credit line approval.** Granted by Accounting and Credit in August.

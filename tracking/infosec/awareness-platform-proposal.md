@@ -14,9 +14,24 @@ Status: **Presented to Mancom, August 2026 — a third supplier now being looked
 - **The department is now also looking at eScan**, a digital security provider. This makes
   **three** suppliers in the picture: Wizer (the one that ended), KnowBe4 through
   MASS-SPECC (the written proposal), and eScan (new).
-  *Still to record: the exact company name and what eScan is actually offering — training,
-  phishing testing, antivirus, or something wider — plus price and length. Nothing about
-  eScan goes in a report beyond "a third provider is being looked at" until that is known.*
+- **The name given is "Netplay eScan"** (owner, 16 September 2026). Whether "Netplay" is a
+  separate partner, reseller, or part of the same company is **not confirmed** — ask.
+- **eScan ran the endpoint security forum the ICT department attended in August 2026.**
+  Confirmed by the owner on 16 September 2026. That is how the department came across
+  them. See `training-log.md` and `../team/meetings-events.md`.
+  *The owner confirmed on 16 September 2026 that the forum organiser and the provider are
+  the same eScan. Whether "Netplay" is a separate partner or reseller is still unconfirmed.*
+  *Still to record: what eScan is actually offering — training, phishing testing,
+  antivirus, or something wider — plus price and length.*
+
+  **Standing rule, revised 16 September 2026.** The rule was "nothing about eScan goes in
+  a report beyond 'a third provider is being looked at'." It now reads: **nothing about
+  what eScan offers, what it costs, or how good it is goes in a report until it is
+  recorded here.** Plain facts about the department's dealings with them — that a meeting
+  is set for September, that they organised the August forum and the department attended
+  — may be reported, because they describe what ICT did, not what the supplier is worth.
+  The August report says on the slide that the forum was the supplier's own event, so
+  Mancom can weigh it.
 
 ## Why this is on the table
 
@@ -63,16 +78,13 @@ a training impact report twice a year, and advisory support.
 
 ## Cost
 
-Recorded here for internal tracking. **See the redaction note at the bottom before any
-of this appears on the published site.**
+The exact peso figures are **deliberately not on this page.** This site is public and these
+are the numbers of a live commercial negotiation — the redaction note at the bottom of this
+file has said so from the start. They are held internally and shown in the meeting.
 
-| | |
-|---|---|
-| Cost per staff member, for the full 3 years | Php 10,000.00 |
-| Total for 100 staff, for 3 years | Php 1,000,000.00 |
-| VAT | 12% VAT is already included in the price above |
-| Works out at, per year | Php 333,333.33 |
-| Works out at, per staff member per year | Php 3,333.33 |
+What can be said here: the quote covers **100 accounts over three years**, VAT included,
+and it is **materially dearer per person** than what the coop was paying Wizer. The
+like-for-like multiple is in the comparison section below.
 
 **How it would be paid for:** the proposal states the cost can be covered by the
 cooperative's **CETF** — the Cooperative Education and Training Fund. This matters. It
@@ -119,22 +131,22 @@ Supplied by the owner in the August 2026 review.
 |---|---|---|
 | People covered | 29 employees | 100 accounts |
 | Length | 1 year | 3 years |
-| **Total cost** | **Php 50,000.00** | **Php 1,000,000.00** |
-| Cost per year | Php 50,000.00 | Php 333,333.33 |
-| Per person per year | Php 1,724.14 | Php 3,333.33 |
-| Per person per month | Php 143.68 | Php 277.78 |
+| Total cost | *withheld — held internally* | *withheld* |
 
-Only the two totals and the two headcounts come from a source. Everything else in
-that table is arithmetic on them.
+The peso figures are **deliberately withheld from this page** — a live negotiation, on a
+public site. The multiples below are the part that carries the argument, and they give
+nothing away about either supplier's price.
+
+Only the two totals and the two headcounts came from a source. Everything else was
+arithmetic on them.
 
 **Per person, KnowBe4 is about 1.9 times Wizer** — roughly 93% more per person per
 year. That is the like-for-like number.
 
 **The annual bill rises further than that** because the coverage rises too, from 29
-people to 100: Php 50,000 a year becomes Php 333,333 a year, about **6.7 times** the
-annual spend. Most of that increase buys people who were not covered before, not a
-dearer product. Presenting the 6.7× on its own would be misleading, and so would
-presenting the 1.9× on its own.
+people to 100 — about **6.7 times** the annual spend. Most of that increase buys people
+who were not covered before, not a dearer product. Presenting the 6.7× on its own would
+be misleading, and so would presenting the 1.9× on its own.
 
 **Two things stop this being a clean comparison, and both need settling before the
 figures decide anything:**
@@ -144,7 +156,7 @@ figures decide anything:**
 2. It is a **three-year commitment against a one-year one**. That is a different kind
    of decision even at the same price.
 
-*Still to confirm:* whether the Php 50,000 for Wizer included VAT. The KnowBe4 figure
+*Still to confirm:* whether the Wizer total included VAT. The KnowBe4 figure
 states 12% VAT is included; if Wizer's does not, the gap is smaller than it looks.
 
 ## The honest position on comparison
@@ -200,3 +212,11 @@ Naming the platform and describing what it does is fine. Publishing a supplier's
 and the officers' names is not. The published version should say that a proposal is
 under evaluation and describe what it offers, and keep the peso figures and the names
 for the internal version shown in the meeting.
+
+### The rule on the figures
+
+**The peso figures are commercial and are held internally.** They are shown in the meeting
+and they do not go on a public page while the negotiation is live.
+
+This page keeps the multiples (1.9×, 6.7×) and the headcounts, because those carry the
+argument without giving either supplier the other's price.

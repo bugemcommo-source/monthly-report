@@ -21,7 +21,7 @@ Source: `Network&System-Admin_Report,August 2026.pdf`, supplied by the owner and
 outside this repository. The figures below are transcribed from it.
 
 **Read the publishing rules at the foot of this file before any of this goes on the public
-site. August adds a third rule — the security alarm faults.**
+site. August adds a third rule — branch security alarms.**
 
 #### The monthly figures
 
@@ -43,16 +43,15 @@ is left pending.** That is the clearest piece of progress in the section this mo
 **No backup figure was reported for August.** The blank is a real one: not that nobody
 counted. July's 21 of 23 must not be carried forward.
 
-> **PUBLISHING RULE — the reason for a backup gap is not published.**
+> **PUBLISHING RULE — nothing about a backup gap is published.**
 > Added 16 September 2026, from the pre-publish scan. The section's own wording, the
-> platform involved, how long it lasted and whether it is resolved are all held in
-> `private/`. A named core system beside a month-long backup gap, with the recovery status
-> still open, is targeting information rather than a status update — it tells a reader
-> which system to go at and that recovery may not be guaranteed.
+> platform involved, the reason, the duration and whether it is resolved are all held in
+> `private/`. Published pages show the blank and say the matter is covered in the meeting.
+> A rule that explains what it is withholding withholds nothing, so this one does not
+> describe the situation it covers.
 >
-> **Say it in the meeting, record it privately, publish the blank.** When the section
-> confirms backups are running again, the resolved position can be published; an unresolved
-> one cannot.
+> **Say it in the meeting, record it privately, publish the blank.** Only a position the
+> section has confirmed in writing is ever published.
 
 #### Server vulnerabilities
 
@@ -63,19 +62,20 @@ section states the ports are in use and the assets are secured — and against t
 **The four servers are named in the source document. Those names never go on the public
 site.** Report the finding as a count of assets, never as a list.
 
-#### Security alarm system — new this month, and sensitive
+#### Security alarm system — held internally
 
-The section reported the state of the alarm at every branch. In aggregate:
+The section surveyed the alarms and reported its findings. **None of it is written down on
+the public side** — not the results, not any count, not a description of what was found.
+It is held internally and it goes in the meeting pack.
 
-- **2 branches — no problem**
-- **4 branches — a fault**: battery errors, a failed port, a telephone line error, and one
-  branch getting false alarms overnight
-- **1 branch — no alarm installed at all.** Installation is ongoing in September.
+**Owner's ruling, 16 September 2026.** The rule had been "aggregate counts only". The
+security scan argued that even an aggregate says more than it should on a page anyone can
+search, and the owner went further than the scan asked: the subject comes off the public
+side entirely. The earlier wording is retired — see the publishing rule further down this
+file.
 
-**This must never be published branch by branch, and it is the most sensitive thing this
-section has ever reported.** Naming which branch has a dead alarm battery, and which has no
-alarm at all, tells anyone reading the public site which office to walk into. Aggregate
-counts only.
+**What the August report says:** that a survey was carried out and that follow-up work is
+in hand. Nothing further.
 
 #### Internet use by branch (Starlink)
 
@@ -154,8 +154,8 @@ One transcription note: the source document writes one branch's Jul–Aug figure
 "350 G". It has been read as 350 GB.
 
 > **PUBLISHING RULE — branch identities in this table are replaced by letters.**
-> Added 16 September 2026, after the pre-publish scan. This table read alongside the alarm
-> survey and the patching status narrows "which office is least protected" to a single
+> Added 16 September 2026, after the pre-publish scan. This table read alongside the
+> patching status narrows "which office is least protected" to a single
 > answer, and a branch with no internet may also have no remote monitoring. **The letter
 > key is held in `private/` and appears nowhere in this repository.** The August report
 > states that branch-level internet figures are held back — that statement has to remain
@@ -230,14 +230,12 @@ paper. Writing "none found" each month removes the doubt.
 > starting point. The names are deliberately not written into this file. Refer to them
 > as "the coop's main servers" in any published text.
 
-> **PUBLISHING RULE — security alarm faults are aggregate-only, always.**
-> Added 15 September 2026, from the section's first alarm survey. Which branch has a flat
-> alarm battery, which has a dead telephone line, and which has no alarm fitted at all is
-> a map of where to break in. It is worse than the patching detail, because a patching gap
-> needs skill to use and an unarmed office does not.
-> **Publish counts — "2 of 7 branches clear, 4 with faults, 1 awaiting installation" — and
-> never the branch names.** The branch-level table belongs in the meeting and in `private/`,
-> which is never uploaded. The same applies to anything the section reports about CCTV.
+> **PUBLISHING RULE — nothing about branch security alarms goes on the public site.**
+> Added 15 September 2026, revised 16 September 2026 on the owner's ruling. The revision
+> replaces the earlier "aggregate counts only" wording, which is retired: counts are not
+> published either, nor is any description of what was found. The whole subject belongs in
+> the meeting and in `private/`, which is never uploaded. The same applies to anything the
+> section reports about CCTV.
 
 ## Website — BUGEMCO.com
 

@@ -15,7 +15,7 @@ guessing a figure.
 | Staff in succession pooling | 2 | — | |
 | Positions filled against budget | 100% | — | |
 | Employee retention rate | 100% | — | |
-| Trainings and seminars attended | 4 | **4 — owner states complete** | **The owner stated in the August 2026 intake that these are completed.** No list of the individual sessions has ever been supplied. See the note below before this figure is shown to Mancom. |
+| Trainings and seminars attended | 4 | **4 — owner states complete** | **The owner stated in the August 2026 intake that these are completed.** Only **one of the four is named**: the endpoint security forum organised by **Netplay eScan**, attended by the ICT department in August 2026 (confirmed 16 September 2026, one of the four and not a fifth). The other three have never been supplied. See the note below before this figure is shown to Mancom. |
 | New department digital solutions adopted | 1 | — | |
 | IT positions filled | 1 | — | Hiring of an IT Specialist is in progress — see `../team/org-staffing.md` |
 | IT / Server office completed | 100% | — | |
@@ -25,7 +25,7 @@ guessing a figure.
 
 | What we're measuring | Target for the year | Actual so far | Notes |
 |---|---|---|---|
-| IT support response time | 24 hours or less | **4 hours** (August 2026) | **Lower is better.** The Network and System Administration July 2026 report records an average response time of 3.69 hours against a target of 24 hours or less — well inside target. **August is not included:** that section had not supplied its August report, and July's figure is not carried forward into August. Logged in `../support-network/support-log.md` |
+| IT support response time | 24 hours or less | **4 hours** (August 2026) | **Lower is better.** From the Network and System Administration August 2026 report, supplied 15 September — well inside target. July was 3.69 hours, so a small rise, both months comfortably within target. Logged in `../support-network/support-log.md` |
 | Policies approved by Mancom | 8 | — | Logged in `../infosec/policies-guidelines.md` |
 | Guidelines approved | 5 | — | Logged in `../infosec/policies-guidelines.md` |
 | Processes improved or automated | 4 | — | |
@@ -86,12 +86,15 @@ owner had attended sessions which were never written down.
 actual is recorded as **4 of 4** on that basis. The same statement is taken to cover
 Deliverable #2, recorded as **1 of 1**.
 
-**No list of sessions exists.** Not a name, a date, a provider or a certificate. If Mancom
-asks "which trainings?", there is nothing on file to answer with. The figure is the
-owner's own confirmation and the report should not dress it up as anything more.
+**No full list of sessions exists.** As of 16 September 2026 exactly **one of the four has
+a name**: the **endpoint security forum** organised by **Netplay eScan**, attended by the ICT department in August 2026. The
+owner confirmed it is one of the four, not a fifth. The remaining **three are still
+unnamed** — not a name, a date, a provider or a certificate. If Mancom asks "which
+trainings?", one can be answered and three cannot. The figure is still largely the owner's
+own confirmation and the report should not dress it up as anything more.
 
-**Ask for the list next month.** Four named sessions would turn this from a claim into a
-result, and it is the only target on the scorecard resting on nothing but a statement.
+**Ask for the other three next month.** Four named sessions would turn this from a claim
+into a result, and it is the only target on the scorecard resting mostly on a statement.
 
 ### Note — how the information drives count was settled
 
