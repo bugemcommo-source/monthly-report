@@ -69,8 +69,8 @@ From the owner's July intake.
 - **SCL Dura** — the supplier of the Queuing System.
 - **MASS-SPECC** — on support tickets. MASS-SPECC is the federation BUGEMCO belongs to.
   *(Which platform the tickets are raised against is deliberately not named here. This
-  file is published. Naming a core system on a public page, in a month when its backup is
-  reported as unavailable, is targeting information rather than a status update.)*
+  file is published, and naming a core system on a public page is targeting information
+  rather than a status update.)*
 - **ACCESS branding auditors** — an audit against the ACCESS branding standard.
   **ACCESS** stands for **A Competitive Choice for Excellence in Service and Soundness**
   (confirmed by the owner, July 2026 intake). In plain terms it is a standard a
