@@ -117,12 +117,19 @@
    the same travel over whatever length the page happens to be, so the edge
    can never arrive.
 
-   The percentages are of each layer's OWN height, and each is smaller than
-   that layer's over-scan in report.css (14% of 140% = 19.6% against a 20%
-   budget; 18% of 160% = 28.8% against 30%). Raise one and raise the other.
-   ───────────────────────────────────────────────────────── */
-.backdrop-photo  { translate: 0 calc(var(--scroll-fraction, 0) * -14%); }
-.layer-capsules  { translate: 0 calc(var(--scroll-fraction, 0) * -18%); }
+   ONE RATE, NOT TWO. The capsules used to slide at -18% against the photo's
+   -14%, which is exactly what pulled the traced capsules off the printed ones
+   further down the page: the depth effect was paid for with a double outline.
+   The traced layer IS the printed capsules, so it has to move with them; the
+   depth now comes from the photograph against the content, which is where a
+   reader actually sees it. Both layers share one box (the --frame-* properties
+   in report.css), so the same percentage is the same number of pixels.
+
+   The percentage is of the layer's OWN height and must stay smaller than its
+   over-scan in report.css: content 14% of 140% = 19.6% against a 20% budget;
+   title 14% of 120% = 16.8% against 20%. Raise it and raise the over-scan. */
+.backdrop-photo,
+.layer-capsules  { translate: 0 calc(var(--scroll-fraction, 0) * -14%); }
 
 .layer-glow { animation: glowRoam 24s ease-in-out infinite alternate; }
 @keyframes glowRoam {
@@ -183,6 +190,25 @@
   transition-delay: 0s;
 }
 
+/* ── WHATEVER HAS KEYBOARD FOCUS IS VISIBLE, AT ONCE ───────
+   Tabbing to a screenshot frame far down the page used to leave it at opacity
+   0 for 800ms or more: the browser smooth-scrolls to it, the observer waits for
+   it to arrive, then the reveal fades it in. For that whole time the focused
+   control — and its focus ring — was invisible (WCAG 2.4.7). Focus inside a
+   block now shows the block in its final state immediately, with no transition
+   and no clip. Specificity (0,3,0), placed after every reveal rule, so it beats
+   the sideways variants and the tilt's own transition list. Once the observer
+   reveals the block the ordinary rules take over with nothing left to animate. */
+[data-reveal-on-scroll]:not(.is-revealed):focus-within,
+[data-reveal-on-scroll]:not(.is-revealed):focus-visible {
+  opacity: 1; translate: 0 0;
+  transition: none;
+}
+.shot[data-reveal-on-scroll]:not(.is-revealed):focus-within img {
+  clip-path: inset(0 0 0 0);
+  transition: none;
+}
+
 /* Bars grow on arrival. effects.js paints 0% first and defers the real value
    two frames, so there is a rendered "before" state to animate away from.
    Width, never transform — see the note at the top of this file. */
@@ -204,9 +230,12 @@
   animation: draw 1s var(--ease-out) 140ms both;
 }
 @keyframes draw { to { stroke-dashoffset: 0; } }
+/* The stagger is capped at the tenth point. Uncapped, the 21-day chart's last
+   markers were still popping in two seconds after the section arrived — on a
+   projector, a chart that looks unfinished while it is being talked about. */
 .is-revealed .ch-dot {
   animation: pop var(--dur-fast) var(--ease-out) both;
-  animation-delay: calc(320ms + var(--i, 0) * 80ms);
+  animation-delay: calc(320ms + min(var(--i, 0), 9) * 60ms);
 }
 @keyframes pop { from { r: 0; opacity: 0; } to { opacity: 1; } }
 

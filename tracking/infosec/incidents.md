@@ -9,13 +9,15 @@ Target: **zero breaches for the year. Lower is better.**
 |---|---|---|---|---|
 | | *No incidents recorded so far in 2026.* | | | |
 
+**September 2026 — none.** Confirmed by the owner on 7 October 2026, in the September
+intake: no security incident in September. A confirmed nil return, not a blank.
+
+**August 2026 — none.** Skipped in the August intake, then confirmed by the owner on
+7 October 2026 (September intake): no security incident in August. Now a confirmed nil
+return, not a blank. **July, August and September 2026 are all confirmed zero.**
+
 **July 2026 — none.** Confirmed by the owner in the July intake: no security incident
 was reported for the month. This is a confirmed nil return, not a blank.
-
-**August 2026 — not reported.** The owner chose to skip this question in the August
-intake, so there is no nil return for the month. This is a blank, and a blank is weaker
-than a "none": July could be reported as a confirmed zero against the target, August
-cannot. Ask again before the report is presented.
 
 Counts towards: BSC "Security breaches" (target 0) and Deliverables #9 (Major
 security breaches, target 0) and #12 (Money lost to a cyber incident, target 0).

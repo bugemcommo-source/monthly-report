@@ -1,5 +1,5 @@
 # CMS — Credit Management System
-Status: Built and ready — waiting for 1st presentation · Progress: — · Target completion: To be confirmed with the owner
+Status: Built and ready — waiting for 1st presentation · Progress: 60% (stage scale, see accomplishment-scale.md) · Target completion: To be confirmed with the owner
 Linked to: Deliverable #4 (System improvements proposed)
 
 ## What this is
@@ -13,10 +13,9 @@ Still to confirm: what it covers, which department uses it, and what stage it is
   moves until that date is set.
 
 ## Monthly log
-- 2026-08 — No presentation held. Still waiting for a date for the **first**
-  presentation. Position unchanged from July.
-- 2026-07 — The system is finished and ready to be shown. Waiting for a date for the
-  first presentation.
+- 2026-09 — **Still waiting on a date for the 1st presentation** — owner, 7 October 2026: "still waiting". No movement in September; built and ready, unused.
+- 2026-08 — No presentation held. Still waiting for a date for the **first** presentation. Position unchanged from July.
+- 2026-07 — The system is finished and ready to be shown. Waiting for a date for the first presentation.
 
 ## Screens on record (August 2026)
 

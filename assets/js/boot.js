@@ -2,6 +2,7 @@
 import { Site } from './site.js';
 import { initEffects } from './effects.js';
 import { initDocViewer } from './docviewer.js';
+import { initPresent } from './present.js';
 
 const root = document.querySelector('.site') || document.body;
 
@@ -16,4 +17,7 @@ if (main && main.querySelector('.band')) {
   const site = new Site(main);
   site.start();
   window.site = site;   // handy when checking something in the browser console
+  // Section keys, the Esc overview, F fullscreen and the P presenter window.
+  // After the page controller, so the bands and the rail exist.
+  initPresent();
 }

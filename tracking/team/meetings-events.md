@@ -16,6 +16,7 @@ out of one.
 | 2026-05 | BLC SMS Meeting (system presentation), SCL Dura (MIS and Queuing System) | Youth Camp, Information Drive | Cybersecurity Awareness, Spiritual Enrichment |
 | 2026-07 | Weekly Mancom Meeting, Weekly Policy Review, Department Meeting, SCL Dura (supplier), MASS-SPECC (support tickets), ACCESS branding auditors, system owners (presentations of in-house systems) | **none — confirmed** | *not reported* |
 | 2026-08 | Mancom (security awareness platform proposal presented), CAC Supervisor, CAC-IIS 1st presentation, BLC SMS 2nd presentation, Mart Online Store 3rd presentation. **The ICT Department meeting did not take place** | *not reported* | **Endpoint security forum**, organised by **Netplay eScan** — attended by the ICT department. Counted as one of the four BSC "trainings and seminars attended", not a fifth. Date and whether it was online or in person **not supplied** |
+| 2026-09 | **CLIMBS — first planning meeting on API integration for CAC-IIS**, held September 2026 (owner confirmed 7 October 2026). No date yet for the next meeting; what was agreed not stated. **eScan meeting held in September** (owner, 8 October 2026: "yes naka meeting and device evaluation nalang"); what remains with eScan is **device (endpoint protection) evaluation only** | *not reported* — the Ownership Meeting is in October | *not reported* |
 
 **August 2026 — the ICT Department meeting did not happen.** It was planned in the July
 intake. Confirmed by the owner in the August intake.

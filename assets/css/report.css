@@ -3,6 +3,15 @@
    removing that file must leave this still readable and complete. */
 
 *, *::before, *::after { box-sizing: border-box; }
+/* Smooth — except for the one scroll it was wrong for. Tab moving focus to
+   something off screen also glided, so a screenshot frame far down the page
+   was focused while still off screen for 0.9–1.1s, its focus ring nowhere to
+   be seen. effects.js (bindFocusScroll) now brings a Tab-focused element into
+   view INSTANTLY before the browser's own smooth scroll can start. Dropping
+   smooth scrolling here altogether was tried and reverted: it also made every
+   incidental scroll (a click that focuses a frame part-way off screen, an
+   automated test's scroll-into-view) land instantly, which moved the page
+   behind the enlarged picture. */
 html { scroll-behavior: smooth; }
 /* Both switches, not just the media query.
    A long glide on every rail click and every Home/End is the single motion most
@@ -61,20 +70,70 @@ p, li, .band-sub, .metric-note, .shot figcaption { font-variant-numeric: normal;
   z-index: -1;
   pointer-events: none;
   overflow: hidden;
+
+  /* ── THE FRAMING, STATED ONCE ────────────────────────────
+     Every photograph has capsules PRINTED in it, and .layer-capsules lays a
+     traced SVG exactly over them. The two only register if they share the same
+     box, the same background-size, the same background-position AND the same
+     parallax rate. They used to differ on two of those four: the photo had
+     inset -20% 0 and the capsules -30% 0 (so `cover` scaled them ~1.4× against
+     ~1.6× of the screen), and they slid at -14% and -18% of their own heights.
+     On a projector that was a soft double outline round every capsule.
+     So the framing is now four custom properties, read by BOTH layers. Change
+     a value here and the photograph and its tracing move together; there is no
+     second copy to forget.
+
+     Title (the opening screen): the box starts at the top edge of the screen
+     and over-scans only DOWNWARDS, and the picture is pinned right-top. With
+     the old centred -20% framing the coop logo printed in the top-right of
+     bg-title.jpg was cut off at the top on every screen, and at the right as
+     well at 16:10 and 4:3 — the opening screen was showing the building and
+     hiding the brand. Pinned right-top, the whole logo is on screen at
+     1920×1080, 1920×1200 and 1440×1080. Travel budget: the layer is 120% of
+     the screen and moves at most 14% of that (16.8% of the screen) upwards, so
+     its bottom edge can never arrive; its top edge only ever moves away.
+     Content: unchanged from before, deliberately. Its contrast floors (see
+     "TEXT STRAIGHT ON THE ARTWORK") were measured on this framing. */
+  --frame-title-inset: 0 0 -20% 0;
+  --frame-title-pos:   right top;
+  --frame-title-size:  cover;
+  --frame-inset:       -20% 0;
+  --frame-pos:         center;
+}
+/* 4:3 AND THEREABOUTS: the logo is scaled down, not just moved. On a squarer
+   screen `cover` is driven by the HEIGHT of the 120% box, so the 16:9 picture
+   is scaled up until its printed coop logo is ~675px wide and sits right
+   behind "ICT DEPARTMENT" (measured at 1440×1080: the T over the c). Sized at
+   86% of the box height instead, the picture is still taller than the screen
+   (103%) and far wider than it, so nothing is uncovered, and the logo shrinks
+   to ~580px and clears the title. The parallax budget still holds for the
+   only part of the page this picture is shown on — the opening screen. */
+@media (max-aspect-ratio: 3/2) and (min-aspect-ratio: 1/1) {
+  .backdrop { --frame-title-size: auto 86%; }
+}
+/* A portrait phone has no width to spare: right-pinned, the 16:9 picture shows
+   only its last fifth, which is half a logo. Centred is the better crop there. */
+@media (max-aspect-ratio: 1/1) {
+  .backdrop { --frame-title-pos: center top; }
 }
 
-/* The over-scan above and below is the parallax's travel budget: the layer
-   is taller than the screen so it can slide without its edge ever coming
-   into view. effects.css moves it by a fraction of its own height that is
-   deliberately smaller than the over-scan here — change one and check the
-   other. */
+/* The over-scan is the parallax's travel budget: the layer is taller than the
+   screen so it can slide without its edge ever coming into view. effects.css
+   moves it by a fraction of its own height that is deliberately smaller than
+   the over-scan here — change one and check the other. */
 .backdrop-photo {
-  position: absolute; inset: -20% 0;
+  position: absolute; inset: var(--frame-inset);
   background-size: cover;
-  background-position: center;
+  background-position: var(--frame-pos);
   opacity: 0;
   transition: opacity 700ms var(--ease-in-out);
   will-change: opacity, translate;
+}
+.backdrop-photo[data-photo="title"] {
+  inset: var(--frame-title-inset);
+  background-position: var(--frame-title-pos);
+  background-size: var(--frame-title-size);
+  background-repeat: no-repeat;
 }
 .backdrop-photo[data-photo="title"]   { background-image: url('../img/bg-title.jpg'); }
 .backdrop-photo[data-photo="content"] { background-image: url('../img/bg-content.jpg'); }
@@ -130,16 +189,26 @@ p, li, .band-sub, .metric-note, .shot figcaption { font-variant-numeric: normal;
 .layer-glow            { z-index: 3; }
 canvas.layer-particles { z-index: 4; }
 
+/* MUST register exactly over the capsules printed in the photograph: same box,
+   same background-size, same background-position, same parallax rate as
+   .backdrop-photo. All four come from the --frame-* properties on .backdrop —
+   never write a number here. The SVGs are 1920×1080, the same 16:9 as the
+   2560×1440 photographs, so `cover` scales both by the same factor. */
 .layer-capsules {
-  position: absolute; inset: -30% 0;
+  position: absolute; inset: var(--frame-inset);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: var(--frame-pos);
   background-image: url('../img/capsules-content.svg');
   opacity: 0.85;
   will-change: translate;
 }
-.backdrop[data-backdrop="title"] .layer-capsules { background-image: url('../img/capsules-title.svg'); }
+.backdrop[data-backdrop="title"] .layer-capsules {
+  inset: var(--frame-title-inset);
+  background-position: var(--frame-title-pos);
+  background-size: var(--frame-title-size);
+  background-image: url('../img/capsules-title.svg');
+}
 
 /* The closing section shows the plain building, NOT bg-closing.jpg. That file
    has "SALAMAT SA GUGMA!" painted into the photograph, and the closing panel
@@ -189,11 +258,14 @@ canvas.layer-particles {
    edges of the screen, out of the way of the artwork.
    The logo is a real element in the opening section instead.
    ───────────────────────────────────────────────────────── */
+/* 270px, not 340px. The opening screen also shows the coop's logo printed in
+   the photograph now (see the title framing on .backdrop), and every pixel of
+   height here is a pixel the summary strip loses to the fold. */
 .site-logo img {
   display: block;
-  width: clamp(200px, 26vw, 340px);
+  width: clamp(180px, 15vw, 270px);
   height: auto;
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--rhythm-tight);
 }
 
 /* A hairline of progress along the very top edge. No bar, no background
@@ -216,8 +288,12 @@ canvas.layer-particles {
    (the brand's own shape). Hovering or focusing one shows its name, so the
    labels are there when wanted and invisible when not.
    ───────────────────────────────────────────────────────── */
+/* Inside the projector safe area, and centred on the same vertical line as the
+   two round buttons below it: the rail's 24px targets sit (46 − 24) / 2 in from
+   the buttons' outer edge, so dots and buttons read as one column of chrome.
+   It was 22px from the edge, i.e. inside the overscan on most projectors. */
 .site-nav {
-  position: fixed; right: clamp(0.6rem, 1.6vw, 1.4rem); top: 50%;
+  position: fixed; right: calc(var(--safe-edge) + (var(--chrome-size) - 24px) / 2); top: 50%;
   translate: 0 -50%;
   z-index: 50;
 }
@@ -248,15 +324,41 @@ canvas.layer-particles {
 .site-nav-link::before {
   content: '';
   position: absolute; left: 50%; top: 50%; translate: -50% -50%;
-  width: 10px; height: 10px;
+  /* TWO-TONE, SO IT HOLDS ON ANY BACKGROUND (WCAG 2.1 SC 1.4.11, 3:1).
+     The mark was rgba(0,102,51,.30): 1.40–1.62:1 on the pale page and ~1.0:1
+     over the green capsules printed in the opening photograph — a control
+     that disappears. It is now a white disc inside a --green-deep ring: the
+     ring is 9.6:1 against the pale page, the white is ~7:1 against brand green
+     and ~16:1 against the dark green of the art, so one tone or the other
+     always clears 3:1 against whatever is behind it. The ring is drawn inside
+     the 12px disc, so the mark's footprint is what it was. */
+  width: 12px; height: 12px;
   border-radius: var(--radius-pill);
-  background: rgba(0, 102, 51, 0.30);
+  background: #fff;
+  box-shadow: inset 0 0 0 2.5px var(--green-deep);
   transition: height 260ms var(--ease-out), background 260ms var(--ease-out);
 }
-/* The current mark stretches into a capsule, and its target grows with it. */
+/* The current mark stretches into a capsule, and its target grows with it.
+   Solid green with a white edge, for the same reason: green alone vanishes on
+   the green art, white alone on the pale page. */
 .site-nav-link.is-current { height: 40px; }
-.site-nav-link.is-current::before { height: 30px; background: var(--green); }
-.site-nav-link:hover::before { background: var(--green-light); }
+.site-nav-link.is-current::before {
+  height: 30px; background: var(--green);
+  box-shadow: 0 0 0 2px #fff;
+}
+.site-nav-link:hover::before { background: var(--tint-green-3); }
+.site-nav-link.is-current:hover::before { background: var(--green-light); }
+/* A TWO-TONE FOCUS RING. The page-wide ring is brand green, and over the green
+   capsule art behind the lower rail links it measured 1.12–1.30:1. Here the
+   ring is near-black with white on both sides of it (the white is a box-shadow
+   wider than the outline's reach), so it reads on the pale page, on green art
+   and on yellow art alike: ink on white is ~16:1. */
+.site-nav-link:focus-visible {
+  outline: 3px solid #0D1A13;
+  outline-offset: 3px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 3px #fff, 0 0 0 9px #fff;
+}
 
 /* The name, revealed on hover or keyboard focus.
    The label is stated twice — once with alt text, once without — and that is
@@ -272,7 +374,12 @@ canvas.layer-particles {
 .site-nav-link::after {
   content: attr(data-label);
   content: attr(data-label) / '';
-  position: absolute; right: 28px; top: 50%; translate: 0 -50%;
+  /* 38px, not 28px. The label used to start 4px left of the link, i.e. INSIDE
+     the 3px focus ring drawn 3px outside it, so on its left side the green
+     ring was measured against this near-black plate: 2.10:1, under the 3:1 a
+     focus indicator needs. Now an 8px strip of the pale page shows between the
+     ring and the label, and the ring sits on that on every side (~6:1). */
+  position: absolute; right: 38px; top: 50%; translate: 0 -50%;
   padding: 0.35rem 0.8rem; border-radius: var(--radius-pill);
   background: rgba(10,25,18,0.92); color: #EAF3EE;
   font: 700 var(--fs-caption)/1.2 var(--font-head); letter-spacing: 0.04em;
@@ -333,11 +440,19 @@ canvas.layer-particles {
    right padding is larger than the left. */
 .band {
   position: relative; z-index: 1;
+  /* The right padding is the chrome channel (--chrome-gutter in tokens.css):
+     the rail and the two round buttons live in it, inside the projector's safe
+     area, and no card may reach into it. Only above 700px — below that the
+     chrome moves to a bottom strip (see "Narrow screens"). */
+  --band-pad-r: clamp(3.25rem, 5vw, 5rem);
   padding:
     clamp(4rem, 10vh, 7.5rem)
-    clamp(3.25rem, 5vw, 5rem)
+    var(--band-pad-r)
     clamp(4rem, 10vh, 7.5rem)
     clamp(1.5rem, 4vw, 4rem);
+}
+@media (min-width: 701px) {
+  .band { --band-pad-r: max(clamp(3.25rem, 5vw, 5rem), var(--chrome-gutter)); }
 }
 .band > * { max-width: 1800px; margin-inline: auto; }
 /* Activating a rail link moves focus to the section, so a keyboard reader is
@@ -364,7 +479,7 @@ canvas.layer-particles {
 .band + .band::before {
   content: '';
   position: absolute; top: 0;
-  left: clamp(1.5rem, 4vw, 4rem); right: clamp(3.25rem, 5vw, 5rem);
+  left: clamp(1.5rem, 4vw, 4rem); right: var(--band-pad-r);
   height: 1px;
   background: linear-gradient(90deg,
     rgba(0,102,51,0.28), rgba(0,102,51,0.10) 38%, rgba(0,102,51,0) 78%);
@@ -423,10 +538,22 @@ canvas.layer-particles {
    be — that difference is most of what separates a website from slides.
    svh, not vh, so mobile browser chrome doesn't cause a jump on first scroll. */
 .band--hero {
-  min-height: 100svh;
+  /* + 6px: the next band's seam capsule hangs 5px above that band's top, so
+     with the hero exactly one screen tall it peeked in as a 5px dark-green
+     chip at the bottom-left corner of the opening screen. */
+  min-height: calc(100svh + 6px);
   display: grid;
   align-content: center;
-  padding-top: clamp(3rem, 8vh, 6rem);
+  /* THE OPENING SCREEN HAS TO BE ONE SCREEN. It measured 1,144–1,344px tall
+     at 1920×1080, so "Scroll to read" sat below the fold and the summary strip
+     ended inside the projector's bottom overscan. The hero now runs on a
+     tighter budget than the rest of the page — smaller logo, the title's own
+     size step trimmed, the gaps between its lines set at the tight rhythm
+     rather than the block rhythm, the strip's padding and the cue's gap
+     reduced — so the whole opening, cue included, ends above the 48px safe
+     edge at 1920×1080 on every published month. Its top padding still clears
+     the safe edge. */
+  padding-top: clamp(3rem, 5vh, 4.5rem);
 }
 /* width:100% is needed, not just max-width. `.band > *` sets margin-inline:auto,
    and an auto margin beats grid's default stretch — so the hero block was
@@ -441,9 +568,9 @@ canvas.layer-particles {
    is unmistakably subordinate to it — at 1920 the hero reads about 96px
    against a section's 70px. */
 .band--hero .band-title {
-  font-size: clamp(2.9rem, 7vw, 6rem);
+  font-size: clamp(2.9rem, 6vw, 5.4rem);
   line-height: 0.98;
-  margin-bottom: var(--rhythm-block);
+  margin-bottom: var(--rhythm-tight);
 }
 /* The keel: a thick capsule under the opening headline, running deep green
    into full yellow. It is the eyebrow's 6px rule scaled up to match a 96px
@@ -456,7 +583,7 @@ canvas.layer-particles {
   display: block;
   width: clamp(110px, 14vw, 220px);
   height: 12px;
-  margin-top: clamp(0.9rem, 2vh, 1.5rem);
+  margin-top: clamp(0.7rem, 1.5vh, 1.2rem);
   border-radius: var(--radius-pill);
   background: linear-gradient(90deg, var(--green-deep), var(--green) 35%, var(--yellow-warm) 75%, var(--yellow));
   box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 3px 10px rgba(0,60,30,0.22);
@@ -472,8 +599,47 @@ canvas.layer-particles {
      a third of the size and half the weight, which is where that job belongs. */
   max-width: 46ch;
 }
-.band--hero .eyebrow { margin-bottom: var(--rhythm-block); }
+.band--hero .eyebrow { margin-bottom: clamp(0.9rem, 1.4vw, 1.4rem); }
 .band--hero .band-head { margin-bottom: var(--rhythm-block); }
+/* The opening paragraph runs wider than body prose: it is two or three
+   sentences said once, to a room, and at the 68ch measure it took a fourth
+   line the opening screen does not have. */
+.band--hero p:not(.eyebrow):not(.scroll-cue) { max-width: min(100%, 96ch); }
+/* The strip is the same object as everywhere else, on a slightly tighter
+   inner margin, and the cue sits one block-step under it rather than a group
+   step plus its own 3rem. */
+.band--hero .summary-strip {
+  margin-bottom: var(--rhythm-block);
+  padding: clamp(1rem, 1.6vw, 1.6rem);
+  padding-top: clamp(1.3rem, 2vw, 2rem);
+}
+.band--hero .scroll-cue { margin-top: var(--rhythm-block); }
+/* On a wide screen the cue costs no height at all. It moves up beside the
+   last line of text above the summary strip, against the right-hand edge —
+   that line never runs that far (it is capped at 96ch above) — so the strip,
+   the figures that ARE the report, is the last thing on the opening screen and
+   the cue still points at what comes next. Done with flex `order`, so it needs
+   nothing from a month's markup: the strip and everything after it go to the
+   end, and the cue slots in just before them. The negative top margin is
+   exactly its own height plus the gap it sits in, so the strip lands where it
+   would have without the cue. Below 1200px there is no spare width beside the
+   text and the cue stays in its own row under the strip. */
+@media (min-width: 1200px) {
+  .band--hero > div { display: flex; flex-direction: column; }
+  .band--hero .summary-strip,
+  .band--hero .summary-strip ~ * { order: 2; }
+  .band--hero .scroll-cue {
+    order: 1;
+    align-self: flex-end;
+    margin: calc(-1 * (2rem + var(--rhythm-tight))) 0 0;   /* 2rem = the cue's own height: 1rem type + 0.5rem padding top and bottom */
+  }
+  /* The gap under the cue is the STRIP's top margin, not the cue's bottom
+     margin: the cue is usually followed by the speaker notes, and the rule
+     near the top of this file that zeroes the margin of whatever precedes a
+     trailing .notes would take it away. Only when there is a cue to make room
+     for. */
+  .band--hero > div:has(> .scroll-cue) > .summary-strip { margin-top: var(--rhythm-tight); }
+}
 
 /* The strapline is a bare <p class="eyebrow"> sitting straight on the title
    photograph, and it is the smallest text on the opening screen. It keeps its
@@ -582,9 +748,16 @@ canvas.layer-particles {
    and left every other band heading at the browser's default — small, grey
    and indistinguishable from body text. The heading level is an outline
    decision; the size is a design one. */
+/* 1.14, not 1.02. Poppins Black carries deep descenders, and at 1.02 a
+   two-line title put the g, p and y of its first line on top of the capitals
+   of its second — measured touching at 70px on every wrapped section title.
+   1.14 clears them by a few pixels without opening the title into two loose
+   lines. The extra 0.1em under it keeps the lead sentence from being pressed
+   up against the last line now that the line box is taller. The hero headline
+   is one line of capitals with no descenders and keeps its own 0.98 below. */
 .band-title {
-  font: 900 var(--fs-title)/1.02 var(--font-head);
-  margin: 0 0 var(--rhythm-tight);
+  font: 900 var(--fs-title)/1.14 var(--font-head);
+  margin: 0 0 calc(var(--rhythm-tight) + 0.1em);
   color: var(--ink);
   letter-spacing: var(--track-tight);
   text-wrap: balance;
@@ -726,9 +899,16 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   color: var(--green-deep);
   display: flex; align-items: center; gap: 0.6rem;
 }
+/* A downward chevron, not a vertical tick. The 2px tick after the words read
+   as a text caret — "SCROLL TO READ |" — rather than as "down". Drawn with two
+   borders turned 45° using the independent `rotate` property, so the bob on
+   the cue (translate) is left alone. */
 .scroll-cue::after {
-  content: ''; width: 2px; height: 22px; border-radius: 2px;
-  background: linear-gradient(180deg, var(--green), transparent);
+  content: ''; width: 9px; height: 9px;
+  margin-top: -5px;
+  border-right: 2.5px solid var(--green-deep);
+  border-bottom: 2.5px solid var(--green-deep);
+  rotate: 45deg;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -751,9 +931,13 @@ strong, b { font-weight: 800; color: var(--green-deep); }
      The card is 82% opaque white over a pale wash, so the blur was doing
      almost nothing anyone could see, at the cost of the one effect they could.
      A slightly more opaque card gives the same separation for free. */
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0) 42%),
-    rgba(255, 255, 255, 0.90);
+  /* OPAQUE. At 0.90, and still at 0.96, the backdrop's bright yellow capsule
+     showed through the cards late in the page as a pale block across their
+     text (October's "Figures we expect", Network's list card) — a highlight
+     that meant nothing. A card is a surface for words; the artwork stays
+     round it, not under it. Separation from the page comes from the edge, the
+     hairline and the shadow, which are unchanged. */
+  background: var(--card-solid);
   border: 1px solid var(--card-edge);
   border-radius: var(--radius-lg);
   padding: var(--card-pad);
@@ -975,7 +1159,13 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   border-radius: var(--radius-pill);
   background: var(--track);
   overflow: hidden;
+  /* THE GROOVE NEEDS AN EDGE (WCAG 2.1 SC 1.4.11). --track over a card is
+     1.26:1, so where the bar is empty its far end — the 100% the fill is read
+     against — was a pale smudge. A 2px ring of #5E7268 measures 4.96:1 on the
+     card and 3.92:1 on the groove. It sits under the fill, so it only shows
+     along the part of the bar that is still empty. */
   box-shadow:
+    inset 0 0 0 2px #5E7268,
     inset 0 1px 3px rgba(0,40,20,0.22),
     0 1px 0 rgba(255,255,255,0.55);
 }
@@ -1008,7 +1198,16 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   max-width: 100%;
   border-radius: var(--radius-pill);
   background: var(--brand-fill);
+  /* The fill's own keyline. Its bright end — green-light, the warm yellow of
+     `met`, the full yellow of `ahead`, the amber of `behind` — measured only
+     1.12–2.65:1 against the groove and the card, so where the fill STOPS, the
+     one thing a reader is meant to see, was the faintest edge on the bar. A
+     2px line of --green-deep round the fill is 7.67:1 on the groove, 9.69:1 on
+     the card and 8.97:1 on #FAFA00, whatever colour the fill ends in. Listed
+     first so it paints over the inner highlight. `behind` swaps it for the
+     amber ink below. */
   box-shadow:
+    inset 0 0 0 2px var(--green-deep),
     0 1px 0 rgba(255,255,255,0.35) inset,
     0 0 12px rgba(0,102,51,0.30);
 }
@@ -1156,8 +1355,18 @@ strong, b { font-weight: 800; color: var(--green-deep); }
    It is still a ::before, so it is announced ahead of its own bar's name. With
    six of them that was a reading-order problem; with one it is a key read out
    once at the top of the chart, which is where a key belongs. */
-.tbar[data-pace]::before {
-  content: attr(data-pace) '% expected by now';
+/* THE KEY IS REAL TEXT WHEN SCRIPTING RUNS. A ::before string is read out as
+   part of whichever group it sits in, so a screen reader heard "75% expected
+   by now" inside the FIRST paced bar's group only, as if it were a fact about
+   that one target. effects.js (bindPaceKey) now writes the key as a real
+   <span class="tbar-key"> in the same place and points every paced bar's
+   group at it with aria-describedby, so each target is announced with the key
+   as its description. It marks those bars data-keyed, which retires the
+   pseudo-element below; the ::before stays as the no-JavaScript fallback. */
+.tbar[data-pace]::before { content: attr(data-pace) '% expected by now'; }
+.tbar[data-pace][data-keyed]::before { content: none; }
+.tbar[data-pace]::before,
+.tbar-key {
   position: absolute;
   left: clamp(5.5rem, var(--pace), calc(100% - 5.5rem));
   translate: -50% 0;
@@ -1169,7 +1378,8 @@ strong, b { font-weight: 800; color: var(--green-deep); }
 }
 .tbar[data-state="behind"] .tbar-fill {
   background: linear-gradient(90deg, #C85A10, var(--st-delayed));
-  box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 0 12px rgba(232,114,26,0.40);
+  /* #8A3D00 keyline: 5.83:1 on the groove, 7.37:1 on the card. */
+  box-shadow: inset 0 0 0 2px var(--st-delayed-ink), 0 1px 0 rgba(255,255,255,0.35) inset, 0 0 12px rgba(232,114,26,0.40);
 }
 /* The figure for a target that is behind reads in the warning ink, not the
    brand green — the amber plate colour itself is only 2.7:1 as text on a pale
@@ -1187,7 +1397,7 @@ strong, b { font-weight: 800; color: var(--green-deep); }
 }
 .tbar[data-state="ahead"]  .tbar-fill {
   background: linear-gradient(90deg, var(--green), var(--green-light) 60%, var(--yellow));
-  box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 0 14px rgba(250,250,0,0.35);
+  box-shadow: inset 0 0 0 2px var(--green-deep), 0 1px 0 rgba(255,255,255,0.4) inset, 0 0 14px rgba(250,250,0,0.35);
 }
 /* REACHED. charts.js now emits four states, not three: a target hit exactly is
    `met` and is no longer folded into `ahead`. Nothing here styled it, so `met`
@@ -1211,7 +1421,7 @@ strong, b { font-weight: 800; color: var(--green-deep); }
    against "5 of 5") were always the real carrier and still are. */
 .tbar[data-state="met"] .tbar-fill {
   background: linear-gradient(90deg, var(--green-deep), var(--green) 62%, var(--yellow-warm));
-  box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 0 14px rgba(0,102,51,0.38);
+  box-shadow: inset 0 0 0 2px var(--green-deep), 0 1px 0 rgba(255,255,255,0.4) inset, 0 0 14px rgba(0,102,51,0.38);
 }
 .tbar[data-state="ahead"] .tbar-pct {
   background: var(--green);
@@ -1432,11 +1642,15 @@ strong, b { font-weight: 800; color: var(--green-deep); }
 /* Both were under the 16px floor — 14.4px for the name of the screen being
    shown and 12.48px for the only thing that says the picture can be opened.
    Both carry meaning, so both are 1rem. */
+/* It WRAPS rather than truncating. With an ellipsis, at 1440 a third-width
+   frame read "Attendance & Clai…" — the name of the screen is the frame's
+   whole label, and half a name is not one. It stays 1rem and takes a second
+   line when it needs one. */
 .shot-name {
   flex: 1 1 auto; min-width: 0;
   font: 700 var(--fs-caption)/1.3 var(--font-head);
   color: var(--green-deep);
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  white-space: normal; overflow-wrap: anywhere;
 }
 .shot-zoom {
   flex: none;
@@ -1505,7 +1719,9 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   display: grid; grid-template-rows: auto auto;
   align-content: center; justify-items: center; gap: var(--sp-2);
   background: rgba(6,20,14,0.96); cursor: zoom-out;
-  padding: clamp(1rem, 4vh, 3rem) clamp(1rem, 4vw, 3rem);
+  /* The sides leave room for the close button (safe edge + 44px + a gap), so a
+     wide picture can never slide under it. */
+  padding: clamp(1rem, 4vh, 3rem) max(clamp(1rem, 4vw, 3rem), calc(var(--safe-edge) + 56px));
   opacity: 0;
   transition: opacity 200ms var(--ease-out);
 }
@@ -1527,13 +1743,30 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   max-width: 70ch;
   color: #E7EFE9; font-size: var(--fs-caption); line-height: 1.5; text-align: center;
 }
+/* Inside the projector safe area. It was 24px from the corner — in the
+   overscan, i.e. possibly off the projected picture altogether. */
 .lightbox-close {
-  position: absolute; top: clamp(0.75rem, 2vw, 1.5rem); right: clamp(0.75rem, 2vw, 1.5rem);
+  position: absolute; top: max(0.75rem, var(--safe-edge)); right: max(0.75rem, var(--safe-edge));
   width: 44px; height: 44px; padding: 0;
   display: grid; place-items: center;
   border: 0; border-radius: 50%; cursor: pointer;
   background: rgba(255,255,255,0.92); color: var(--ink);
   font-size: 1.6rem; line-height: 1;
+}
+/* A qualifying chip copied into the enlarged picture's caption. On the dark
+   surround the card colours would be a pale block; this keeps it a chip, set
+   apart from the sentence after it. #F3F7F4 on rgba(255,255,255,.14) over
+   rgba(6,20,14,.96) measures about 13:1. */
+/* Emphasis copied in from the page keeps the page's dark-green ink, which on
+   this surround measured 1.82:1 ("Test data:"). Inline elements take the
+   caption's own light colour instead (#E7EFE9 on the surround ≈ 15:1); bold
+   still carries the emphasis. */
+.lightbox figcaption :is(strong, b, em, i, a, span:not(.tag)) { color: inherit; }
+.lightbox figcaption a { text-decoration-color: currentColor; }
+.lightbox figcaption .tag {
+  margin-right: 0.5rem;
+  background: rgba(255,255,255,0.14); color: #F3F7F4;
+  border-color: rgba(255,255,255,0.32);
 }
 .lightbox-close:hover { background: #fff; }
 .lightbox-close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
@@ -1542,6 +1775,78 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   .shot-frame { transition: none; }
   .shot-frame:hover, .shot-frame:focus-visible { transform: none; }
 }
+
+/* ── The section overview (Esc) ────────────────────────────
+   Built by present.js. Every section as one large target, the one being read
+   marked, laid out in as many columns as fit. The same dark surround as the
+   enlarged picture, so the two "over the page" layers read as one family, and
+   inside the projector safe area on every side. */
+.povw {
+  position: fixed; inset: 0; z-index: 62;
+  display: grid; place-items: center;
+  padding: max(1rem, var(--safe-edge));
+  background: rgba(6,20,14,0.90);
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.povw[hidden] { display: none; }
+.povw.is-open { opacity: 1; }
+.povw-panel {
+  width: min(100%, 76rem);
+  max-height: 100%;
+  overflow: auto;
+  padding: clamp(1.25rem, 2.4vw, 2.25rem);
+  border-radius: var(--radius-lg);
+  background: var(--card-solid);
+  box-shadow: var(--shadow-4);
+}
+.povw-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1.5rem; margin-bottom: var(--sp-3); }
+.povw-title {
+  margin: 0;
+  font: 900 var(--fs-section)/1.15 var(--font-head);
+  color: var(--ink);
+}
+.povw-hint { margin: 0; font-size: var(--fs-caption); color: var(--ink-soft); }
+.povw kbd {
+  display: inline-block; padding: 0.05em 0.4em;
+  border: 1px solid rgba(0,102,51,0.32); border-radius: 5px;
+  font: 800 var(--fs-caption)/1.4 var(--font-head); color: var(--green-deep);
+}
+.povw-list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+}
+.povw-list > li { max-width: none; }
+/* A FIXED number column. `auto` sized it to each number's own ink, and
+   Poppins' figures are not equal widths, so "01" and "08" set the names
+   beside them up to 11px apart. */
+.povw-item {
+  display: grid; grid-template-columns: 2.6rem 1fr; gap: 0.1rem 0.9rem;
+  width: 100%; min-height: 64px; height: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--card-edge); border-radius: var(--radius);
+  background: var(--tint-green-1); color: var(--ink);
+  font: inherit; text-align: left; cursor: pointer;
+}
+.povw-item:hover { background: var(--tint-green-2); }
+.povw-item[aria-current="true"] {
+  background: var(--panel-deep); color: #fff; border-color: transparent;
+}
+.povw-num {
+  grid-row: span 2; align-self: center;
+  font: 900 1.6rem/1 var(--font-head); color: var(--green);
+  font-variant-numeric: tabular-nums;
+}
+.povw-name { font: 800 var(--fs-body)/1.3 var(--font-head); }
+.povw-sub { font-size: var(--fs-caption); line-height: 1.4; color: var(--ink-soft); }
+.povw-sub:empty { display: none; }
+.povw-item[aria-current="true"] .povw-num { color: var(--yellow); }
+.povw-item[aria-current="true"] .povw-sub { color: rgba(255,255,255,0.88); }
+/* The ring sits 3px outside the item, on the white panel. On the current item
+   it is ink rather than green, so it does not merge into the item's own green. */
+.povw-item:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.povw-item[aria-current="true"]:focus-visible { outline-color: var(--ink); }
 
 /* ─────────────────────────────────────────────────────────
    THE DATA STANDARD
@@ -1657,6 +1962,11 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   color: var(--green-deep);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.03em;
+  /* A figure is ONE word. At 1440 the tile is narrower than "34,168" or
+     "₱906.60" at the full metric size, and the figure broke into "34,16" over
+     "8". It never wraps now; effects.js (fitMetrics) scales the size down for
+     the one tile that would overflow, and only that tile. */
+  white-space: nowrap;
 }
 /* The muted "—" for a figure nobody measured. --ink-faint was retuned from
    #8B9498 to #7F888C because it was being checked against pure white and this
@@ -1777,6 +2087,21 @@ strong, b { font-weight: 800; color: var(--green-deep); }
   box-shadow: var(--shadow-1);
   max-width: min(100%, 74ch);
 }
+/* …but NOT when it is a cell of a row of cards. There its margin pushed it
+   ~34px below the card beside it (the row's own gap is the spacing), and the
+   74ch cap stopped it short of its column, so it ended 120px before the
+   column's edge at 1920 while the card beside it ran the full width. In a row,
+   or in a column wrapper inside a row, it is a card like its neighbours. */
+:is(.grid, .cols--pair, .cols--wide-right) > :is(.not-recorded, .unknown),
+:is(.grid, .cols--pair, .cols--wide-right) > div:not([class]) > :is(.not-recorded, .unknown) {
+  margin: 0;
+  max-width: none;
+}
+/* In a paired row the panel keeps its natural height, like the cards beside it
+   (see .cols--pair: stretching pads a short box with dead space — measured on
+   September, 181px and 210px of empty dashed box). Opt in with
+   .not-recorded--stretch where a panel should run the full row height. */
+:is(.cols--pair, .cols--wide-right) > :is(.not-recorded, .unknown).not-recorded--stretch { align-self: stretch; }
 .not-recorded h3, .unknown h3 {
   color: var(--ink-soft);
   text-transform: uppercase; letter-spacing: var(--track-label);
@@ -1861,7 +2186,20 @@ strong, b { font-weight: 800; color: var(--green-deep); }
 /* ── Chart keys ────────────────────────────────────────── */
 /* A ring of colours with no figures is decoration. Every slice is named,
    counted and given its share, in a tabular grid so the numbers line up. */
-.ch-wrap { display: grid; gap: var(--rhythm-block); }
+/* THE KEY SITS BESIDE THE RING WHEN THERE IS ROOM, AND UNDER IT WHEN NOT.
+   Always stacked, a ring and a four-row key in a 605px column made a card
+   246px taller than the card next to it at ~1600 wide. This is the plain
+   "sidebar" wrap: the ring asks for 240px and barely grows, the key asks for
+   18rem and takes everything left over, so when both fit they share a row and
+   when they do not the key wraps underneath and both run the full width — the
+   ring then still capped at 300px tall by .ch-donut, exactly as before. No
+   breakpoint, so it is right in a half-width card and a full-width one alike. */
+.ch-wrap {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--rhythm-block);
+}
+.ch-wrap > .ch-donut { flex: 1 1 240px; min-width: 0; }
+.ch-wrap > .ch-key   { flex: 999 1 18rem; min-width: 0; }
 .ch-key { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
 .ch-key-row {
   display: grid;
@@ -2117,13 +2455,19 @@ html.calm .doc-body { scroll-behavior: auto; }
   }
   /* The column heading, restated in front of each cell. No alternative text
      here on purpose: this string is meant to be read out as well as seen, and
-     it is the only thing carrying the meaning the <thead> used to carry. */
-  .wait-board tbody td::before {
-    content: 'Waiting for: ';
+     it is the only thing carrying the meaning the <thead> used to carry.
+     TAKEN FROM THE TABLE'S OWN HEADER, NOT WRITTEN HERE. This used to print
+     the words 'Waiting for:' and 'Waiting on:' in front of every cell of every
+     .wait-board — true of the waiting board it was written for, and false of
+     August's median-wait table, whose minutes came out as "Waiting for: 16.4".
+     effects.js (labelWaitBoards) copies each column's <th> text onto its cells
+     as data-label, so each table says what its own columns are. A cell with
+     no label gets no prefix rather than a wrong one. */
+  .wait-board tbody td[data-label]::before {
+    content: attr(data-label) ': ';
     margin-right: 0.35em;
     font-weight: 800; color: var(--ink-soft);
   }
-  .wait-board tbody td + td::before { content: 'Waiting on: '; }
 }
 
 /* The same three declarations .badge and .tag already carry, and for the same
@@ -2154,6 +2498,11 @@ html.calm .doc-body { scroll-behavior: auto; }
 .pill--t { background: rgba(34,40,43,0.08);   color: var(--ink-soft); }
 
 /* Visually hidden, still read aloud. */
+/* For a hyphenated name that must not break at its hyphen (CAC-IIS,
+   one-time): wrap it, keep the ordinary hyphen. Use this rather than U+2011 —
+   the bold weights of the brand fonts have no non-breaking-hyphen glyph, and
+   the browser substitutes a thin hyphen from another font mid-word. */
+.nobr { white-space: nowrap; }
 .sr-only {
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
@@ -2284,7 +2633,32 @@ html.calm .doc-body { scroll-behavior: auto; }
    could never scale, never reflow on a phone, never animate, and never be
    read out or found by search. Here the words are words.
    ───────────────────────────────────────────────────────── */
-.band--closing { padding-bottom: clamp(5rem, 14vh, 10rem); }
+/* THE LAST SECTION IS AT LEAST ONE SCREEN, AND ITS PANEL IS CENTRED IN IT.
+   It was 0.68–0.83 of a screen, so it could never be shown on its own: the
+   final stop of the section keys showed the end of October above it, and the
+   rail, the presenter window and the overview disagreed about which section
+   was current. A full screen, with the panel centred by equal padding top and
+   bottom (it sat ~70px above centre with the old heavier bottom padding). */
+.band--closing {
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  padding-top: clamp(3rem, 8vh, 6rem);
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+}
+.band--closing > * { width: 100%; }
+/* Centred on the SCREEN, not on the content column: the bands' right padding
+   is the wider chrome channel, which put the panel ~20px left of centre. The
+   closing section has nothing beside it to align with, so it takes the same
+   padding on both sides (above 700px, where that channel exists). */
+@media (min-width: 701px) {
+  .band--closing { padding-left: var(--band-pad-r); }
+}
+/* And centred in the panel: the sign-off's own bottom margin (there for a
+   "next month" list that may follow it) added to the panel's padding, leaving
+   ~150px under the words against ~96px over the logo. When it is the last
+   thing in the panel, it has no margin. */
+.closing-panel > :last-child { margin-bottom: 0; }
 
 .closing-panel {
   position: relative; isolation: isolate;
@@ -2362,11 +2736,14 @@ html.calm .doc-body { scroll-behavior: auto; }
 .closing-panel a { color: var(--yellow); text-decoration-color: currentColor; }
 
 /* ── Back to top ───────────────────────────────────────── */
+/* In the chrome channel and inside the projector safe area (--safe-edge). It
+   was 32px from the edges, inside the overscan, and at 1440 it overlapped the
+   right edge of the cards by 6px; the bands now keep that channel clear. */
 .to-top {
-  position: fixed; right: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem);
+  position: fixed; right: var(--safe-edge); bottom: var(--safe-edge);
   z-index: 40;
   display: grid; place-items: center;
-  width: 46px; height: 46px; padding: 0;
+  width: var(--chrome-size); height: var(--chrome-size); padding: 0;
   border: 1px solid var(--card-edge); border-radius: 50%;
   background: rgba(255,255,255,0.92); color: var(--green-deep);
   font-size: 1.1rem; cursor: pointer;
@@ -2442,13 +2819,13 @@ body.show-notes .notes > :last-child { margin-bottom: 0; }
    number so the two cannot drift apart. */
 .pkeys {
   position: fixed;
-  right: clamp(1rem, 3vw, 2rem);
-  bottom: calc(clamp(1rem, 3vw, 2rem) + 46px + 0.6rem);
+  right: var(--safe-edge);
+  bottom: calc(var(--safe-edge) + var(--chrome-size) + var(--chrome-gap));
   z-index: 45;
 }
 .pkeys-btn {
   display: grid; place-items: center;
-  width: 46px; height: 46px; padding: 0;
+  width: var(--chrome-size); height: var(--chrome-size); padding: 0;
   border: 1px solid var(--card-edge); border-radius: 50%;
   background: rgba(255,255,255,0.92); color: var(--green-deep);
   cursor: pointer;
@@ -2457,12 +2834,18 @@ body.show-notes .notes > :last-child { margin-bottom: 0; }
 .pkeys-btn:hover { background: #fff; box-shadow: var(--shadow-2); }
 .pkeys-btn svg { display: block; width: 22px; height: 22px; }
 
-/* Anchored to the button's RIGHT edge, because the button is now on the right
-   edge of the screen — anchored left it would open 368px off the side of the
-   page and start a sideways scroll. */
+/* OPENS TO THE LEFT OF THE BUTTONS, NOT ABOVE THEM. Opening upward it stood in
+   the chrome channel and covered the section rail's lower dots — the one
+   control a presenter reaches for next. Now it opens beside the button column,
+   its foot level with the back-to-top button's foot (hence the negative
+   bottom: one button and one gap below this one), so the rail stays clear.
+   While it is open it does lie over the bottom-right of the content; it is a
+   transient panel, and Escape or any click outside closes it. */
 .pkeys-panel {
-  position: absolute; right: 0; bottom: calc(100% + 0.6rem);
-  width: min(23rem, calc(100vw - 2rem));
+  position: absolute;
+  right: calc(100% + var(--chrome-gap));
+  bottom: calc(-1 * (var(--chrome-size) + var(--chrome-gap)));
+  width: min(23rem, calc(100vw - var(--chrome-gutter) - var(--safe-edge)));
   display: grid; gap: 0.5rem;
   padding: var(--sp-2);
   border: 1px solid var(--card-edge); border-radius: var(--radius);
@@ -2512,7 +2895,7 @@ body.show-notes .notes > :last-child { margin-bottom: 0; }
    under the 16px floor. The styling lives here now so it obeys the type scale
    like everything else. #EAF3EE on this plate measures about 14:1. */
 .deck-toast {
-  position: fixed; left: 50%; bottom: 2rem;
+  position: fixed; left: 50%; bottom: max(2rem, var(--safe-edge));
   translate: -50% 0;
   z-index: 70;
   max-width: min(80vw, 46rem);
@@ -2560,13 +2943,13 @@ body.show-notes .notes > :last-child { margin-bottom: 0; }
   .to-top { right: 0.5rem; bottom: 0.6rem; width: 40px; height: 40px; }
   .pkeys  { right: auto; left: 0.5rem; bottom: 0.6rem; }
   .pkeys-btn { width: 40px; height: 40px; }
-  .pkeys-panel { right: auto; left: 0; }
+  .pkeys-panel { right: auto; left: 0; bottom: calc(100% + 0.6rem); width: min(23rem, calc(100vw - 2rem)); }
 }
 
 /* ── Print ─────────────────────────────────────────────── */
 @media print {
   .backdrop, .site-progress, .site-nav, .to-top, canvas.layer-particles,
-  .lightbox, .scroll-cue, .pkeys, .deck-toast { display: none !important; }
+  .lightbox, .scroll-cue, .pkeys, .deck-toast, .povw { display: none !important; }
   /* On paper there is no artwork to hold the words off and no glow to hide
      from. The card's closing mark is a screen device for a stretched card in a
      row, and rows do not stretch on paper.

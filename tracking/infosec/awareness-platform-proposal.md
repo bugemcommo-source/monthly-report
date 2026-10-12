@@ -3,6 +3,23 @@
 Status: **Presented to Mancom, August 2026 — a third supplier now being looked at**
 · Raised: July 2026
 
+## September 2026 — endpoint protection being explored
+
+- 2026-09 — **The September eScan meeting was held, and eScan is now only being evaluated for device (endpoint) protection** — owner, 8 October 2026 ("yes naka meeting and device evaluation nalang"). It is **no longer a candidate for the staff awareness training and phishing-testing platform** that the August report named it for. That leaves the staff-training gap with the options on record before eScan: Wizer (ended) and KnowBe4 through MASS-SPECC (would not start until 2027).
+- 2026-09 — **Number of machines to be covered: — (no data yet)**, owner 7 October 2026. Also not known: how many machines have up-to-date protection today. Both are open impact questions.
+- 2026-09 — **Endpoint protection: eScan, supplied through R3Hub (the current supplier), now at scoping evaluation for a cost estimate** — owner confirmed 7 October 2026 ("we are looking for Escan provided by the current supplier R3HUB and naa na sa scooping evaluation para sa estimation sa costing"). Stage: scoping evaluation, so that a cost can be estimated. Nothing chosen or bought; no quotation yet. Per the standing rule, the report may say this much — vendor, supplier, stage — but nothing about what eScan offers, costs or how good it is.
+- 2026-09 — The department is **exploring an endpoint protection solution** for the machines people work on (owner's words: "also venturing for endpoint protection"). Exploration only: no vendor named, no stage given, nothing chosen or bought.
+
+**Filed here provisionally.** Endpoint protection is not the same thing as the awareness
+platform this file is about. It sits here because the August endpoint security forum was
+eScan's. **The vendor is eScan, supplied through R3Hub — confirmed by the owner on 7 October
+2026 — and it is at scoping evaluation** for a cost estimate. The eScan meeting
+planned for September was held (owner, 8 October 2026). If this becomes a real evaluation
+it may need its own file; ask before creating one.
+
+The standing rule applies in full: **nothing about what any supplier offers, what it
+costs, or how good it is goes in a report** until it is recorded here.
+
 ## August 2026 — what happened
 
 - **The proposal was presented to Mancom for evaluation**, as planned. Confirmed by the

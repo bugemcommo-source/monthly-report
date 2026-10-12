@@ -272,9 +272,22 @@ export class Site {
     // cleared is the figures themselves: an off-screen block still says what it
     // means, because print, find-in-page and a screen reader in browse mode all
     // read the document rather than the viewport.
+    //
+    // ANYTHING ON SCREEN IS VISIBLE. The observer used to fire at 12% of a block
+    // with the bottom 8% of the viewport excluded, which had two failures a
+    // projector shows at once: a block in the bottom 86px of a 1080 screen never
+    // counted as visible and sat there as a blank strip, and a tall block leaving
+    // at the top was faded out while most of it was still being read.
+    // So: threshold 0 and no bottom margin — the first pixel on screen reveals
+    // it — and the block is only re-armed once it is entirely gone.
+    // The 48px TOP margin is hysteresis, not decoration. An un-revealed block is
+    // drawn 22px lower (effects.css); without the margin, a block that has just
+    // left the top edge drops 22px, is back on screen, reveals, rises 22px, is
+    // off screen again — a flicker loop at the top of the viewport.
     const io = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
+          if (entry.target.classList.contains('is-revealed')) continue;
           entry.target.classList.add('is-revealed');
           document.dispatchEvent(new CustomEvent('reveal', { detail: { el: entry.target } }));
         } else {
@@ -282,7 +295,7 @@ export class Site {
           rearm(entry.target);
         }
       }
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0, rootMargin: '48px 0px 0px 0px' });
 
     targets.forEach((t) => io.observe(t));
     this.revealObserver = io;

@@ -43,14 +43,33 @@ can be set up to run from the laptop itself.
 
 Once it is open, press **F** for fullscreen.
 
+The report is one long page, split into sections. The mouse wheel, the
+scrollbar, the Up and Down arrows, Home and End all scroll it freely, as on any
+web page. A presentation clicker works too: its buttons send the "next" and
+"back" keys below.
+
 | Key | Does |
 |---|---|
-| Right arrow, Space, mouse wheel down, or click | Next slide |
-| Left arrow or wheel up | Previous slide |
+| Right arrow, PageDown, or Space | Next — to the next **part** of the report (see below). A part taller than the screen is read a screen at a time first, so nothing is skipped |
+| Left arrow, PageUp, or Shift+Space | Back — up to the start of this part, then to the start of the one before |
+| **Esc** | List of every section. Click one, or use Tab and Enter, to jump there. Esc again closes the list. (If an enlarged picture or a panel is open, Esc closes that first.) |
 | **F** | Fullscreen on/off |
-| **Esc** | See all slides at once, click one to jump there |
+| **P** | Opens the **presenter window**: the speaker notes for exactly what is on screen now, "Section 7 of 13 · Part 2 of 5", the name of the next part, the time, and Back / Next buttons. Drag it onto the laptop's own screen; the projector only shows the report. If the browser blocks it, allow pop-ups for the page and press P again. |
+| **Shift+P** | Shows the speaker notes **on the report page itself** — for presenting from one screen only. A projector showing the same picture will show the notes too. |
 | **C** | Calm mode — turns off the heavy animation if the projector is struggling |
-| **P** | Show your speaker notes |
+
+**Parts and notes.** Each section starts with its heading, and a long section is
+split into parts (a card, a chart, a row of figures). Every press of Next goes
+to the next part, and the presenter window switches to the notes written for
+that part — so the notes always match what the room is looking at, one press at
+a time. The window also follows you if you scroll with the mouse wheel, use the
+section rail or press End. A section that is not split into parts is one part,
+with all its notes together, as before.
+
+Every one of these is also in the presenter controls: the small keyboard button
+in the bottom-right corner. **F**, **P**, **Shift+P** and **C** can be switched off
+there ("Single-key shortcuts") if they get in the way; the arrow keys, PageUp,
+PageDown and Esc always work.
 
 ## The one rule
 

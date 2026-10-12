@@ -1,0 +1,1746 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICT Department Monthly Report — September 2026 | BUGEMCO</title>
+<meta name="description" content="ICT Department monthly report for September 2026 — the whole department: Software Development and Information Security, and Network and System Administration.">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../../assets/css/fonts.css">
+<link rel="stylesheet" href="../../assets/css/tokens.css">
+<link rel="stylesheet" href="../../assets/css/report.css">
+<link rel="stylesheet" href="../../assets/css/effects.css">
+</head>
+<body>
+
+<!-- Fixed artwork behind the whole document. It scrolls slower than the
+     content, which is what reads as depth. -->
+<div class="backdrop" data-backdrop="title" aria-hidden="true">
+  <div class="backdrop-photo" data-photo="title"></div>
+  <div class="backdrop-photo" data-photo="content"></div>
+  <div class="backdrop-photo" data-photo="closing"></div>
+  <div class="layer-capsules"></div>
+  <div class="layer-glow"></div>
+</div>
+
+<div class="site-progress" aria-hidden="true"><div class="site-progress-fill"></div></div>
+<nav class="site-nav" aria-label="Report sections"></nav>
+
+<main class="site">
+
+  <!-- ══ OVERVIEW ═══════════════════════════════════════
+       September is the first month built to the CEO's direction of 7 October
+       2026 (tracking/DASHBOARD.md): count the IMPACT of each project, not only
+       what was done. Every strip on this page leads with what each system did,
+       with the figure, where tracking holds one, and says plainly where it does
+       not. Never "members reached" for SMS: recipients were not counted.
+       This page is projected, not read: one figure or one claim per card, the
+       reasoning in the speaker notes (press P). -->
+  <section class="band band--hero" id="overview" data-band-name="Overview" data-backdrop="title">
+    <div>
+      <!-- The logo carries no alt text on purpose: the line below says the same
+           words, and a screen reader would otherwise read them twice. -->
+      <p class="site-logo" data-reveal-on-scroll style="--i:0">
+        <img src="../../assets/img/logo-bugemco.png" alt="">
+      </p>
+      <p class="eyebrow" data-reveal-on-scroll style="--i:1">BUGEMCO · Making Lives Better</p>
+      <h1 class="band-title" data-reveal>ICT DEPARTMENT</h1>
+      <h2 class="band-sub" data-reveal-on-scroll style="--i:2">Monthly Report</h2>
+      <p data-reveal-on-scroll style="--i:3"><strong>September 2026</strong></p>
+      <p class="who" data-reveal-on-scroll style="--i:4">
+        Software Development &amp; Information Security &nbsp;·&nbsp;
+        Network &amp; System Administration
+      </p>
+      <p data-reveal-on-scroll style="--i:5">From this month the Information and Communications
+         Technology (ICT) Department reports what each system did, with the figure, not only
+         what we built.</p>
+
+      <div class="summary-strip" data-reveal-on-scroll style="--i:6">
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="2910">0</span></p>
+          <p class="metric-label">Text messages sent through our <span class="nobr">text-message</span> (SMS) blast facility</p>
+          <p class="metric-note">In September: Marketing's promotion, loan reminders and the
+             membership system's automatic texts. 3,022&nbsp;credits, &#8369;906.60&nbsp;&mdash; about
+             four times August's credits.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="34168">0</span></p>
+          <p class="metric-label">Members registered in the Membership Information System&nbsp;(MIS)</p>
+          <p class="metric-note">
+            <span class="tag tag--period">As of early October</span>
+            The total on record, not a September-only figure.
+          </p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Security incidents</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            <span class="tag tag--period">July to September</span>
+            All three months confirmed none.
+          </p>
+        </div>
+      </div>
+
+      <p class="scroll-cue" data-reveal-on-scroll style="--i:7">Scroll to read</p>
+      <aside class="notes">
+        <p>This report covers both sections of the department, and at the CEO's direction each section now opens with what our systems did, with the figure.</p>
+        <p>In September our text-message facility sent two thousand nine hundred and ten messages, using about four times August's credits, and Marketing now sends its own campaigns. The Membership Information System holds thirty-four thousand one hundred and sixty-eight registered members, as of early October rather than a September count.</p>
+        <p>The third tile is good news by being zero: no security incident in July, August or September, all three confirmed.</p>
+        <p>Be ready to be asked why CAC-IIS and the Mart Online Store are not among these figures: both are up, but neither is in use yet, and both wait on people outside our department.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ SOFTWARE DEVELOPMENT ═══════════════════════════ -->
+  <section class="band" id="software-development" data-band-name="Software Development" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">01 · Software Development</p>
+        <h2 class="band-title">Three systems in use, two deployed but not yet used, one ready for the Ownership Meeting</h2>
+        <p>Eleven systems tracked, and only systems in use are counted. The Record Management
+           System had its first presentation in September.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3">0</span></p>
+          <p class="metric-label">Systems in use</p>
+          <p class="metric-note">Membership Information System, Queuing System, SMS Blast
+             Facility&nbsp;&mdash; 3&nbsp;of the 6&nbsp;the year asks for.</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Systems deployed, not yet in&nbsp;use</p>
+          <p class="metric-note">The Coop Assurance Center Insurance Information System
+             <span class="nobr">(CAC-IIS)</span> and the Mart Online Store, both waiting on people outside ICT.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="1">0</span></p>
+          <p class="metric-label">System ready for the Ownership Meeting</p>
+          <p class="metric-note">The Event System. Its first figures will be October's.</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">System presentations still to be held</p>
+          <p class="metric-note">CAC-IIS's system presentation (its 2nd) and the Credit
+             Management System's first. The digital agreements' presentation to the
+             Management Committee (Mancom) is separate.</p>
+        </div>
+      </div>
+
+      <div data-stop="The eleven systems, and what Mancom could clear">
+      <div class="cols--wide-right" style="margin-bottom:var(--sp-5)">
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3>The eleven systems at a glance</h3>
+          <div id="systems-donut"></div>
+          <p>Our grouping of the systems list, as at the end of September. In use: Membership
+             Information System, Queuing System, SMS Blast Facility. Deployed, not yet in use:
+             CAC-IIS, Mart Online Store. Built or nearly built, not yet in use: Credit Management
+             System (built), Event System (ready for October), BUGEMCO Learning Center (BLC)
+             School Management System (5&nbsp;of 6&nbsp;parts). Under way: Record Management System,
+             Policy and Procedure Directory. Not started in September: Finance Management
+             System, whose build starts in October. Shares are rounded to the whole per cent,
+             so they add to&nbsp;99.</p>
+        </div>
+        <!-- The right column is two cards stacked, the same wrapper the
+             Information Security band uses. The Credit Management System, still
+             never presented, is a row of the wait board and a strip tile, so it is
+             not repeated in the card under it. -->
+        <div style="display:grid; gap:var(--rhythm-block); align-content:start">
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>What Mancom could clear this month</h3>
+          <p>Four items, none of them waiting on development work.</p>
+          <table class="wait-board">
+            <caption class="sr-only">What each item is waiting for, and who it is waiting on</caption>
+            <thead>
+              <tr><th scope="col">What</th><th scope="col">Waiting for</th><th scope="col">Waiting on</th></tr>
+            </thead>
+            <tbody>
+              <!-- Same pill key as August: pill--1 a presentation never yet held,
+                   pill--2 a follow-up presentation, pill--3 training, pill--t
+                   something to be supplied. Every pill says it in words too. -->
+              <tr><th scope="row">The five digital agreements</th><td><span class="pill pill--1">A presentation to Mancom</span></td><td>A date</td></tr>
+              <tr><th scope="row">Credit Management System</th><td><span class="pill pill--1">1st presentation</span></td><td>A date</td></tr>
+              <tr><th scope="row">CAC-IIS</th><td><span class="pill pill--2">System presentation (the 2nd)</span></td><td>A date</td></tr>
+              <tr><th scope="row">Mart Online Store</th><td><span class="pill pill--3">Users training for a simulation run</span> <span class="pill pill--t">Product data</span></td><td>A training date, and the product data from the Mart</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll data-from="right">
+          <h3>First presentation held in September</h3>
+          <ul class="checks">
+            <li><strong>RMS&nbsp;&mdash; Record Management System</strong>&nbsp;&mdash; first
+                presentation held in September, our own target for it. The exact date was not
+                recorded.
+                <span class="badge" data-status="done">Presented</span></li>
+          </ul>
+        </div>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>Of our eleven systems, three are in use, and we deliberately do not count CAC-IIS or the Mart Online Store, which went up on their own addresses in September but are not yet in use.</p>
+          <p>None of the four items on the wait board is waiting on development work, and the first, the five digital agreements, sits with this committee. Be ready to be asked for the exact date of the Record Management System presentation: it was not recorded.</p>
+        </aside>
+      </div>
+
+      <!-- RMS: tracking/projects/rms.md, September log (owner's walkthrough and
+           correction, 8 Oct 2026). shot-09 is the ONLY screen cleared for
+           publication (owner's ruling "a", 8 Oct): voucher codes, who filed and
+           when, and amounts are blurred. Its counts (11 waiting, 1 filed, 0 sent
+           back) are a demonstration run and are never reported as results. -->
+      <div data-stop="Record Management System">
+      <div class="sys-stack" style="margin-bottom:var(--rhythm-block)">
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>RMS&nbsp;&mdash; Record Management System</h3>
+            <p><span class="badge" data-status="done">1st presentation held in September</span></p>
+            <p>What it does with a voucher:</p>
+            <ul class="checks">
+              <li>Staff <strong>upload scanned vouchers</strong>&nbsp;&mdash; journal vouchers
+                  and check vouchers</li>
+              <li>The system <strong>reads each scan by machine</strong>: date, check number,
+                  payee, description, amount and account lines</li>
+              <li>It puts each one in a <strong>&ldquo;Waiting to be checked&rdquo;
+                  queue</strong>, and flags any field where two readings of the scan differ</li>
+              <li>A checker compares the fields with the scan, <strong>corrects anything
+                  wrong, and files it</strong>&nbsp;&mdash; or sends it back</li>
+            </ul>
+            <p>Still to confirm: which department will use it.</p>
+          </div>
+          <div class="sys-shots">
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/shot-09.jpg"
+                      aria-label="Enlarge the Record Management System checking queue">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">Records · Waiting to be checked</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/shot-09.jpg" width="1500" height="520" loading="lazy" decoding="async"
+                     alt="The Record Management System's checking queue, listing journal vouchers waiting to be checked with their posted dates; voucher codes, who filed them and amounts are blurred.">
+              </button>
+              <figcaption><span class="tag tag--source">Demonstration run</span><span class="sr-only">. </span>
+                 The checking queue. Voucher codes, who filed each one and the amounts are
+                 blurred on purpose. The counts on screen (11&nbsp;waiting, 1&nbsp;filed) come from a
+                 demonstration run, not from use.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>The Record Management System reads scanned journal and check vouchers by machine and puts each one in a queue for a checker to correct and file, flagging any field where two readings of the scan differ.</p>
+          <p>The counts on this screen are from a demonstration run, not real use. Be ready to be asked which department will use it: that is still to be confirmed.</p>
+        </aside>
+      </div>
+
+      <!-- The Policy and Procedure Directory is deliberately not given a card: it
+           has no September entry in tracking, and the standard (section 4) says a
+           system with nothing to report is left out rather than announced. It is
+           still counted in the ring above. FMS: tracking/projects/fms.md. -->
+      <div data-stop="Finance Management System and the BLC system">
+      <div class="cols--pair">
+      <!-- FMS in the narrow column, BLC in the wide one: BLC carries the longer
+           content, so the wider track keeps it shorter. -->
+        <div class="card tilt" data-reveal-on-scroll data-from="left">
+          <h3>FMS&nbsp;&mdash; Finance Management System</h3>
+          <p><span class="badge" data-status="not-started">Build starts in October</span></p>
+          <p>For the Finance Department. Nothing was built in September.</p>
+          <ul class="checks">
+            <li><strong>The Finance Department has handed ICT the first module</strong> to
+                build</li>
+            <li data-done="false"><strong>First module: signature specimen storage</strong>,
+                expected done before November</li>
+            <li data-done="false"><strong>What the system will cover</strong>&nbsp;&mdash; still to be
+                confirmed</li>
+          </ul>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll data-from="right">
+          <h3>BLC School Management System</h3>
+          <p><span class="badge" data-status="progress">In data testing</span></p>
+          <p>Runs the BUGEMCO Learning Center school&nbsp;&mdash; enrolment, records, grading,
+             report cards and a parent portal.</p>
+          <div class="pbar">
+            <div class="pbar-head"><span>Parts finished</span><span>5&nbsp;of 6&nbsp;parts</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="83"></div></div>
+          </div>
+          <ul class="checks">
+            <li data-done="false"><strong>Accounting / Core 3.0&nbsp;integration</strong>&nbsp;&mdash; the
+                only part left: connecting the school system to the coop's core accounting
+                system</li>
+          </ul>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>The Finance Management System starts in October: Finance has handed us its first module, signature specimen storage, which we expect to finish before November.</p>
+          <p>The BLC School Management System is in data testing with five of its six parts done; the only part left is connecting it to the coop's core accounting system.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>Three systems are in use: the Membership Information System, the Queuing System and the SMS Blast Facility. Two more are deployed but not yet used, and the Event System is ready for the Ownership Meeting, so its impact will be October's.</p>
+        <p>Two system presentations are still to be held: CAC-IIS's second, and the Credit Management System's first, which has waited for a date since July. The Record Management System had its first presentation in September, meeting our own target.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ SMS BLAST FACILITY ════════════════════════════
+       Every figure from tracking/projects/sms-blast.md, September log (iTexMo
+       gateway report read 7 Oct 2026). NO delivery rate is printed, on purpose:
+       "Accepted" means no receipt came back, not failed. July's credits could
+       not be read reliably and are NOT plotted. -->
+  <section class="band" id="sms-blast" data-band-name="SMS Blast" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">02 · SMS Blast Facility&nbsp;&mdash; what it sent</p>
+        <h2 class="band-title">2,910&nbsp;text messages in September, using 3,022&nbsp;credits against August's 750&nbsp;&mdash; about four times as many</h2>
+        <p>The facility is now used directly by Marketing, not only by ICT.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="2910">0</span></p>
+          <p class="metric-label">Text messages sent in September</p>
+          <p class="metric-note">
+            <span class="tag tag--source">iTexMo gateway, September</span>
+            2,910&nbsp;messages, using 3,022&nbsp;credits.
+          </p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num">&#8369;<span data-count="906.60" data-decimals="2">0</span></p>
+          <p class="metric-label">What September's texts&nbsp;cost</p>
+          <p class="metric-note">3,022&nbsp;credits at &#8369;0.30&nbsp;per credit.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="128">0</span></p>
+          <p class="metric-label">Loan payment reminder messages</p>
+          <p class="metric-note">Sent 24&nbsp;September to members and employees with unsettled or
+             <span class="nobr">past-due</span> accounts. Messages, not people.</p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num">&mdash;</p>
+          <p class="metric-label">Members reached</p>
+          <p class="metric-note">Not recorded. Messages are not people&nbsp;&mdash; one person can
+             receive several.</p>
+        </div>
+      </div>
+
+      <div data-stop="What the messages were, and credits by month">
+      <div class="cols--pair" style="margin-bottom:var(--sp-4)">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>What the 2,910&nbsp;messages were</h3>
+          <div id="sms-type-donut"></div>
+          <p>The Kisolon Branch anniversary promotion, sent on 30&nbsp;September, is 2,387&nbsp;of the
+             2,910&nbsp;messages (82&nbsp;per cent) on its own.</p>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>Credits used, month by month</h3>
+          <div id="sms-credits-line"></div>
+          <p>Credits, not messages: August's message count was not recorded. July's figure
+             could not be read reliably and is left out rather than guessed.</p>
+          <!-- Moved here from the ticked list below: a balance left is a figure
+               about credits, not a thing done, and it belongs with the credits. -->
+          <p><strong>65,335&nbsp;credits left</strong> on 7&nbsp;October, valid until 27&nbsp;April 2027.</p>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>Marketing's own Kisolon Branch anniversary promotion is two thousand three hundred and eighty-seven of the messages on its own, eighty-two per cent. The credits chart shows only August and September, because July's figure could not be read reliably.</p>
+          <p>Be ready to be asked for a delivery rate: we do not give one, because most messages come back from the network as &ldquo;accepted&rdquo; with no receipt, which is not the same as failed.</p>
+        </aside>
+      </div>
+
+      <div data-stop="Who used it, and what is not measured">
+      <div class="cols--pair">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>Who used it in September</h3>
+          <ul class="checks">
+            <li><strong>Marketing&nbsp;&mdash; 2,387&nbsp;messages</strong>, its own campaign for the Kisolon
+                Branch 4th anniversary promotion</li>
+            <li><strong>Loan payment reminders&nbsp;&mdash; 128&nbsp;messages</strong>, on 24&nbsp;September</li>
+            <li><strong>The Membership Information System&nbsp;&mdash; 395&nbsp;messages</strong>, sent
+                automatically: 355&nbsp;one&#8209;time PINs and 40&nbsp;seminar notices to membership
+                applicants, 4&nbsp;of them tests</li>
+          </ul>
+        </div>
+        <div class="not-recorded" data-reveal-on-scroll>
+          <h3>Not yet measured</h3>
+          <p>How many members these texts reached, and whether the 24&nbsp;September reminders
+             brought payments in.</p>
+          <p>Counting both would let this section show people and payments, not only messages
+             sent.</p>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>The biggest change is who uses it: Marketing now sends its own campaigns, a blast on the twenty-fourth reminded members and employees with past-due accounts, and the membership system sent its own texts.</p>
+          <p>If you are asked whether the reminders brought payments in, nobody measures that yet; matching payments made after the twenty-fourth would give us our first real impact figure here.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>September is the first month we have a full message count for our text-message facility: two thousand nine hundred and ten messages, using three thousand and twenty-two credits, about four times August's seven hundred and fifty, and a hundred and twenty-eight of them were loan payment reminders.</p>
+        <p>Be ready to be asked how many members we reached: we do not know, because one person can get several messages, so we count messages, not people.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ MIS ════════════════════════════════════════════
+       Every figure from tracking/projects/mis.md, September log. Read off the
+       MIS staff dashboard on 8 Oct 2026: AS OF EARLY OCTOBER, the dashboard
+       cannot isolate September — hence the period tags. The gender split and the
+       classification figures (6,882 / 0 Regular) are deliberately NOT shown —
+       see the file. -->
+  <section class="band" id="mis" data-band-name="Membership System" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">03 · MIS&nbsp;&mdash; Membership Information System</p>
+        <h2 class="band-title">395&nbsp;texts sent automatically in September, 36&nbsp;of them seminar notices no one had to send by hand&nbsp;&mdash; and 34,168&nbsp;members on&nbsp;record</h2>
+        <p>Read from the MIS staff dashboard on 8&nbsp;October. The dashboard shows the position as at
+           early October and cannot separate out September.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="34168">0</span></p>
+          <p class="metric-label">Registered members</p>
+          <p class="metric-note">
+            <span class="tag tag--period">As of early October</span>
+            Everyone on record, not September's additions.
+          </p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="395">0</span></p>
+          <p class="metric-label">Texts sent automatically</p>
+          <p class="metric-note">In September: 355&nbsp;one&#8209;time PINs and 40&nbsp;seminar notices, 4&nbsp;of
+             them tests.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="123">0</span></p>
+          <p class="metric-label">Members with an MIS account</p>
+          <p class="metric-note">
+            <span class="tag tag--period">As of early October</span>
+            123&nbsp;of the 34,168&nbsp;registered members.
+          </p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="53.11" data-decimals="2" data-suffix="%">0</span></p>
+          <p class="metric-label">Member information complete</p>
+          <p class="metric-note">
+            <span class="tag tag--period">As of early October</span>
+            <span class="tag tag--source">The MIS dashboard's own figure</span>
+            How complete the member records are, as the dashboard measures it. It does not
+            show how many records that is.
+          </p>
+        </div>
+      </div>
+
+      <div data-stop="What it did for members and applicants">
+      <div class="cols--pair">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>What it did for members and applicants in September</h3>
+          <ul class="checks">
+            <li><strong>355 <span class="nobr">one-time</span> PINs (OTP)</strong>&nbsp;&mdash; a single-use code texted when
+                someone confirms an action in the system</li>
+            <li><strong>36&nbsp;real Pre-Membership Education Seminar (PMES) notices</strong>&nbsp;&mdash;
+                applicants told their seminar schedule automatically, instead of a member of
+                staff contacting each one (40&nbsp;sent, 4&nbsp;of them tests)</li>
+            <li data-done="false"><strong>542&nbsp;shown as onboarding</strong> and <strong>24&nbsp;active
+                users</strong> on the dashboard&nbsp;&mdash; what each of these counts is still being
+                confirmed</li>
+          </ul>
+        </div>
+        <div class="not-recorded" data-reveal-on-scroll>
+          <h3>Not recorded: new members registered in September</h3>
+          <p>The dashboard shows the total only, and no September count is held.</p>
+          <p>A monthly count taken from the system would show how many members joined each month,
+             from October on.</p>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>Three hundred and fifty-five of the texts were one-time PINs, and forty told membership applicants their Pre-Membership Education Seminar schedule, four of them our tests. That is thirty-six real notices that no one at a desk had to send.</p>
+          <p>Be ready to be asked how many members joined in September: we do not have that number, and we would rather say so than estimate it. Be ready, too, to be asked what &ldquo;active users&rdquo; and &ldquo;onboarding&rdquo; count: we are still confirming both.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>The Membership Information System sent three hundred and ninety-five texts on its own in September, with nobody at a desk sending them.</p>
+        <p>It holds thirty-four thousand one hundred and sixty-eight registered members, but that is the position in early October, not something achieved in September, and one hundred and twenty-three of them have an MIS account.</p>
+        <p>The member information figure, fifty-three point one one per cent complete, is the dashboard's own measure, and it does not say how many records that is.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ DEPLOYED, NOT YET IN USE ═══════════════════════
+       CAC-IIS (tracking/projects/cac-iis.md) and the Mart Online Store
+       (tracking/projects/mart-online-store.md). Both deployed in September,
+       NEITHER in use (owner, 7 Oct 2026). Impact is zero so far and the page says
+       so. Addresses cleared for print by the owner, 7 Oct 2026. Screenshots:
+       shot-01 cleared 8 Oct (empty dashboard only); shot-07 and shot-08
+       storefront only, signed out, per the owner's ruling; sample products. -->
+  <section class="band" id="deployed" data-band-name="Deployed, Not Yet in Use" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">04 · Deployed, not yet in use</p>
+        <h2 class="band-title">Two systems up at their own addresses&nbsp;&mdash; no member served yet, both waiting on people outside ICT</h2>
+        <p>Ready is not in use. Neither system is counted as serving members until members are
+           served through it.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Clients, policies and claims in CAC-IIS</p>
+          <p class="metric-note">
+            <span class="tag tag--source">Read off the live dashboard, 7&nbsp;October</span>
+            Ready; waiting on the system presentation.
+          </p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Mart Online Store orders</p>
+          <p class="metric-note">
+            <span class="tag tag--period">14&nbsp;days to 7&nbsp;October</span>
+            <span class="tag tag--source">Read off the Mart's own console</span>
+            No users yet.
+          </p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="1">0</span></p>
+          <p class="metric-label">Planning meeting held with&nbsp;CLIMBS</p>
+          <p class="metric-note">On connecting CAC-IIS to CLIMBS' own system. Next meeting not
+             yet dated.</p>
+        </div>
+      </div>
+
+      <div class="sys-stack">
+        <div data-stop="CAC-IIS">
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>CAC-IIS&nbsp;&mdash; Coop Assurance Center Insurance Information System</h3>
+            <p><span class="badge" data-status="delayed">Deployed&nbsp;&mdash; not yet in use</span></p>
+            <p>Built to hold the Coop Assurance Center's insurance information. Its dashboard
+               is set up for clients, policies, premiums and claims.</p>
+            <h3>What happened this month</h3>
+            <ul class="checks">
+              <li><strong>Deployed to bugemcocac.com</strong></li>
+              <li><strong>First planning meeting with CLIMBS</strong>, the insurance cooperative
+                  BUGEMCO works with, on linking the two systems so they exchange data directly
+                  rather than by hand</li>
+              <li data-done="false"><strong>Not yet in use:</strong> 0&nbsp;clients, 0&nbsp;policies and
+                  0&nbsp;claims on 7&nbsp;October</li>
+            </ul>
+            <div class="blockers">
+              <h3>What starts it serving members</h3>
+              <p><strong>The system presentation</strong>&nbsp;&mdash; the second, outstanding since
+                 August. No date&nbsp;yet.</p>
+            </div>
+          </div>
+          <div class="sys-shots">
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/shot-01.jpg"
+                      aria-label="Enlarge the CAC-IIS staff dashboard">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">CAC-IIS · Dashboard</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/shot-01.jpg" width="1440" height="779" loading="lazy" decoding="async"
+                     alt="The CAC-IIS staff dashboard overview, with date, branch and agent filters above figure cards for clients, agents, policies, premiums, balances, commissions, claims and remittances, all at zero.">
+              </button>
+              <figcaption><span class="tag tag--source">Read off the screen, 7&nbsp;October</span><span class="sr-only">. </span>
+                 The real system, deployed and empty. Every figure is zero because no client has
+                 been entered yet&nbsp;&mdash; ready, waiting on the system presentation.</figcaption>
+            </figure>
+          </div>
+        </div>
+          <aside class="notes">
+            <p>CAC-IIS is up at bugemcocac.com, and its dashboard shows no clients, no policies and no claims, because no client has been entered yet. It goes live after the system presentation, the second, outstanding since August with no date.</p>
+            <p>We also held a first planning meeting with CLIMBS on linking their system to CAC-IIS; there is no date for the next one, and we will not describe what was agreed until it is written down.</p>
+          </aside>
+        </div>
+
+        <div data-stop="Mart Online Store">
+        <!-- shot-07 and shot-08: the public storefront, signed out, 8 Oct 2026
+             (tracking/projects/mart-online-store.md, newest line). The products
+             and prices on them are NOT the Mart's real product data (owner,
+             8 Oct): never quote a product name or price from them. -->
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>BUGEMCO Mart Online Store</h3>
+            <p><span class="badge" data-status="delayed">Deployed&nbsp;&mdash; no users yet</span></p>
+            <p>Built so members can buy from BUGEMCO Mart online, including against their
+               credit line. No member has used it yet.</p>
+            <h3>What happened this month</h3>
+            <ul class="checks">
+              <li><strong>Deployed to bugemcomart.com</strong></li>
+              <li>The credit line process it needs was <strong>already approved</strong> by
+                  Accounting and Credit in August</li>
+              <li data-done="false"><strong>No users yet:</strong> 0&nbsp;orders and &#8369;0.00&nbsp;in
+                  sales in the 14&nbsp;days to 7&nbsp;October</li>
+            </ul>
+            <div class="blockers">
+              <h3>What starts it serving members&nbsp;&mdash; two things, both outside&nbsp;ICT</h3>
+              <p><strong>Users trained for a simulation run.</strong> No date&nbsp;yet.</p>
+              <p><strong>The real product data (stock-keeping units, or SKUs), from the
+                 Mart.</strong> No date&nbsp;yet.</p>
+            </div>
+          </div>
+          <div class="sys-shots">
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/shot-07.jpg"
+                      aria-label="Enlarge the Mart Online Store storefront">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">BUGEMCO Mart · Storefront</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/shot-07.jpg" width="1440" height="675" loading="lazy" decoding="async"
+                     alt="The public BUGEMCO Mart storefront, signed out, with promotional banners for free delivery, an installment fest and a rewards Cyber Fest, product category icons and a row of service highlights.">
+              </button>
+              <figcaption><span class="tag tag--source">Seen 8&nbsp;October</span><span class="sr-only">. </span>
+                 Deployed, sample products&nbsp;&mdash; not yet open to members. The public
+                 storefront, signed out, with its banners and product categories.</figcaption>
+            </figure>
+          </div>
+        </div>
+          <aside class="notes">
+            <p>The Mart Online Store is up at bugemcomart.com but has had no orders. It needs its users trained for a simulation run, and its real product data from the Mart itself; neither is waiting on us.</p>
+          </aside>
+        </div>
+
+        <div data-stop="Sample products on the storefront">
+        <!-- The deals rows get their own row and their own words: stacked under
+             the storefront they made the Mart's screens column about 450px
+             taller than its text. Observations from the same 8 October visit,
+             for the Mart team; no product name or price is quoted. -->
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>Sample products, not the Mart's data</h3>
+            <p><span class="badge" data-status="delayed">Not yet open to members</span></p>
+            <p>In September the storefront gained <strong>banners and product categories</strong>,
+               and now shows deals and specials rows with products, prices and stock left. They
+               are samples: the Mart's real product data has not been loaded, and that is still
+               what the shop is waiting on.</p>
+            <h3>Seen on the storefront, for the Mart team</h3>
+            <ul class="checks">
+              <li data-done="false"><strong>Most product photos are blank placeholders</strong></li>
+              <li data-done="false"><strong>The main banner still advertises 1&nbsp;to 31&nbsp;August</strong></li>
+              <li data-done="false"><strong>&ldquo;September Specials&rdquo; was still showing in
+                  October</strong></li>
+            </ul>
+          </div>
+          <div class="sys-shots">
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/shot-08.jpg"
+                      aria-label="Enlarge the Mart storefront's deals rows">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">BUGEMCO Mart · Deals</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/shot-08.jpg" width="1440" height="675" loading="lazy" decoding="async"
+                     alt="The Mart storefront's Flash Deals and September Specials rows, listing sample products with prices and stock left; most product photos are blank placeholders.">
+              </button>
+              <figcaption><span class="tag tag--source">Seen 8&nbsp;October</span><span class="sr-only">. </span>
+                 The deals and specials rows. Every product, price and stock figure here is a
+                 sample, not the Mart's real product data: the shop is deployed but not yet open
+                 to members.</figcaption>
+            </figure>
+          </div>
+        </div>
+          <aside class="notes">
+            <p>The storefront now shows products, but they are samples, not the Mart&rsquo;s real data, so please do not read any price off it. The points listed are for the Mart team to put right before the shop opens.</p>
+          </aside>
+        </div>
+      </div>
+
+      <aside class="notes">
+        <p>Both of these went up on their own addresses in September, and their impact so far is zero: CAC-IIS shows no clients, no policies and no claims, and the Mart has had no orders. We also held one planning meeting with CLIMBS.</p>
+        <p>Be ready to be asked why neither is counted as in use, and when they will be: not until members are served through them, and that waits on a presentation date and on the Mart's data, which this committee can help move.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ EVENT SYSTEM — OWNERSHIP MEETING ═══════════════
+       tracking/projects/attendance-system.md. Ready for the OM (owner, 7 Oct).
+       ITS IMPACT IS OCTOBER'S. Every name, member number and amount on shots
+       02–06 is TEST DATA; the figures on them (people present, cash released)
+       must never be stated as results. Last year's cash discrepancy has no
+       recorded amount — words only. The owner asked for the raffle wheel
+       (shot-06) to be given prominence: it is the first and largest screen,
+       beside the account. -->
+  <section class="band" id="event-system" data-band-name="Event System" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">05 · Event System&nbsp;&mdash; Ownership Meeting</p>
+        <h2 class="band-title">Ready for the October Ownership Meeting&nbsp;&mdash; a raffle draw for the first time, and every ticket, cash release and return now recorded</h2>
+        <p>Its impact is October's. The figures will come from the meeting itself.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3">0</span></p>
+          <p class="metric-label">Steps now recorded, for auditing and tracing</p>
+          <p class="metric-note">Ticket assigning, cash released and cash returned&nbsp;&mdash; the
+             three changes we made to the process. A count of steps, not a result.</p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num">&mdash;</p>
+          <p class="metric-label">Members served at the meeting</p>
+          <p class="metric-note">Counted on the day, in October.</p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num">&mdash;</p>
+          <p class="metric-label">Last year's cash discrepancy</p>
+          <p class="metric-note">Described as small. The amount was not recorded.</p>
+        </div>
+      </div>
+
+      <div data-stop="What changes, and the raffle wheel">
+      <div class="sys-stack" style="margin-bottom:var(--rhythm-block)">
+        <div class="card tilt sys" data-reveal-on-scroll>
+          <div class="sys-text">
+            <h3>Event System for the Ownership Meeting (OM)</h3>
+            <p><span class="badge" data-status="done">Ready for the OM</span></p>
+            <p>Last year's meeting ran on an earlier system. This one improves it and covers
+               three jobs: attendance, cash claims and the raffle draw.</p>
+            <h3>What changes from last year</h3>
+            <ul class="checks">
+              <li><strong>The raffle draw is new</strong>&nbsp;&mdash; last year's system had none</li>
+              <li><strong>Ticket assigning, cash released and cash returned</strong> are each
+                  recorded now, for auditing, tracing and monitoring</li>
+              <li>Each claim shows <strong>who released it, at which station and when</strong>,
+                  and each cash drawer has an amount it should hold to count against</li>
+            </ul>
+            <h3>What went wrong last year</h3>
+            <ul class="checks">
+              <li data-done="false"><strong>Small cash discrepancies</strong> when the money was
+                  counted&nbsp;&mdash; the amount was not recorded</li>
+              <li data-done="false"><strong>System errors</strong>, such as some members not
+                  found by search</li>
+            </ul>
+          </div>
+          <div class="sys-shots">
+            <!-- The wheel sits beside the account: the image is a wheel on its
+                 left and plain dark green on its right, so a full-width card left
+                 half of a very large picture empty. It is still the first and
+                 largest screen in the band, as the owner asked. -->
+            <figure class="shot shot--framed">
+              <button type="button" class="shot-frame" data-shot="img/shot-06.jpg"
+                      aria-label="Enlarge the raffle wheel hall display">
+                <span class="shot-bar" aria-hidden="true">
+                  <span class="shot-dots"></span>
+                  <span class="shot-name">Ownership Meeting · Raffle wheel</span>
+                  <span class="shot-zoom">Enlarge</span>
+                </span>
+                <img src="img/shot-06.jpg" width="1440" height="723" loading="lazy" decoding="async"
+                     alt="The raffle wheel hall display for the Ownership Meeting, a coloured spinning wheel with entrant names around its edge and the co-op logo at its centre.">
+              </button>
+              <figcaption>The raffle wheel on the hall screen: what members will see when a
+                 winner is drawn&nbsp;&mdash; new this year. <strong>Test&nbsp;data:</strong> every name
+                 on the wheel is made up. Tested ahead of the October Ownership
+                 Meeting.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>Two things change from last year: the raffle draw is new, and every ticket assigned, every cash release and every return is now recorded with who did it, where and when, so the cash can be audited and traced.</p>
+          <p>The wheel is what members in the hall will see. Be ready to be asked how big last year&rsquo;s cash discrepancy was: it was small, but no amount was recorded, so we will not put a number on it.</p>
+        </aside>
+      </div>
+
+      <!-- The four working screens, two by two. Two across keeps each one
+           wide enough to read on a projector (three across came out at about
+           350px at 1440). -->
+      <div data-stop="Overview and running the draw">
+      <div class="grid grid--2" style="margin-bottom:var(--rhythm-block)">
+        <div class="card" data-reveal-on-scroll style="--i:0">
+          <h3>One meeting day at a glance</h3>
+          <figure class="shot shot--framed">
+            <button type="button" class="shot-frame" data-shot="img/shot-02.jpg"
+                    aria-label="Enlarge the Event System overview">
+              <span class="shot-bar" aria-hidden="true">
+                <span class="shot-dots"></span>
+                <span class="shot-name">Attendance &amp; Claims · Overview</span>
+                <span class="shot-zoom">Enlarge</span>
+              </span>
+              <img src="img/shot-02.jpg" width="1440" height="723" loading="lazy" decoding="async"
+                   alt="The BUGEMCO Attendance &amp; Claims overview for one day of the Ownership Meeting, with figure cards for attendance, raffle entries and cash released, a line chart of arrivals and claims, and a turnout ring chart.">
+            </button>
+            <figcaption>One meeting day at a glance&nbsp;&mdash; attendance, raffle entries and cash
+               released. <strong>Test&nbsp;data:</strong> the names, member numbers and amounts are
+               made up, and none of the figures is a result. Tested ahead of the October
+               Ownership Meeting.</figcaption>
+          </figure>
+        </div>
+        <div class="card" data-reveal-on-scroll style="--i:1">
+          <h3>Running the draw</h3>
+          <figure class="shot shot--framed">
+            <button type="button" class="shot-frame" data-shot="img/shot-05.jpg"
+                    aria-label="Enlarge the raffle draw screen">
+              <span class="shot-bar" aria-hidden="true">
+                <span class="shot-dots"></span>
+                <span class="shot-name">Attendance &amp; Claims · Raffle draw</span>
+                <span class="shot-zoom">Enlarge</span>
+              </span>
+              <img src="img/shot-05.jpg" width="1440" height="723" loading="lazy" decoding="async"
+                   alt="The Attendance &amp; Claims raffle draw screen before any draw, with prize list, draw options, buttons to open the hall screen and print winners, and a note on how many entries are in the barrel.">
+            </button>
+            <figcaption>The draw is run from here: prizes, draw options, the hall screen and a
+               printed list of winners. <strong>Test&nbsp;data:</strong> the names, member numbers
+               and amounts are made up. Tested ahead of the October Ownership Meeting.</figcaption>
+          </figure>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>The overview shows one meeting day at a glance, and the draw is run from the second screen, with the hall display and a printed list of winners.</p>
+          <p>Every name, number and amount on these screens is test data, so please do not read any figure off them as a result. Be ready to be asked for the meeting date: it has not been given to us, and the date on the test screens is a test setting.</p>
+        </aside>
+      </div>
+
+      <div data-stop="Attendance and cash claims">
+      <div class="grid grid--2">
+        <div class="card" data-reveal-on-scroll style="--i:2">
+          <h3>Attendance</h3>
+          <figure class="shot shot--framed">
+            <button type="button" class="shot-frame" data-shot="img/shot-03.jpg"
+                    aria-label="Enlarge the attendance list">
+              <span class="shot-bar" aria-hidden="true">
+                <span class="shot-dots"></span>
+                <span class="shot-name">Attendance &amp; Claims · Attendance</span>
+                <span class="shot-zoom">Enlarge</span>
+              </span>
+              <img src="img/shot-03.jpg" width="1440" height="723" loading="lazy" decoding="async"
+                   alt="The Attendance &amp; Claims attendance list for a meeting day, a table of members marked present with branch, category, ticket, who checked them in, time and claim status.">
+            </button>
+            <figcaption>Each member marked present, with the ticket, who checked them in and when.
+               <strong>Test&nbsp;data:</strong> the names, member numbers and amounts are made up.
+               Tested ahead of the October Ownership Meeting.</figcaption>
+          </figure>
+        </div>
+        <div class="card" data-reveal-on-scroll style="--i:3">
+          <h3>Cash claims</h3>
+          <figure class="shot shot--framed">
+            <button type="button" class="shot-frame" data-shot="img/shot-04.jpg"
+                    aria-label="Enlarge the claims page">
+              <span class="shot-bar" aria-hidden="true">
+                <span class="shot-dots"></span>
+                <span class="shot-name">Attendance &amp; Claims · Claims</span>
+                <span class="shot-zoom">Enlarge</span>
+              </span>
+              <img src="img/shot-04.jpg" width="1440" height="723" loading="lazy" decoding="async"
+                   alt="The Attendance &amp; Claims claims page, with a cash-drawer count table above a register of released claims showing member, branch, amount, ticket, releasing staff, time and a cancel button.">
+            </button>
+            <figcaption>The cash-drawer count above every claim released, who released it and
+               when&nbsp;&mdash; now recorded for auditing and tracing. <strong>Test&nbsp;data:</strong> the names,
+               member numbers and amounts are made up. Tested ahead of the October Ownership
+               Meeting.</figcaption>
+          </figure>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>Attendance records each member marked present, with the ticket, who checked them in and when; the claims page counts each cash drawer against what it should hold and records every claim released. These names and amounts are test data too.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>The Event System is ready for the Ownership Meeting in October, so its real figures, members registered, claims released and raffle draws run, will be October's.</p>
+        <p>The three on the first tile is our own count of the steps now recorded, not a result, and last year's cash discrepancy has no recorded amount.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ QUEUING SYSTEM ═════════════════════════════════
+       Every figure from the "September 2026 — the second full month" section
+       of tracking/projects/queuing-system.md (exports supplied 8 Oct 2026,
+       computed on August's definitions) and its newest 2026-09 log line; the
+       headline row matches tracking/DASHBOARD.md. COMPLETE MONTH: 21 working
+       days, 2 to 30 September. Tuesday 1 September has no data: the office was
+       closed for Araw ng Bukidnon (owner confirmed 8 Oct 2026; tracking line 32).
+       Built the same way as August's band. Tickets (ring, daily chart, 5,956)
+       and transactions with a usable time (hourly charts, waits, 5,734) are
+       different counts: the chain card says why. Hourly = "transactions".
+       Tables use .doc-table, not .wait-board: below 600px .wait-board prefixes
+       every cell with "Waiting for:" / "Waiting on:", which would mislabel a
+       wait in minutes. -->
+  <section class="band" id="queuing" data-band-name="Queuing System" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">06 · Queuing System&nbsp;&mdash; what it measured</p>
+        <h2 class="band-title">5,956&nbsp;tickets in September, 915&nbsp;more than August&nbsp;&mdash; waits grew a little, most at Credit Transaction, and 11&nbsp;in the morning is still the worst hour</h2>
+        <p>21&nbsp;working days, 2&nbsp;to 30&nbsp;September&nbsp;&mdash; 284&nbsp;tickets a day, against 265&nbsp;in
+           August.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="5956">0</span></p>
+          <p class="metric-label">Tickets issued at the counters</p>
+          <p class="metric-note">In 21&nbsp;working days, against 5,041&nbsp;in August's 19&nbsp;&mdash;
+             915&nbsp;more (18%). 5,803&nbsp;ended in a completed transaction; 153&nbsp;of the 5,956&nbsp;did
+             not (2.6%).</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="6.6" data-decimals="1">0</span></p>
+          <p class="metric-label">Median wait, in minutes</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            Half of everyone waited 6.6&nbsp;minutes or less&nbsp;&mdash; one minute longer than
+            August's 5.6.
+          </p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="59" data-suffix="%">0</span></p>
+          <p class="metric-label">Called within 10&nbsp;minutes</p>
+          <p class="metric-note">3,357&nbsp;of the 5,734&nbsp;transactions with a usable time, against 66%&nbsp;in August. 4,739&nbsp;of the 5,734&nbsp;(83%) were called within 30&nbsp;minutes (August 89%).</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Tickets tagged as a member at the&nbsp;kiosk</p>
+          <p class="metric-note">2&nbsp;of 5,956&nbsp;(August: 0). The member button is almost never
+             pressed, so members served cannot be counted yet.</p>
+        </div>
+      </div>
+
+      <!-- Same split as August: the ring carries WHO goes where (counts and
+           shares in its key); the table carries HOW LONG, August beside
+           September, and prints no counts. -->
+      <div data-stop="Where the queue forms">
+      <div class="cols--pair" style="margin-bottom:var(--sp-4)">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>Where the queue forms</h3>
+          <div id="queue-dept-donut"></div>
+          <p>Counts are tickets issued across the 21&nbsp;working days of September. Insurance is 45&nbsp;tickets, 0.8&nbsp;per cent of the total, and is not ranked in the table: only 21&nbsp;of its
+             tickets have a usable time. Its median wait was 14.1&nbsp;minutes (August 9.8).</p>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>Median wait at each counter, August and September</h3>
+          <p>
+            <span class="tag tag--lower">Lower is better</span>
+            In minutes. Half of the people at each counter waited less than this, half
+            waited&nbsp;more.
+          </p>
+          <table class="doc-table">
+            <caption class="sr-only">The median wait at each counter in minutes, August and September, slowest in September first</caption>
+            <thead>
+              <tr><th scope="col">Counter</th><th scope="col" style="width:29%">August</th><th scope="col" style="width:29%">September</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Accounts Services</th><td>16.4</td><td>19.2</td></tr>
+              <tr class="row--total"><th scope="row">Credit Transaction</th><td>9.5</td><td>15.6</td></tr>
+              <tr><th scope="row">Collection Transaction</th><td>5.4</td><td>3.6</td></tr>
+              <tr><th scope="row">Cash Transaction</th><td>3.5</td><td>3.5</td></tr>
+              <tr><th scope="row">Member Services</th><td>2.4</td><td>2.7</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Credit Transaction is where September got worse:</strong> it takes a third of
+             everyone, and its median wait went from 9.5&nbsp;to 15.6&nbsp;minutes. Accounts Services is
+             still the longest wait.</p>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>Cash and Credit Transaction take most of the queue, and Credit Transaction is the pressure point: its median wait went from nine and a half to fifteen point six minutes. Accounts Services is still the longest wait.</p>
+        </aside>
+      </div>
+
+      <div data-stop="Late morning is the pinch">
+      <h3 class="band-sub" data-reveal-on-scroll>Late morning is the pinch again</h3>
+      <div class="card" data-reveal-on-scroll style="margin-bottom:var(--sp-4)">
+        <p>Nine o'clock has the most transactions, 959,&nbsp;and they wait 18.4&nbsp;minutes on average.
+           Eleven o'clock has 648&nbsp;and they wait 21.6&nbsp;&mdash; the worst hour of the day, as it
+           was in August, at 18.9.&nbsp;Time at the counter fell from 7.3&nbsp;to 5.9&nbsp;minutes, so the
+           extra wait is in the queue, not at the counter.</p>
+        <h3>Transactions, by hour</h3>
+        <div id="queue-hour-tickets"></div>
+        <h3>Average wait in minutes, by hour</h3>
+        <div id="queue-hour-wait"></div>
+      </div>
+        <aside class="notes">
+          <p>Eleven in the morning is the worst hour for the second month running, at twenty-one point six minutes on average, although nine o&rsquo;clock takes the most people.</p>
+          <p>Time at the counter actually fell, so the extra wait is in the queue, not at the counter.</p>
+        </aside>
+      </div>
+
+      <div data-stop="Tickets a day">
+      <h3 class="band-sub" data-reveal-on-scroll>Day by day, and what the figures leave out</h3>
+      <div class="card" data-reveal-on-scroll style="margin-bottom:var(--sp-4)">
+        <h3>Tickets a day, by date in September</h3>
+        <div id="queue-day-line"></div>
+        <!-- Dates print as day numbers only: "2 Sep" … "30 Sep" left about 8px
+             between 21 labels at 1920. The month is in the heading. -->
+        <p style="margin-top:var(--sp-4)">Busiest day: 2&nbsp;September, 426&nbsp;tickets&nbsp;&mdash; twice the quietest, 210&nbsp;on 23&nbsp;September. The 2nd was the first day open after Tuesday 1&nbsp;September, when the office
+           was closed for Araw ng Bukidnon, the province's foundation day.</p>
+      </div>
+        <aside class="notes">
+          <p>The busiest day was the second, the first day open after the first of September, and the quietest was the twenty-third.</p>
+          <p>If anyone asks why Tuesday the first of September has no figures: the office was closed for Araw ng Bukidnon, the province&rsquo;s foundation day.</p>
+        </aside>
+      </div>
+
+      <div data-stop="Why the totals differ, and what they leave out">
+      <div class="cols--pair">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>Why the totals differ</h3>
+          <table class="doc-table">
+            <caption class="sr-only">How the 5,956&nbsp;tickets issued become the 5,734&nbsp;transactions used for the waiting times</caption>
+            <tbody>
+              <tr><th scope="row">Tickets issued</th><td>5,956</td></tr>
+              <tr><th scope="row">Never completed</th><td>&minus;153</td></tr>
+              <tr class="row--total"><th scope="row">Transactions completed</th><td>5,803</td></tr>
+              <tr><th scope="row">Never closed, left out of every timing</th><td>&minus;69</td></tr>
+              <tr class="row--total"><th scope="row">Transactions with a usable time</th><td>5,734</td></tr>
+            </tbody>
+          </table>
+          <p>The ring, the daily chart and the 5,956&nbsp;count tickets issued. The hourly charts and
+             the waiting times count the 5,734&nbsp;transactions with a usable time.</p>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>What the figures leave out</h3>
+          <ul class="checks">
+            <li data-done="false"><strong>Members are still not tagged</strong>&nbsp;&mdash; 2&nbsp;of
+                5,956,&nbsp;both at Cash Transaction, so we cannot say how much of the queue is our
+                own members</li>
+            <li data-done="false"><strong>153&nbsp;tickets never completed</strong>&nbsp;&mdash; 136&nbsp;never
+                called and 17&nbsp;called but not finished, 129&nbsp;of them issued from 1&nbsp;pm on. Most
+                are at Collection Transaction (75&nbsp;of its 542, 14%) and Insurance (23&nbsp;of 45)</li>
+            <li data-done="false"><strong>69&nbsp;transactions never closed</strong>&nbsp;&mdash; the longest
+                shows 5,430&nbsp;minutes, 3.8&nbsp;days, at the counter. Left out of every timing (August:
+                60)</li>
+          </ul>
+          <p>Kept in, as in August: 44&nbsp;waits over two hours, 23&nbsp;of them at Accounts Services, the
+             longest 458&nbsp;minutes. Leaving them out would move the median only from 6.6&nbsp;to 6.5&nbsp;minutes. Also kept in: 605&nbsp;of the 5,734&nbsp;transactions (11%) under 15&nbsp;seconds at the counter,
+             probably called and closed with nobody served&nbsp;&mdash; not confirmed.</p>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>The totals differ on purpose: tickets issued, less those never completed, less those never closed, leaves the transactions we time.</p>
+          <p>Be ready to be asked what fixes the member count: the member button at the kiosk being used as it was designed to be.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>September was busier: five thousand nine hundred and fifty-six tickets in twenty-one working days, eighteen per cent more than August, and people waited a little longer, with half of everyone called in six point six minutes or less against five point six, and fifty-nine in every hundred within ten minutes, down from sixty-six.</p>
+        <p>We still cannot count members served: only two of the five thousand nine hundred and fifty-six tickets were tagged as a member at the kiosk, which says the member button is almost never pressed, not that members stayed away.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ INFORMATION SECURITY ═══════════════════════════
+       Incidents: tracking/infosec/incidents.md (Jul, Aug, Sep all confirmed nil).
+       Endpoint protection: tracking/infosec/awareness-platform-proposal.md,
+       September section. STANDING RULE: nothing about what eScan offers, what it
+       costs or how good it is — vendor, supplier and stage only. -->
+  <section class="band" id="information-security" data-band-name="Information Security" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">07 · Information Security</p>
+        <h2 class="band-title">Three months without a security incident&nbsp;&mdash; and staff training and testing still off</h2>
+        <p>Each month's zero is a confirmed nil return, not a blank: August's was confirmed on
+           7&nbsp;October.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Security incidents</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            <span class="tag tag--period">July to September</span>
+            Each month confirmed none.
+          </p>
+        </div>
+        <div class="metric metric--risk">
+          <p class="metric-num">&mdash;</p>
+          <p class="metric-label">Staff security training and phishing&nbsp;tests</p>
+          <p class="metric-note">No platform in place since July.</p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num">&mdash;</p>
+          <p class="metric-label">Work machines endpoint protection would&nbsp;cover</p>
+          <p class="metric-note">Not recorded yet. The machines have not been counted.</p>
+        </div>
+        <div class="metric metric--watch">
+          <p class="metric-num"><span data-count="5">0</span></p>
+          <p class="metric-label">Digital agreements waiting for Mancom</p>
+          <p class="metric-note">Drafted 20&nbsp;August. None presented, approved or issued.</p>
+        </div>
+      </div>
+
+      <div data-stop="Endpoint protection, training and the agreements">
+      <div class="cols--pair">
+        <div style="display:grid; gap:var(--rhythm-block); align-content:start">
+          <div class="card tilt" data-reveal-on-scroll data-from="left" style="--i:0">
+            <h3>Endpoint protection&nbsp;&mdash; at the costing stage</h3>
+            <p><span class="badge" data-status="progress">Scoping evaluation</span></p>
+            <p><strong>Endpoints</strong> are the machines people work on&nbsp;&mdash; desktops,
+               laptops and phones, and the usual way an attacker gets in.</p>
+            <ul class="checks">
+              <li>Looking at <strong>eScan, supplied through R3Hub</strong>, our current
+                  supplier</li>
+              <li>We met eScan in September; what remains is <strong>evaluating it for our
+                  devices</strong></li>
+              <li>At <strong>scoping evaluation</strong>, so that a cost can be estimated</li>
+              <li data-done="false">Nothing chosen or bought, and no quotation yet</li>
+            </ul>
+          </div>
+          <div class="not-recorded" data-reveal-on-scroll>
+            <h3>Not recorded: how many machines</h3>
+            <p>How many work machines we have, and how many are protected today. Both are needed
+               before any protection can be costed or its impact shown.</p>
+          </div>
+        </div>
+
+        <div style="display:grid; gap:var(--rhythm-block); align-content:start">
+          <div class="card tilt" data-reveal-on-scroll data-from="right" style="--i:0">
+            <h3>Staff security training and phishing testing&nbsp;&mdash; off since July</h3>
+            <p><span class="badge" data-status="risk">Nothing running</span></p>
+            <p>The 12-month <strong>Wizer</strong> subscription ended and was not renewed, so
+               the short lessons and the harmless fake scam emails both stopped.</p>
+            <ul class="checks">
+              <li>The platform proposal was presented to Mancom in August&nbsp;&mdash; <strong>no
+                  decision is outstanding</strong> from the committee on it</li>
+              <li data-done="false">On that proposal, the platform would not start until
+                  <strong>2027</strong></li>
+              <li data-done="false"><strong>eScan</strong>, named in August as a third option, is
+                  now being looked at for device protection only, not for staff training</li>
+            </ul>
+          </div>
+          <div class="card tilt" data-reveal-on-scroll data-from="right" style="--i:1">
+            <h3>The five digital agreements</h3>
+            <p><span class="badge" data-status="progress">Drafted&nbsp;&mdash; none issued</span></p>
+            <p>What a person signs or acknowledges before using a BUGEMCO digital service.
+               Unchanged since August.</p>
+            <ul class="checks">
+              <li data-done="false">Waiting on <strong>a presentation to Mancom</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>On endpoint protection, we are looking at eScan through R3Hub, our current supplier, at the scoping stage for a cost estimate; nothing is chosen or bought, and we will not say what it offers or costs until that is in writing. Be ready to be asked how many machines it would cover: we have not counted them yet, and that count comes first.</p>
+          <p>Training and testing stopped when the Wizer subscription ended. In August we named eScan as a third option for this; after meeting them in September we are looking at eScan for device protection only, so be ready to be asked what now fills the training gap. There is no decision outstanding from you on the proposal, but if we do nothing we go to the end of the year with no staff training and no testing. The five digital agreements are still waiting for a slot in front of this committee.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>No security incident in July, August or September, and all three are confirmed, not just unreported; August was a blank last month and is now a confirmed zero.</p>
+        <p>Staff security training and phishing testing are still off, as they have been since July, and the five digital agreements drafted in August are still waiting for Mancom.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ NETWORK AND SYSTEM ADMINISTRATION ══════════════
+       The section's September report, supplied 8 October 2026: every figure
+       from tracking/support-network/network-log.md, "September 2026 — supplied
+       8 October 2026". Built the same way as August's Network band.
+       PUBLISHING RULES, all absolute (see the foot of network-log.md):
+         · branch maintenance as COUNTS only — no branch-by-branch table;
+         · no server names — "the coop's main servers";
+         · branch security alarms: only that the section reported on them again
+           and follow-up continues. Nothing further;
+         · NOTHING about the backup on this page (owner's ruling, 8 Oct 2026,
+           choice "a"). It is raised in the room; the notes only remind;
+         · Starlink: no branch-level reading, letters key stays private, and
+           which billing period is September's is unresolved — no September
+           figure is claimed.
+       The server finding is the section's WRITTEN statement: the screenshot
+       behind it is dated 2 August and is not placed. Microsoft 365 sign-in
+       change published as written (owner's ruling "b", 8 Oct 2026). Every
+       "impact" line is the section's own claim and is attributed. -->
+  <section class="band" id="network" data-band-name="Network &amp; Systems" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">08 · Network and System Administration</p>
+        <h2 class="band-title">Network patching now complete at all 7&nbsp;branches, up from 5&nbsp;in August&nbsp;&mdash; and printers up to date at 6,&nbsp;up from 3</h2>
+        <p>Reported by the Network and System Administration section. Their September report
+           reached us on 8&nbsp;October.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="7">0</span></p>
+          <p class="metric-label">Branches&nbsp;&mdash; network patching up to&nbsp;date</p>
+          <p class="metric-note">7&nbsp;of 7&nbsp;branches, against 5&nbsp;in August and 3&nbsp;in July.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="7">0</span></p>
+          <p class="metric-label">Branches&nbsp;&mdash; operating systems up to&nbsp;date</p>
+          <p class="metric-note">7&nbsp;of 7&nbsp;branches, the same as July and August.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="6">0</span></p>
+          <p class="metric-label">Branches&nbsp;&mdash; printers up to&nbsp;date</p>
+          <p class="metric-note">6&nbsp;of 7,&nbsp;against 3&nbsp;in August. 1&nbsp;in progress, none pending.</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="4">0</span></p>
+          <p class="metric-label">Branches&nbsp;&mdash; hardware upkeep still under&nbsp;way</p>
+          <p class="metric-note">4&nbsp;of 7&nbsp;under way, 3&nbsp;pending&nbsp;&mdash; unchanged since July.</p>
+        </div>
+      </div>
+
+      <div data-stop="Servers and branch maintenance">
+      <div class="cols--wide-right" style="margin-bottom:var(--sp-4)">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>The coop's main servers&nbsp;&mdash; not a September&nbsp;check</h3>
+          <p><span class="tag tag--source">The section's written statement</span></p>
+          <p><strong>The latest assessment shown in its report is dated 2&nbsp;August.</strong> What
+             follows is the section's statement, not a check made in September.</p>
+          <p>The section reports <strong>3&nbsp;business assets with an open port</strong>, which it
+             states are in use and secured. An open port is a doorway a server keeps open so
+             other systems can talk to it.</p>
+          <p>Against them it reports <strong>no weaknesses (vulnerabilities), no weak passwords, no
+             ransomware threats, no assets at risk and no attack events.</strong></p>
+          <p>The section's own summary: <em>&ldquo;BUGEMCO computer network has been stable and
+             reliable.&rdquo;</em></p>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>Branch preventive maintenance&nbsp;&mdash; third quarter</h3>
+          <div class="pbar">
+            <div class="pbar-head"><span>Operating system patching</span><span>7&nbsp;of 7&nbsp;branches complete</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="100"></div></div>
+          </div>
+          <div class="pbar">
+            <div class="pbar-head"><span>Network patching&nbsp;&mdash; up to date</span><span>7&nbsp;of 7&nbsp;branches</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="100"></div></div>
+          </div>
+          <div class="pbar">
+            <div class="pbar-head"><span>Printer maintenance&nbsp;&mdash; up to date</span><span>6&nbsp;of 7&nbsp;branches</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="86" data-tone="yellow"></div></div>
+          </div>
+          <div class="pbar">
+            <div class="pbar-head"><span>Hardware upkeep&nbsp;&mdash; under way</span><span>4&nbsp;of 7&nbsp;branches</span></div>
+            <div class="pbar-track"><div class="pbar-fill" data-fill="57" data-tone="yellow"></div></div>
+          </div>
+          <p>The rest: printers 1&nbsp;in progress, none pending · hardware 3&nbsp;pending.</p>
+          <p>The section's own summary: <em>&ldquo;Stable and reliable computer network while
+             printer usage is unoptimized.&rdquo;</em> It does not say what
+             &ldquo;unoptimized&rdquo; means.</p>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>On the servers, the section says nothing is at risk, but the latest assessment in its report is dated the second of August, so we give it as their statement, not as a September check. Be ready to be asked whether there is a September server assessment: it is not settled yet.</p>
+          <p>Only hardware upkeep has not moved since July.</p>
+          <p>We raise the backup here in the room, as in August; it is not on the page.</p>
+        </aside>
+      </div>
+
+      <div data-stop="Microsoft 365 sign-in, internet and email">
+      <div class="cols--pair" style="margin-bottom:var(--sp-4)">
+        <div class="card" data-reveal-on-scroll data-from="left">
+          <h3>Microsoft 365&nbsp;&mdash; sign-in moved to the Authenticator app</h3>
+          <p><span class="badge" data-status="progress">Text-message sign-in off for now</span></p>
+          <p>Staff were being asked for a text-message one&#8209;time PIN again and again when they
+             signed in to Microsoft 365,&nbsp;the staff email and office software. The section took
+             it up with Microsoft 365&nbsp;and with its service provider, R3Hub Technologies Inc.</p>
+          <ul class="checks">
+            <li><strong>Text-message sign-in switched off</strong> for the time being</li>
+            <li><strong>The Microsoft Authenticator app</strong> is now the main way to sign
+                in</li>
+          </ul>
+          <p>The section names the risk that comes with it: <em>&ldquo;Initial User Lockout Risk
+             and device dependency&rdquo;</em>&nbsp;&mdash; some staff may be locked out at first,
+             and signing in now depends on each person's device.</p>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>Also in the section's report</h3>
+          <p><strong>Starlink satellite internet: use rose and fell through the month.</strong>
+                The section puts this down to unstable weather, which caused fibre cuts on the
+                main internet provider's lines at branches. ICT has been managing Starlink use
+                by hand as needed. The section's own summary: <em>&ldquo;Starlink usage have been
+                optimized to its cost effectiveness&rdquo;</em>&nbsp;&mdash; its claim; no cost
+                figure is given. Branch-by-branch internet figures are held back: which billing
+                period is September's use is still being confirmed.</p>
+          <p><strong>Email:</strong> <span class="tag tag--period">7&nbsp;September to 6&nbsp;October</span>
+                From the Microsoft 365&nbsp;usage report, the section finds mail <em>&ldquo;currently
+                in a high-volume receiving mode rather than an active outbound communication
+                mode&rdquo;</em>, and <em>&ldquo;Not all received emails are being
+                read.&rdquo;</em> No totals are given.</p>
+          <p><strong>Security alarms at the branches:</strong> the section reported on them
+                again, and <span class="nobr">follow-up</span> continues.</p>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>They moved Microsoft 365 sign-in from text-message PINs to the Authenticator app, which the section itself warns may lock some staff out at first.</p>
+          <p>Be ready to be asked which branch internet figures are September&rsquo;s: that is not settled yet, and we will not show a branch figure until it is.</p>
+        </aside>
+      </div>
+
+      <div data-stop="Not in the September report">
+      <div class="card" data-reveal-on-scroll>
+        <h3>Not in the September report</h3>
+        <ul class="checks">
+          <li data-done="false"><strong>Structured recabling at two branches, with
+              R3Hub</strong>&nbsp;&mdash; on the September plan, not mentioned. Nothing is
+              claimed against the cabling target</li>
+          <li data-done="false"><strong>The network users and usage report</strong> the
+              September plan said would follow patching</li>
+          <li data-done="false"><strong>Both policy drafts</strong>&nbsp;&mdash; Communication,
+              Digital Medium and Email Usage, and Software Patch Management</li>
+          <li data-done="false"><strong>BLC internet installation</strong> and the
+              <strong>ATM configuration update with ITC</strong></li>
+        </ul>
+      </div>
+        <aside class="notes">
+          <p>These were on the section&rsquo;s September plan but are not in its report, so we claim nothing for them, including against the cabling target.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>The section's September report reached us on the eighth of October, and the good news is the patching: network patching is now complete at all seven branches, up from five in August, operating systems are still up to date everywhere, and printers went from three branches up to date to six; only hardware upkeep has not moved since July.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ SUPPORT ════════════════════════════════════════
+       tracking/support-network/support-log.md and tracking/targets/
+       bsc-annual-2026.md (IT support response time row): 6 hours in September,
+       4 in August, 3.69 in July, target 24 hours or less. Lower is better. The
+       report gives no reason for the rise, and the owner skipped the question
+       on 8 Oct 2026 — so none is offered. The other counts are "not counted",
+       never zero. -->
+  <section class="band" id="support" data-band-name="Support" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">09 · Support</p>
+        <h2 class="band-title">Requests picked up in 6&nbsp;hours on average, against a target of 24&nbsp;hours or less&nbsp;&mdash; up from 4&nbsp;in August</h2>
+        <p>Still a quarter of the 24-hour allowance, but up two months running. The section's
+           report gives no reason for the rise.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="6">0</span></p>
+          <p class="metric-label">Hours to respond, on average</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            <span class="tag tag--source">Network &amp; System Administration section</span>
+            Against a target of 24&nbsp;hours or less. August was 4&nbsp;hours, July&nbsp;3.69.
+          </p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3">0</span></p>
+          <p class="metric-label">Systems in use being supported</p>
+          <p class="metric-note">Membership Information System, Queuing System, SMS Blast
+             Facility.</p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num">&mdash;</p>
+          <p class="metric-label">Support requests counted</p>
+          <p class="metric-note">Not counted for September.</p>
+        </div>
+      </div>
+
+      <!-- The gauge and the gap stacked in the narrow column, the month-by-month
+           chart in the wide one: side by side as equal cards, the gauge card was
+           half empty beside the chart. -->
+      <div data-stop="Response time, month by month">
+      <div class="cols--wide-right">
+        <div style="display:grid; gap:var(--rhythm-block); align-content:start">
+          <div class="card" data-reveal-on-scroll data-from="left">
+            <h3>How quickly a request is picked up</h3>
+            <div id="response-gauge"></div>
+          </div>
+          <div class="not-recorded" data-reveal-on-scroll>
+            <h3>Four things still not counted</h3>
+            <p>ATM cards issued · call-outs to ATM machines · branch maintenance visits ·
+               everyday technical requests from staff.</p>
+            <p>Not counted is not the same as none.</p>
+          </div>
+        </div>
+        <div class="card" data-reveal-on-scroll data-from="right">
+          <h3>Hours to respond, month by month</h3>
+          <div id="response-line"></div>
+          <p><span class="tag tag--lower">Lower is better</span> All three months are well inside
+             the 24-hour target.</p>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>It has gone up two months running, from three point six nine hours in July to four in August and six now. Be ready to be asked why it rose: the section&rsquo;s report gives the figure only, with no reason, and we do not know it yet.</p>
+          <p>Be ready, too, to be asked for the volume of requests: it is still not counted, which is not the same as none.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>Requests were picked up in six hours on average in September against a target of twenty-four hours or less, so we are still well inside it, at a quarter of the allowance.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ ANNUAL TARGETS ═════════════════════════════════
+       Re-scored for MONTH 9 of 12 with tools/lib/pace.js (8 Oct 2026):
+       digitalisation 3/6 expected 4.5 behind; maintenance 50/100 expected 75
+       behind; drives 4/5 expected 3.75 on track; trainings 4/4 and improvements
+       11/10 ahead. Breaches are a confirmed 0 for July–September but are not
+       charted: a target bar cannot draw a lower-is-better zero. -->
+  <section class="band" id="annual-targets" data-band-name="Annual Targets" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">10 · Where we stand against the year</p>
+        <h2 class="band-title">Annual Targets</h2>
+        <p><strong>Month 9&nbsp;of 12.</strong> No verdict changed from August.</p>
+      </div>
+
+      <div class="summary-strip" data-reveal-on-scroll>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="3">0</span></p>
+          <p class="metric-label">At or ahead of the calendar</p>
+          <p class="metric-note">Of the 5&nbsp;targets charted below.</p>
+        </div>
+        <div class="metric metric--behind">
+          <p class="metric-num"><span data-count="2">0</span></p>
+          <p class="metric-label">Behind the calendar</p>
+          <p class="metric-note">Systems in use, and system maintenance.</p>
+        </div>
+        <div class="metric metric--good">
+          <p class="metric-num"><span data-count="0">0</span></p>
+          <p class="metric-label">Security breaches</p>
+          <p class="metric-note">
+            <span class="tag tag--lower">Lower is better</span>
+            Target 0.&nbsp;July to September each confirmed none.
+          </p>
+        </div>
+        <div class="metric metric--unknown">
+          <p class="metric-num"><span data-count="17">0</span></p>
+          <p class="metric-label">Targets with nothing recorded&nbsp;yet</p>
+          <p class="metric-note">17&nbsp;rows across the two scorecards.</p>
+        </div>
+      </div>
+
+      <div data-stop="The five charted targets">
+      <div class="card" data-reveal-on-scroll style="margin-bottom:var(--sp-5)">
+        <h3>The five charted targets at a glance</h3>
+        <p>Actual against the annual target, with a marker at the pace of the year.</p>
+        <div id="target-bars"></div>
+      </div>
+        <aside class="notes">
+          <p>Systems in use is the one to watch: three of six, when the calendar expects four or five by now, and nothing new came into use in September, because CAC-IIS and the Mart are deployed but not yet used.</p>
+          <p>Getting those two and the Learning Center system into use would close the gap, and all three are waiting on someone else, not on us.</p>
+        </aside>
+      </div>
+
+      <div data-stop="What is behind, and what carries a qualifier">
+      <div class="grid grid--3">
+        <div class="card tilt" data-reveal-on-scroll style="--i:0">
+          <h3>Behind&nbsp;&mdash; systems in use</h3>
+          <p><span class="badge" data-status="delayed">3&nbsp;of 6&nbsp;systems, about 1&frac12; short</span></p>
+          <p>About 4&nbsp;or 5&nbsp;would be expected by September. <strong>Nothing new came into use in
+             September</strong>&nbsp;&mdash; CAC-IIS and the Mart are deployed but not counted.</p>
+          <p>Catching up means <strong>3&nbsp;more systems in use in the 3&nbsp;months left</strong>.</p>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll style="--i:1">
+          <h3>Behind&nbsp;&mdash; system maintenance</h3>
+          <p><span class="badge" data-status="delayed">50%&nbsp;against a target of 100%</span></p>
+          <p>About 75%&nbsp;would be expected by September, so this is 25&nbsp;points behind. Five systems
+             are covered so far.</p>
+          <p>No maintenance figure was reported for August or September.</p>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll style="--i:2">
+          <h3>Figures that carry a qualifier</h3>
+          <ul class="checks">
+            <li><strong>Trainings and seminars&nbsp;&mdash; 4&nbsp;of 4</strong>, on the department head's
+                confirmation. One of the four is named; three are not on file</li>
+            <li><strong>Support response time&nbsp;&mdash; 6&nbsp;hours</strong> against 24&nbsp;or less.
+                Ahead of target, but up from 4&nbsp;hours in August and 3.69&nbsp;in July. The section's
+                report gives no reason for the rise
+                <span class="tag tag--lower">Lower is better</span></li>
+            <li data-done="false"><strong>Digital agreements&nbsp;&mdash; drafted, not claimed</strong> until presented
+                and approved</li>
+          </ul>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>On maintenance, the fifty per cent is carried from earlier months, because no figure was reported for August or September.</p>
+          <p>Support response time is ahead of target at six hours, but up two months running, and the digital agreements are not claimed until they are presented and approved.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>Month nine of twelve, and no verdict changed from August: three of the five charted targets are where they should be, and two are behind.</p>
+        <p>Security breaches are zero for July to September, each month confirmed.</p>
+        <p>Be ready to be asked about the seventeen scorecard rows with nothing recorded: a dash there means not recorded, never zero.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ OCTOBER ════════════════════════════════════════
+       tracking/plans/2026-10.md (started 8 Oct 2026). The Software Development
+       and Information Security plan has not been supplied, so its items are
+       only those already on record there and in tracking/DASHBOARD.md. The
+       Network and System Administration section's own list, from its
+       September report, is shown separately: the two sections plan separately. -->
+  <section class="band" id="october" data-band-name="October" data-backdrop="content">
+    <div>
+      <div class="band-head" data-reveal-on-scroll>
+        <p class="eyebrow">11 · Next month</p>
+        <h2 class="band-title">October 2026</h2>
+        <p>The Ownership Meeting is in October&nbsp;&mdash; the Event System's first
+           real use, and its first impact figures.</p>
+      </div>
+
+      <div data-stop="On us, and waiting on others">
+      <div class="grid grid--2">
+        <div class="card tilt" data-reveal-on-scroll data-from="left" style="--i:0">
+          <h3>On us&nbsp;&mdash; Software Development and Information Security</h3>
+          <ul class="checks">
+            <li data-done="false"><strong>The Ownership Meeting</strong>&nbsp;&mdash; run attendance,
+                cash claims and the raffle draw on the Event System</li>
+            <li data-done="false"><strong>Finance Management System</strong>&nbsp;&mdash; start the
+                build, with signature specimen storage first, due before November</li>
+            <li data-done="false"><strong>Endpoint protection</strong>&nbsp;&mdash; carried over from
+                September: the eScan scoping evaluation, for a cost estimate</li>
+            <li data-done="false"><strong>Vulnerability and penetration testing (VAPT)</strong>&nbsp;&mdash;
+                explore MASS-SPECC's offer, for next year's budget</li>
+            <li data-done="false"><strong>Server and portable power station</strong>&nbsp;&mdash; for
+                the Ownership Meeting; we stopped waiting on CLIMBS and the purchase is going
+                through</li>
+          </ul>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll data-from="right" style="--i:1">
+          <h3>Waiting on someone else</h3>
+          <ul class="checks">
+            <li data-done="false"><strong>CAC-IIS</strong>&nbsp;&mdash; the system presentation, so it
+                can go live</li>
+            <li data-done="false"><strong>Mart Online Store</strong>&nbsp;&mdash; users training for a
+                simulation run, and the product data from the Mart</li>
+            <li data-done="false"><strong>Credit Management System</strong>&nbsp;&mdash; a date for its
+                first presentation</li>
+            <li data-done="false"><strong>CLIMBS</strong>&nbsp;&mdash; a date for the next planning
+                meeting</li>
+            <li data-done="false"><strong>The five digital agreements</strong>&nbsp;&mdash; a
+                presentation to Mancom</li>
+          </ul>
+        </div>
+        <!-- One grid of four, not a 1:1 row over a 0.85:1.15 row: two rows
+             with different splits put two seams on the page that never line up. -->
+        <div class="card tilt" data-reveal-on-scroll data-from="left" style="--i:2">
+          <h3>Figures we expect next month</h3>
+          <ul class="checks">
+            <li data-done="false"><strong>Ownership Meeting</strong>&nbsp;&mdash; members registered,
+                claims released, raffle draws run</li>
+            <li data-done="false"><strong>Queuing System</strong>&nbsp;&mdash; October's figures</li>
+          </ul>
+        </div>
+        <div class="card tilt" data-reveal-on-scroll data-from="right" style="--i:3">
+          <h3>Impact we do not measure yet</h3>
+          <ul class="checks">
+            <li data-done="false"><strong>Members reached</strong> by text, not only messages
+                sent</li>
+            <li data-done="false"><strong>New members registered</strong> each month</li>
+            <li data-done="false"><strong>Members served at the counters</strong>, once the
+                kiosk's member button is used</li>
+            <li data-done="false"><strong>Payments after a loan reminder</strong></li>
+            <li data-done="false"><strong>Work machines</strong> to be protected</li>
+          </ul>
+        </div>
+      </div>
+        <aside class="notes">
+          <p>On our side we also start building the Finance Management System, beginning with signature specimen storage, which Finance has asked for and we expect to finish before November, and carry on with the endpoint protection scoping, which is still at the stage of getting a cost estimate. We will also look at MASS-SPECC's vulnerability and penetration testing offer, so it can be considered for next year's budget. The server and the portable power station meant for the Ownership Meeting are still being bought: in August we held the power station back for CLIMBS' feedback, but we stopped waiting and went ahead, so be ready to be asked whether they will arrive in time; the longer list is waiting on others, from the CAC-IIS system presentation and the Mart's training and product data to the digital agreements in front of this committee.</p>
+          <p>The last card answers the CEO's direction: members reached, new members each month, members served at the counters, payments after a reminder and machines to protect are impact figures we do not collect today.</p>
+          <p>Be ready to be asked when they will appear: only once someone starts counting them, and we cannot promise a month yet.</p>
+        </aside>
+      </div>
+
+      <div data-stop="The Network section's own list">
+      <!-- The section's four October items, from tracking/plans/2026-10.md, in
+           its own words where it gave them. Nothing is claimed against the
+           cabling target until the section reports the recabling done. -->
+      <div class="card tilt" data-reveal-on-scroll style="--i:4; margin-top:var(--rhythm-block)">
+        <h3>Network and System Administration&nbsp;&mdash; the section's own list</h3>
+        <ul class="checks">
+          <li data-done="false"><strong>Start of quarterly branch maintenance</strong> at the seven
+              branches</li>
+          <li data-done="false"><strong>Service support for the Ownership Meeting</strong></li>
+          <li data-done="false"><strong>Microsoft 365&nbsp;licence renewal</strong>&nbsp;&mdash;
+              preparation</li>
+          <li data-done="false"><strong>Structured recabling at the Kisolon branch</strong>, as
+              part of its leasehold improvement</li>
+        </ul>
+      </div>
+        <aside class="notes">
+          <p>The Network and System Administration section plans its own month: the start of quarterly branch maintenance, support for the Ownership Meeting, preparing the Microsoft 365 licence renewal, and recabling at the Kisolon branch, which would count towards the cabling target only once they report it done.</p>
+        </aside>
+      </div>
+
+      <aside class="notes">
+        <p>October is the Ownership Meeting, the Event System's first real day, and the first time we will have its impact figures: members registered, claims released and raffle draws run.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ CLOSING ════════════════════════════════════════
+       The sign-off, and nothing else. -->
+  <section class="band band--closing" id="thank-you" data-band-name="Thank you" data-backdrop="closing">
+    <div>
+      <div class="closing-panel" data-reveal-on-scroll>
+        <img class="closing-logo" src="../../assets/img/logo-bugemco.png"
+             alt="BUGEMCO — Making Lives Better">
+        <p class="salamat">
+          <span class="salamat-word" style="--w:0">Salamat</span>
+          <span class="salamat-word" style="--w:1">sa</span>
+          <span class="salamat-word salamat-accent" style="--w:2">Gugma!</span>
+        </p>
+      </div>
+      <aside class="notes">
+        <p>Thank you.</p>
+        <p>To close in one line: our text-message facility used about four times August's credits and Marketing now sends its own campaigns, two more systems are up and waiting on dates and data from outside our department, and October's Ownership Meeting is the Event System's first real use.</p>
+        <p>Be ready to be asked for the dates we do not have yet: the Ownership Meeting's, and those of the presentations still waiting.</p>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<button class="to-top" type="button" aria-label="Back to the top">&uarr;</button>
+
+<script src="../../assets/js/fallback.js"></script>
+<script type="module" src="../../assets/js/boot.js"></script>
+<script type="module">
+  import { donut, lineChart, targetBar, gauge } from '../../assets/js/charts.js';
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+
+  // ── The slice colours on this page ─────────────────────
+  // The same measured set the approved August page uses. Each clears 3:1
+  // against the white card (contrast in brackets). The ring is a circle, so
+  // the last slice touches the first; every touching pair below, including
+  // that wrap-round pair, was measured at 1.5:1 or more in lightness, so the
+  // ring survives colour-blindness and a washed-out projector. The first
+  // version put green beside orange at 1.07:1, which is no edge at all.
+  // The status tokens (--st-*) are NOT used for slices: a message type or a
+  // stage of work is not a status, and #F5C518 measured 1.49:1 on the card.
+  const NAVY   = '#0A2E4A';  // 14.0:1, darkest
+  const RUST   = '#6E2B16';  // 10.4:1
+  const SLATE  = '#4A5458';  //  7.8:1
+  const BLUE   = '#1560A0';  //  6.5:1
+  const ORANGE = '#A85A12';  //  5.1:1
+  const SKY    = '#3585BA';  //  4.0:1, lightest
+  const GREEN  = '#0B7A3B';  //  5.4:1, the coop's own green, kept for "in use"
+
+  // Every ring's key prints counts with a thousands separator (grouping:
+  // true — 2,387, not 2387). The message types and the departments print
+  // their shares to one decimal (decimals: 1): plain rounding to whole per
+  // cent made the message types add to 99%; to one decimal they add to
+  // exactly 100.0%. Equal counts always get equal shares — nothing is nudged
+  // to make a total come out. Both are donut() options in charts.js.
+
+  // Eleven systems, from the Systems table in tracking/DASHBOARD.md.
+  // In use: MIS, Queuing, SMS Blast. Deployed, not in use: CAC-IIS, Mart.
+  // Built or nearly built, not yet in use: CMS (built), BLC (5 of 6 parts,
+  // data testing), Event System (ready for the OM). Under way: RMS, PPD
+  // Directory. Not started in September: FMS (build starts October,
+  // tracking/projects/fms.md). The grouping is ours; DASHBOARD.md lists
+  // each system's state but does not group them.
+  // Slice order is the order of the stages, and the key follows it. Colours
+  // were chosen for the touching pairs: In use/Deployed 2.6:1, Deployed/Built
+  // 2.1:1, Built/Under way 1.6:1, Under way/Not started 2.6:1, and Not
+  // started/In use (the wrap-round) 1.9:1. The three middle stages run dark to
+  // light in one blue family, so the further a system is from use, the paler.
+  // Shares are whole per cent: elevenths cannot be rounded to add to 100
+  // without giving two equal counts different shares, so the card says the
+  // shares add to 99 rather than nudge one.
+  const SYSTEMS = [
+    { label: 'In use',                                value: 3, color: GREEN },
+    { label: 'Deployed, not yet in use',              value: 2, color: NAVY },
+    { label: 'Built or nearly built, not yet in use', value: 3, color: BLUE },
+    { label: 'Under way',                             value: 2, color: SKY },
+    { label: 'Not started in September',              value: 1, color: RUST }
+  ];
+  set('systems-donut', donut(SYSTEMS, { centre: '11', grouping: true, alt: 'Eleven systems: three in use, two deployed but not yet in use, three built or nearly built but not yet in use, two under way, one not started in September' }));
+
+  // tracking/projects/sms-blast.md, September log: 2,387 + 355 + 128 + 40 = 2,910.
+  // Largest first. Touching pairs: 3.5:1, 2.6:1, 2.1:1 and, wrapping round
+  // from the seminar notices back to Marketing, 2.7:1. Shares to one decimal:
+  // 82.0 + 12.2 + 4.4 + 1.4 = 100.0.
+  const SMS_TYPES = [
+    { label: 'Marketing\xA0— Kisolon Branch anniversary promotion', value: 2387, color: NAVY },
+    { label: 'One‑time PINs, sent by MIS',                     value: 355,  color: SKY },
+    { label: 'Loan payment reminders',                                value: 128,  color: RUST },
+    { label: 'Seminar notices to applicants, sent by MIS',            value: 40,   color: ORANGE }
+  ];
+  set('sms-type-donut', donut(SMS_TYPES, { centre: '2,910', alt: 'The 2,910 text messages sent in September: 2,387 for the Kisolon Branch anniversary promotion, 355 one-time PINs sent by the Membership Information System, 128 loan payment reminders, and 40 seminar notices to membership applicants, 4 of them tests', grouping: true, decimals: 1 }));
+
+  // Credits, from the gateway's Credit History chart. Only recorded months:
+  // July could not be read reliably and is NOT plotted or interpolated.
+  set('sms-credits-line', lineChart([
+    { label: 'Aug 2026', value: 750 },
+    { label: 'Sep 2026', value: 3022 }
+  ], { alt: 'SMS credits used: 750 in August 2026 and 3,022 in September 2026, about four times as many. July is not recorded.' }));
+
+  // ── Queuing System, 2–30 September, the complete month ─
+  // Every figure from tracking/projects/queuing-system.md, "September 2026 —
+  // the second full month" and its "For charting" lists. 21 working days;
+  // Tuesday 1 September has no data: office closed for Araw ng Bukidnon.
+  // Largest first. Cash and Credit keep August's navy and orange so the two
+  // months read alike. Touching pairs: 2.7, 2.1, 1.6, 1.6, 1.9 and, wrapping
+  // round from Insurance to Cash, 1.8:1. Shares to one decimal, as tracking
+  // gives them: 41.5 + 35.8 + 9.1 + 6.9 + 5.9 + 0.8 = 100.0.
+  const QUEUE_DEPTS = [
+    { label: 'Cash Transaction',       value: 2469, color: NAVY },
+    { label: 'Credit Transaction',     value: 2134, color: ORANGE },
+    { label: 'Collection Transaction', value: 542,  color: RUST },
+    { label: 'Accounts Services',      value: 412,  color: BLUE },
+    { label: 'Member Services',        value: 354,  color: SKY },
+    { label: 'Insurance',              value: 45,   color: SLATE }
+  ];
+  set('queue-dept-donut', donut(QUEUE_DEPTS, { centre: '5,956', alt: 'Where the 5,956 tickets went across the 21 working days of September: Cash Transaction 2,469, Credit Transaction 2,134, Collection Transaction 542, Accounts Services 412, Member Services 354, Insurance 45', grouping: true, decimals: 1 }));
+
+  // Two charts, same nine hours, read one under the other. These count
+  // TRANSACTIONS with a usable time (5,734), not tickets — never relabel them.
+  const HOURS = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+  set('queue-hour-tickets', lineChart(
+    [621, 959, 952, 648, 533, 743, 813, 373, 92].map((v, i) => ({ label: HOURS[i], value: v })),
+    { alt: 'Transactions by hour in September: 621 at 8am, 959 at 9am, 952 at 10am, 648 at 11am, 533 at noon, 743 at 1pm, 813 at 2pm, 373 at 3pm, 92 at 4pm' }
+  ));
+  set('queue-hour-wait', lineChart(
+    [15.6, 18.4, 17.8, 21.6, 20.3, 14.2, 12.8, 11.6, 6.4].map((v, i) => ({ label: HOURS[i], value: v })),
+    { alt: 'Average wait in minutes by hour in September: 15.6 at 8am, 18.4 at 9am, 17.8 at 10am, 21.6 at 11am, 20.3 at noon, 14.2 at 1pm, 12.8 at 2pm, 11.6 at 3pm, 6.4 at 4pm' }
+  ));
+
+  // Tickets a day, the 21 working days 2–30 September in order.
+  const DAYS = [2, 3, 4, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 28, 29, 30];
+  set('queue-day-line', lineChart(
+    [426, 259, 310, 371, 235, 285, 251, 327, 340, 255, 241,
+     231, 294, 294, 253, 210, 254, 282, 327, 262, 249].map((v, i) => ({ label: String(DAYS[i]), value: v })),
+    { alt: 'Tickets a day across the 21 working days of September, from 426 on 2 September to 249 on 30 September, with the busiest day 426 on 2 September and the quietest 210 on 23 September. 1 September has no data: the office was closed for Araw ng Bukidnon.' }
+  ));
+
+  // ── Support: average response time ───────────────────
+  // tracking/support-network/support-log.md and the BSC row in
+  // tracking/targets/bsc-annual-2026.md: 3.69 hours in July, 4 in August,
+  // 6 in September, against 24 hours or less. Lower is better. No reason for
+  // the rise is recorded, so none is drawn or written.
+  set('response-gauge', gauge({
+    value: 6, max: 24, unit: 'h',
+    label: 'Average time to pick up a request',
+    caption: 'Requests were picked up in 6 hours on average in September, against a target of 24 hours or less'
+  }));
+  set('response-line', lineChart([
+    { label: 'Jul 2026', value: 3.69 },
+    { label: 'Aug 2026', value: 4 },
+    { label: 'Sep 2026', value: 6 }
+  ], { decimals: 'auto', alt: 'Average hours to pick up a support request: 3.69 in July 2026, 4 in August and 6 in September, against a target of 24 hours or less.' }));
+
+  // PACE is how much of the year has gone by the end of September — nine
+  // months of twelve. Verdicts from tools/lib/pace.js, month 9.
+  const PACE = 75;
+  set('target-bars', [
+    { label: 'Trainings and seminars attended', actual: 4, target: 4,
+      alt: 'Trainings and seminars attended: 4 of 4. Recorded as met on the department head’s confirmation. One of the four is named; the other three are not listed.' },
+    { label: 'System improvements proposed', actual: 11, target: 10,
+      alt: 'System improvements proposed: 11 against a target of at least 10. Target beaten.' },
+    { label: 'Information drives held',      actual: 4,  target: 5,
+      alt: 'Information drives held: 4 of 5. On track with three months of the year left.' },
+    { label: 'Systems in use',               actual: 3,  target: 6,
+      alt: 'Systems in use: 3 of 6. Behind for the time of year — about 4 or 5 would be expected by September.' },
+    { label: 'System maintenance completed', actual: 50, target: 100, unit: '%',
+      alt: 'System maintenance completed: 50 percent against a target of 100 percent. Behind for the time of year — about 75 percent would be expected by September. This is the position for the year so far, not for September alone.' }
+  ].map((row) => targetBar({ ...row, pace: PACE })).join(''));
+
+  // targetBar carries the percentage as a width attribute so it can be
+  // asserted without a DOM; hand it to the motion layer as data-fill.
+  document.querySelectorAll('.tbar-fill').forEach((el) => {
+    el.dataset.fill = parseInt(el.getAttribute('width'), 10);
+  });
+</script>
+</body>
+</html>

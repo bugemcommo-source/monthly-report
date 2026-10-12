@@ -25,7 +25,7 @@ guessing a figure.
 
 | What we're measuring | Target for the year | Actual so far | Notes |
 |---|---|---|---|
-| IT support response time | 24 hours or less | **4 hours** (August 2026) | **Lower is better.** From the Network and System Administration August 2026 report, supplied 15 September — well inside target. July was 3.69 hours, so a small rise, both months comfortably within target. Logged in `../support-network/support-log.md` |
+| IT support response time | 24 hours or less | **6 hours** (September 2026) | **Lower is better.** From the Network and System Administration September 2026 report, supplied 8 October 2026 — still well inside target (pace check for month 9: ahead). Up from 4 hours in August and 3.69 hours in July — a rise two months running, all three months comfortably within target; the report gives no reason for the rise. Logged in `../support-network/support-log.md` |
 | Policies approved by Mancom | 8 | — | Logged in `../infosec/policies-guidelines.md` |
 | Guidelines approved | 5 | — | Logged in `../infosec/policies-guidelines.md` |
 | Processes improved or automated | 4 | — | |
@@ -45,7 +45,7 @@ guessing a figure.
 | Information drives held | 5 | **4** | March and May (owner's decision, July 2026 intake) plus **two** Digital Literacy: Cybersecurity Awareness sessions for members in August 2026, counted as one drive each — the owner's decision, August 2026 intake. See the note below. |
 | Structured cabling installations | 2 | — | Logged in `../support-network/network-log.md` |
 | IT asset housekeeping | 100% | — | |
-| Security breaches | 0 | 0 | **Lower is better.** The 0 comes from Deliverable #9 (major security breaches, actual 0). July 2026 is a confirmed nil return. **August 2026 was not reported** — the owner skipped the question in the August intake, so August is a blank, not a confirmed none. Logged in `../infosec/incidents.md` |
+| Security breaches | 0 | 0 | **Lower is better.** The 0 comes from Deliverable #9 (major security breaches, actual 0). **July, August and September 2026 are all confirmed zero** (owner, 7 Oct 2026; August had been skipped in the August intake — see `../infosec/incidents.md`). Logged in `../infosec/incidents.md` |
 | Incident response time | 3.69 hours | — | **Lower is better. Unit confirmed as hours** — the Network and System Administration July 2026 report records "Average Response Time 3.69 Hrs". **But do not yet record an actual against this.** See the note directly below. |
 | Phishing failure rate | 1% or less | — | **Lower is better. See the note below.** No test was run in July (the subscription ended) and August was not reported, so there is nothing to record. The dash is not a zero. Logged in `../infosec/phishing-log.md` |
 | User satisfaction with digitalisation | 95% | — | |

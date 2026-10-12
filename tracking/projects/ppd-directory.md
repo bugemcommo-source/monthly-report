@@ -21,6 +21,5 @@ Still to confirm with the owner: who uses it day to day.
 ## Blockers
 
 ## Monthly log
-- 2026-08 — No activity reported. The owner confirmed in the August intake that no
-  content went into the directory this month.
+- 2026-08 — No activity reported. The owner confirmed in the August intake that no content went into the directory this month.
 - 2026-07 — The directory is set up. Ongoing work is filling in the content.

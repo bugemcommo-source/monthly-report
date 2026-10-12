@@ -175,6 +175,21 @@
   --shadow-4: 0 30px 80px rgba(0,40,20,0.28);
   --inset-top: 0 1px 0 rgba(255,255,255,0.7) inset;
 
+  /* Projector safe area. Meeting-room projectors overscan, and anything in the
+     outer ~48px of a 1080 picture can fall off the screen or onto the bezel.
+     Every piece of FIXED chrome — the section rail, the presenter and
+     back-to-top buttons, the lightbox's close button, the toast — keeps this
+     far from the edge. It shrinks on a small laptop, where there is no
+     projector to overscan and no width to spare.
+     --chrome-gutter is the right-hand channel those fixed controls live in
+     (safe edge + a 46px button + a gap). The bands' right padding is at least
+     this wide, so a fixed control can never sit on a card's edge again —
+     measured before, the buttons overlapped card edges by 6px at 1440. */
+  --safe-edge:     clamp(1rem, 3.4vw, 48px);
+  --chrome-size:   46px;
+  --chrome-gap:    0.6rem;
+  --chrome-gutter: calc(var(--safe-edge) + var(--chrome-size) + var(--chrome-gap));
+
   /* Layers — the stack from the spec */
   --z-photo: 0; --z-capsule: 1; --z-glow: 2; --z-particle: 3;
   --z-content: 10; --z-chrome: 20; --z-lightbox: 30;

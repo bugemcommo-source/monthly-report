@@ -8,6 +8,7 @@ Day-to-day help the department gives to branches, staff, and events.
 | 2026-05 | | | | | Youth Camp, Information Drive | |
 | 2026-07 | *not counted* | *not counted* | *not counted* | *not counted* | | **3.69 hours** |
 | 2026-08 | *not counted* | *not counted* | *not counted* | *not counted* | | **4 hours** |
+| 2026-09 | *not counted* | *not counted* | *not counted* | *not counted* | | **6 hours** |
 
 ## Who reports this section
 
@@ -26,6 +27,12 @@ gives those counts. Not counted is not the same as zero and must never be shown 
 **Average response time for August 2026: 4 hours**, from the section's August report. Still
 well inside the 24-hour target. It has moved from 3.69 hours in July — a small rise, and
 both months are comfortably within target.
+
+**Average response time for September 2026: 6 hours**, from the section's September report,
+supplied 8 October 2026 ("6 Hrs"). Still well inside the 24-hour target — a quarter of the
+allowance. It has risen two months running, from 3.69 hours in July to 4 in August and 6 in
+September; the report gives no reason. The September report gives none of the other counts
+either, so they stay *not counted*.
 
 ## What Software Development and InfoSec did support in July
 

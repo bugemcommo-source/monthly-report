@@ -14,6 +14,8 @@
  * motion — could not be reached at all without a keyboard.
  */
 
+import { lineChart } from './charts.js';
+
 const CALM_KEY = 'bugemco-calm';
 // '0' switches the bare C and P shortcuts off. WCAG 2.1 SC 2.1.4 asks for a
 // way to turn a single-character shortcut off or remap it; this is the off
@@ -67,14 +69,19 @@ export function initEffects(root) {
     // of a screen. You press P to read your note about the slide you are on and
     // the slide you are on scrolls away. See holdScroll.
     holdScroll(() => document.body.classList.toggle('show-notes', on));
-    toast(on ? 'Speaker notes shown — only on your screen' : 'Speaker notes hidden');
+    // The old message said "only on your screen". It was not true: these notes
+    // are put into the page itself, so a mirrored projector shows them to the
+    // room. The presenter window (P) is the private way; this is the in-page
+    // way, and it says so.
+    toast(on ? 'Speaker notes shown on this page — visible on any mirrored screen. Press P for the private presenter window.'
+             : 'Speaker notes hidden');
     document.dispatchEvent(new CustomEvent('notes:change', { detail: { shown: on } }));
   };
   const setKeys = (on) => {
     state.keys = on;
     localStorage.setItem(KEYS_KEY, on ? '1' : '0');
     toast(on
-      ? 'Single-key shortcuts ON — C for calm mode, P for speaker notes'
+      ? 'Single-key shortcuts ON — C calm mode, F fullscreen, P presenter window, Shift+P notes on this page'
       : 'Single-key shortcuts OFF — use this panel instead');
     document.dispatchEvent(new CustomEvent('keys:change', { detail: { keys: on } }));
   };
@@ -91,11 +98,20 @@ export function initEffects(root) {
     // A single letter must never fire while somebody is typing into a control
     // or reading a field — including one a future month adds.
     if (e.target?.isContentEditable) return;
+    // Not while something is open over the page. C pressed with a picture
+    // enlarged used to switch calm mode on behind it, unseen.
+    if (e.defaultPrevented) return;
+    if (document.querySelector('.lightbox.is-open, .doc-overlay.is-open, .povw.is-open')) return;
 
     if (e.key === 'c' || e.key === 'C') {
       setCalm(!state.calm);
     } else if (e.key === 'p' || e.key === 'P') {
-      setNotes(!document.body.classList.contains('show-notes'));
+      // P opens the presenter window (present.js): notes on the laptop only.
+      // Shift+P is the old behaviour — notes inserted into this page — kept for
+      // presenting from a single screen, and it says plainly that a mirrored
+      // projector will show them.
+      if (e.shiftKey) setNotes(!document.body.classList.contains('show-notes'));
+      else document.dispatchEvent(new CustomEvent('presenter:open'));
     }
   });
 
@@ -114,6 +130,9 @@ export function initEffects(root) {
   bindTilt(root, state);
   bindLightbox(root);
   bindChartFit();
+  bindFocusScroll();
+  bindPaceKey();
+  labelWaitBoards();
   watchFrameRate(state);
 
   // The hero is on screen before any scrolling happens, so it never receives a
@@ -153,11 +172,11 @@ export function initEffects(root) {
  * Calm mode holds every revealed block open with
  *     html.calm [data-reveal-on-scroll] { opacity: 1 !important }
  * Taking the class off hands those blocks straight back to the reveal observer
- * — and the observer only counts a block as on screen once 12% of it is inside
- * the viewport (and not in the bottom 8%). A block that is genuinely visible
- * but under that threshold has already been told it is NOT intersecting, and
- * the observer will not say another word about it until it crosses the
- * threshold. So the block drops to opacity 0 and stays blank until the reader
+ * — and the observer only reports a CHANGE. A block whose state it last
+ * reported while calm mode was holding everything open will not be reported
+ * again until it crosses the viewport edge. (The observer used to need 12% of
+ * a block on screen, outside the bottom 8%; it now fires on the first pixel,
+ * which narrows this window but does not close it.) So the block drops to opacity 0 and stays blank until the reader
  * scrolls. Observed at 1920×1080: two cards partly in view at scrollY 10053,
  * blank for at least two and a half seconds after pressing C.
  *
@@ -271,15 +290,18 @@ function buildPresenterPanel(state, api) {
     '</button>' +
     '<div class="pkeys-panel" id="pkeys-panel" hidden>' +
       '<h2 class="pkeys-title">Presenter controls</h2>' +
+      '<button class="pkeys-opt" type="button" data-act="window">' +
+        'Presenter window<span class="pkeys-state">Open</span></button>' +
       '<button class="pkeys-opt" type="button" data-act="calm" aria-pressed="false">' +
         'Calm mode<span class="pkeys-state">Off</span></button>' +
       '<button class="pkeys-opt" type="button" data-act="notes" aria-pressed="false">' +
-        'Speaker notes<span class="pkeys-state">Hidden</span></button>' +
+        'Notes on this page<span class="pkeys-state">Hidden</span></button>' +
       '<button class="pkeys-opt" type="button" data-act="keys" aria-pressed="true">' +
         'Single-key shortcuts<span class="pkeys-state">On</span></button>' +
-      '<p class="pkeys-hint">While single-key shortcuts are on, <kbd>C</kbd> turns calm ' +
-        'mode on and off and <kbd>P</kbd> shows or hides the speaker notes. Everything ' +
-        'here works without them.</p>' +
+      '<p class="pkeys-hint"><kbd>&rarr;</kbd> <kbd>PgDn</kbd> <kbd>Space</kbd> next · ' +
+        '<kbd>&larr;</kbd> <kbd>PgUp</kbd> back · <kbd>Esc</kbd> sections. ' +
+        'Single keys: <kbd>F</kbd> fullscreen · <kbd>C</kbd> calm · <kbd>P</kbd> presenter ' +
+        'window · <kbd>Shift</kbd>+<kbd>P</kbd> notes on this page (a mirrored projector shows them).</p>' +
     '</div>';
   document.body.appendChild(wrap);
 
@@ -332,6 +354,11 @@ function buildPresenterPanel(state, api) {
 
   btn.addEventListener('click', (e) => { open(panel.hidden); releaseAfterPointer(e); });
 
+  opts.window.addEventListener('click', (e) => {
+    open(false);
+    releaseAfterPointer(e);
+    document.dispatchEvent(new CustomEvent('presenter:open'));
+  });
   opts.calm.addEventListener('click', (e) => {
     api.setCalm(!document.documentElement.classList.contains('calm'));
     releaseAfterPointer(e);
@@ -357,6 +384,7 @@ function buildPresenterPanel(state, api) {
   // out of what they were doing.
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape' || panel.hidden) return;
+    e.preventDefault();   // spent — see the lightbox's Escape for why
     const inside = wrap.contains(document.activeElement);
     open(false);
     if (inside) btn.focus();
@@ -399,7 +427,7 @@ function countUp(scope) {
       const eased = 1 - Math.pow(1 - p, 3);
       el.textContent = fmtNumber(target * eased, decimals) + suffix;
       if (p < 1) requestAnimationFrame(tick);
-      else settleCount(el);   // land on the exact figure, never an eased one
+      else { settleCount(el); fitMetricsSoon(); }   // land on the exact figure, never an eased one
     };
     requestAnimationFrame(tick);
   });
@@ -515,8 +543,78 @@ function bindChartFit() {
   document.addEventListener('notes:change', refit);
 }
 
+/* Units per CSS pixel at the type's designed size. Must equal the 1.35 in
+   report.css (.ch-line max-width: calc(var(--ch-w) * 1.35px)). */
+const CH_UNIT_PX = 1.35;
+
+/* Redraw a trend line on a wider viewBox when its box has room for one, so it
+   uses the card instead of stopping at its natural width with the rest of the
+   card empty. The type stays at its designed size because the scale stays at
+   1.35. Never narrower than the chart's own natural width: below that the
+   ordinary scaling (and label thinning) below takes over, as before. */
+function widenLine(svg) {
+  if (!svg.dataset.refit) return svg;
+  const host = svg.parentElement;
+  if (!host) return svg;
+  const cs = getComputedStyle(host);
+  const avail = host.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  if (!(avail > 0)) return svg;
+  const natural = Number(svg.dataset.natural) || svg.viewBox.baseVal.width;
+  const target = Math.max(natural, Math.floor(avail / CH_UNIT_PX));
+  if (Math.abs(target - svg.viewBox.baseVal.width) < 12) return svg;
+  let data;
+  try { data = JSON.parse(svg.dataset.refit); } catch { return svg; }
+  const tmp = document.createElement('div');
+  tmp.innerHTML = lineChart(data.points, { ...data.opts, width: target });
+  const next = tmp.firstElementChild;
+  if (!next) return svg;
+  next.dataset.refit = svg.dataset.refit;
+  next.dataset.natural = String(natural);
+  svg.replaceWith(next);
+  return next;
+}
+
+/* A metric figure that is wider than its tile is set smaller, just enough to
+   fit — never larger than the design size, and only that tile. The figure is
+   measured at its TRUE value (settleCount writes it at start-up), which is
+   also the widest it ever gets: a count-up only ever shows fewer digits. */
+let fitMetricsQueued = false;
+function fitMetricsSoon() {
+  if (fitMetricsQueued) return;
+  fitMetricsQueued = true;
+  requestAnimationFrame(() => { fitMetricsQueued = false; fitMetrics(); });
+}
+
+function fitMetrics() {
+  document.querySelectorAll('.metric-num').forEach((el) => {
+    // Mid count-up the figure is shorter than it will be; keep whatever size
+    // was fitted to the real figure rather than re-measure a partial one.
+    const c = el.querySelector('[data-count]');
+    if (c && Number.isFinite(Number(c.dataset.count))) {
+      const final = fmtNumber(Number(c.dataset.count), Number(c.dataset.decimals || 0)) + (c.dataset.suffix || '');
+      if (c.textContent !== final) return;
+    }
+    el.style.fontSize = '';
+    // Measured against the TILE's content box, not the figure's own: as a
+    // grid/flex item with nowrap the figure's box simply grows to its text and
+    // the tile clips it, so its own clientWidth never shows the overflow.
+    const tile = el.parentElement;
+    const tcs = getComputedStyle(tile);
+    const avail = tile.clientWidth - parseFloat(tcs.paddingLeft) - parseFloat(tcs.paddingRight);
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const need = range.getBoundingClientRect().width;
+    if (!avail || need <= avail + 1) return;
+    const size = parseFloat(getComputedStyle(el).fontSize);
+    el.style.fontSize = `${Math.floor(size * (avail / need) * 0.98)}px`;
+  });
+}
+
 function fitCharts(force) {
-  document.querySelectorAll('svg.ch-line, .gauge svg').forEach((svg) => {
+  fitMetrics();
+  document.querySelectorAll('svg.ch-line, .gauge svg').forEach((found) => {
+    const svg = found.matches('svg.ch-line') ? widenLine(found) : found;
+    if (svg !== found) svg.dataset.fitAt = '';
     const vb = svg.viewBox?.baseVal;
     if (!vb || !vb.width || !vb.height) return;
     const box = svg.getBoundingClientRect();
@@ -574,6 +672,93 @@ function thinPointLabels(svg, scale) {
     const keep = new Set();
     for (let i = row.length - 1; i >= 0; i -= stride) keep.add(i);
     row.forEach((t, i) => { if (!keep.has(i)) t.style.display = 'none'; });
+  });
+}
+
+/* ── Tab lands on screen at once ────────────────────────
+   The page scrolls smoothly (report.css), and that includes the scroll the
+   browser makes to show an element Tab has just focused — so a focused control
+   far down the page stayed off screen for about a second, its focus ring
+   invisible. When focus arrives from the Tab key and the element is not on
+   screen, it is brought to the middle of the screen instantly, here, in the
+   capture phase of focusin — before the browser's own (smooth) focus scroll,
+   which then finds nothing left to do. Pointer focus and script focus are
+   left alone. */
+function bindFocusScroll() {
+  let tabbing = false;
+  document.addEventListener('keydown', (e) => { tabbing = e.key === 'Tab'; }, true);
+  document.addEventListener('pointerdown', () => { tabbing = false; }, true);
+  document.addEventListener('focusin', (e) => {
+    if (!tabbing) return;
+    tabbing = false;
+    const el = e.target;
+    if (!el || el === document.body || !el.getBoundingClientRect) return;
+    if (el.closest?.('.lightbox, .doc-overlay, .povw, .pkeys, .site-nav')) return;   // fixed layers
+    const r = el.getBoundingClientRect();
+    if (r.top >= 0 && r.bottom <= window.innerHeight) return;
+    el.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' });
+  }, true);
+}
+
+/* ── The pace key, as real text ─────────────────────────
+   report.css draws a pace post on every target bar that is not finished, and
+   a key — "75% expected by now" — under the first of them. The key used to be
+   a ::before, which a screen reader reads inside the first bar's group only,
+   as if it described that one target. Here it becomes a real element in the
+   same place, and every bar that has a post is described by it
+   (aria-describedby), so each target is announced with the key that explains
+   its post. The element is aria-hidden so it is not ALSO read as content of
+   the first group; aria-describedby still reads hidden text by design.
+   The bars are written by the month's own script, which runs after this
+   module, so this waits for DOMContentLoaded (and again at load, which costs
+   nothing: it is idempotent). With no JavaScript the ::before remains. */
+let paceKeys = 0;
+function bindPaceKey() {
+  const run = () => {
+    const parents = new Set(Array.from(document.querySelectorAll('.tbar[data-pace]'), (b) => b.parentElement));
+    parents.forEach((parent) => {
+      if (!parent || parent.querySelector(':scope > .tbar > .tbar-key')) return;
+      const bars = Array.from(parent.children).filter((el) => el.matches('.tbar[data-pace]'));
+      const posted = bars.filter((b) => b.dataset.state !== 'met' && b.dataset.state !== 'ahead');
+      if (posted.length === 0) return;      // nothing has a post, so nothing to explain
+      const id = `tbar-key-${++paceKeys}`;
+      const key = document.createElement('span');
+      key.className = 'tbar-key';
+      key.id = id;
+      key.setAttribute('aria-hidden', 'true');
+      key.textContent = `${posted[0].dataset.pace}% expected by now`;
+      posted[0].appendChild(key);
+      bars.forEach((b) => { b.dataset.keyed = '1'; });
+      posted.forEach((b) => {
+        const had = b.getAttribute('aria-describedby');
+        b.setAttribute('aria-describedby', had ? `${had} ${id}` : id);
+      });
+    });
+  };
+  if (document.readyState !== 'complete') document.addEventListener('DOMContentLoaded', run);
+  window.addEventListener('load', run);
+  run();
+}
+
+/* ── Narrow-screen labels for the waiting board ─────────
+   Below 600px a .wait-board stops being a table and each row becomes a card,
+   so the column headings are restated in front of each cell. They are taken
+   from the table's own <thead> here (see the note in report.css) so a table of
+   minutes is not labelled "Waiting for:". Only <td> cells are labelled — the
+   row's own <th> is the card's title. Nothing changes on a wide screen. */
+function labelWaitBoards() {
+  document.querySelectorAll('table.wait-board').forEach((t) => {
+    const heads = Array.from(t.querySelectorAll('thead tr:first-child > th, thead tr:first-child > td'),
+      (h) => h.textContent.replace(/\s+/g, ' ').trim());
+    if (heads.length === 0) return;
+    t.querySelectorAll('tbody tr').forEach((tr) => {
+      let col = 0;
+      Array.from(tr.children).forEach((cell) => {
+        const label = heads[col];
+        if (cell.tagName === 'TD' && label && !cell.hasAttribute('data-label')) cell.dataset.label = label;
+        col += Number(cell.getAttribute('colspan')) || 1;
+      });
+    });
   });
 }
 
@@ -741,14 +926,18 @@ function bindLightbox(root) {
   const closeBtn = box.querySelector('.lightbox-close');
   let lastFocus = null;
   let scrollLock = 0;
+  let preClick = null;
+  // How the picture was opened. See close().
+  let byPointer = false;
 
   // `origin` is the frame button on new months and the <figure> itself on old
   // ones. Everything below works off the picture and the caption, which both
   // patterns have.
-  const open = (origin) => {
+  const open = (origin, pointer = false) => {
     const source = origin.querySelector('img');
     if (!source) return;
     lastFocus = document.activeElement;
+    byPointer = pointer;
 
     img.src = origin.dataset.shot || source.currentSrc || source.src;
     // Whitespace in the markup's alt text is real to a screen reader.
@@ -758,11 +947,22 @@ function bindLightbox(root) {
     // enlargement. An enlarged picture that explains less than the small one
     // did is a step backwards.
     const figure = origin.closest('.shot');
+    // The caption is COPIED, not flattened to text. A caption that opens with
+    // a qualifying chip ("Read off the screen, 7 October") used to come out as
+    // one run of words — "Read off the screen, 7 October The real system…" —
+    // with nothing to say where the qualifier stopped. The chip is now carried
+    // across as a chip (styled for the dark surround in report.css).
     // Old months ended every caption with "· Click to enlarge". Repeating that
     // instruction to someone who has already enlarged it is noise.
-    const text = (figure?.querySelector('figcaption')?.textContent || '')
-      .replace(/\s+/g, ' ').replace(/\s*·\s*Click to enlarge\s*$/i, '').trim();
-    cap.textContent = text;
+    cap.replaceChildren();
+    const srcCap = figure?.querySelector('figcaption');
+    if (srcCap) {
+      srcCap.childNodes.forEach((n) => cap.appendChild(n.cloneNode(true)));
+      const lastText = [...cap.childNodes].reverse().find((n) => n.nodeType === 3 && n.nodeValue.trim());
+      if (lastText) lastText.nodeValue = lastText.nodeValue.replace(/\s*·\s*Click to enlarge\s*$/i, '');
+      cap.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+    }
+    const text = cap.textContent.replace(/\s+/g, ' ').trim();
     cap.hidden = text === '';
 
     // Name the dialog after the screen being shown, so it is announced as
@@ -776,8 +976,16 @@ function bindLightbox(root) {
     void box.offsetHeight;              // a rendered start state for the fade
     box.classList.add('is-open');
 
-    // Hold the page still behind the overlay.
-    scrollLock = window.scrollY;
+    // Hold the page still behind the overlay — at where the reader WAS, not
+    // where the click left them. Pressing a mouse button on a frame focuses
+    // it, and a focused element the browser thinks is not fully in view is
+    // scrolled into view first: measured, 22px on the first September frame.
+    // That scroll used to be swallowed by the page's global smooth scrolling;
+    // with smooth scrolling now asked for only where it is wanted, it lands,
+    // and the page came back from the picture 22px off where it had been. So
+    // the position at pointer-down is what is restored.
+    scrollLock = (pointer && preClick != null) ? preClick : window.scrollY;
+    preClick = null;
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollLock}px`;
     document.body.style.width = '100%';
@@ -785,7 +993,14 @@ function bindLightbox(root) {
     closeBtn.focus();
   };
 
-  frames.forEach((frame) => frame.addEventListener('click', () => open(frame)));
+  // `detail` is the click count: 1+ for a real mouse or finger, 0 for a click
+  // the browser synthesised from Enter or Space. Same test as the presenter
+  // panel's releaseAfterPointer.
+  frames.forEach((frame) => frame.addEventListener('click', (e) => open(frame, e.detail > 0)));
+  // See "Hold the page still" in open().
+  document.addEventListener('pointerdown', (e) => {
+    if (e.target.closest?.('.shot-frame, .shot[role="button"]')) preClick = window.scrollY;
+  }, true);
 
   // ── Months built before the frame ──
   // The figure is not a button, so it needs a role, a tab stop, a label, and
@@ -798,7 +1013,7 @@ function bindLightbox(root) {
       const c = fig.querySelector('figcaption')?.textContent?.replace(/\s*·\s*Click to enlarge\s*$/i, '').trim();
       fig.setAttribute('aria-label', `Enlarge picture${c ? ': ' + c : ''}`);
     }
-    fig.addEventListener('click', () => open(fig));
+    fig.addEventListener('click', (e) => open(fig, e.detail > 0));
     fig.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
       e.preventDefault();        // stop Space from also scrolling the page
@@ -810,25 +1025,80 @@ function bindLightbox(root) {
     if (!box.classList.contains('is-open')) return;
     box.classList.remove('is-open');
 
+    // Scroll anchoring off for the moment the page is put back. Unfixing the
+    // body and restoring the offset is one layout change the browser's own
+    // anchoring can "correct" by hundreds of pixels (measured: 2973 came back
+    // as 3253). The position is exact; nothing needs correcting.
+    const root = document.documentElement;
+    root.style.overflowAnchor = 'none';
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';
-    // Instant, not smooth. The page sets scroll-behavior: smooth globally, so
-    // a plain scrollTo animates the reader back to where they already were and
-    // the page appears to fly on its own. Putting somebody back is not a journey.
+    // Instant, not smooth: putting somebody back is not a journey.
     window.scrollTo({ top: scrollLock, left: 0, behavior: 'instant' });
+    requestAnimationFrame(() => requestAnimationFrame(() => { root.style.overflowAnchor = ''; }));
 
     closeBtn.blur();
     setTimeout(() => { if (!box.classList.contains('is-open')) box.hidden = true; }, 220);
-    lastFocus?.focus?.();
+
+    // FOCUS ALWAYS GOES BACK TO THE FRAME (WCAG 2.4.3) — and that used to
+    // cost the presenter his Space bar: the frame is a button, so the next
+    // Space, meant to page down, re-opened the picture. Measured, it did so
+    // even after the frame had been scrolled right off the screen.
+    // So focus returns, and the frame is marked "quiet" if it was opened with
+    // a pointer: until focus leaves it, Space and Enter on it are not taken as
+    // "open me" — see the keydown guard below. Someone who clicked never
+    // expected the keyboard to be pointed at the picture.
+    if (lastFocus?.focus) {
+      lastFocus.focus({ preventScroll: true });
+      const back = lastFocus;
+      if (byPointer && back !== document.body && back.dataset) {
+        back.dataset.quiet = '1';
+        back.addEventListener('blur', () => { delete back.dataset.quiet; }, { once: true });
+      }
+    }
   };
+
+  // SPACE ON A FRAME THAT IS NOT REALLY BEING POINTED AT PAGES THE DOCUMENT.
+  // Two cases, and only these two: the frame is "quiet" (focus came back to it
+  // after a pointer user closed the picture), or the frame is mostly off the
+  // screen (a keyboard user scrolled away with the arrows and is now pressing
+  // Space to read on). Either way the key is not an activation: it is handed
+  // to the presenter navigation (present.js) as "next", or, if that is not on
+  // the page, it scrolls by a screen as the browser would have. Enter in the
+  // same cases does nothing. A frame that is focused deliberately and on
+  // screen — the ordinary keyboard case — opens on Space and Enter as before.
+  // Capture phase, so this runs before the legacy figure's own keydown.
+  document.addEventListener('keydown', (e) => {
+    if (box.classList.contains('is-open')) return;
+    if (e.key !== ' ' && e.key !== 'Spacebar' && e.key !== 'Enter') return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const f = e.target;
+    if (!f?.matches?.('.shot-frame, .shot[role="button"]')) return;
+    const r = f.getBoundingClientRect();
+    const shown = Math.max(0, Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0));
+    const offScreen = shown < Math.min(r.height, window.innerHeight) * 0.5;
+    if (f.dataset.quiet !== '1' && !offScreen) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    if (e.key === 'Enter') return;
+    const dir = e.shiftKey ? -1 : 1;
+    const ev = new CustomEvent('present:step', { detail: { dir }, cancelable: true });
+    document.dispatchEvent(ev);
+    if (!ev.defaultPrevented) {
+      window.scrollBy({ top: dir * window.innerHeight * 0.85, behavior: 'smooth' });
+    }
+  }, true);
   closeBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
   // Clicking the dark surround closes; clicking the picture itself does not.
   box.addEventListener('click', (e) => { if (e.target !== img) close(); });
 
   document.addEventListener('keydown', (e) => {
     if (!box.classList.contains('is-open')) return;
-    if (e.key === 'Escape') { close(); return; }
+    // preventDefault marks the key as spent: present.js opens the section
+    // overview on Escape, and must not do it with the same press that closed
+    // this picture.
+    if (e.key === 'Escape') { e.preventDefault(); close(); return; }
     // Keep Tab inside the overlay. Without this, tabbing while an image is
     // enlarged walks focus onto the page hidden behind it, and a keyboard user
     // ends up operating controls they cannot see.
@@ -909,7 +1179,7 @@ function watchFrameRate(state) {
    control had done anything, below the 16px floor, and in a typeface the
    report does not otherwise use. Inline styles also beat the stylesheet, so
    there was no way to correct it from CSS. */
-function toast(msg) {
+export function toast(msg) {
   let el = document.querySelector('.deck-toast');
   if (!el) {
     el = document.createElement('div');

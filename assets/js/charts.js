@@ -26,6 +26,14 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) =>
  * Ring chart. `slices` = [{label, value, color}].
  * `opts.centre` is the big figure printed in the middle.
  */
+/* A slice's figure, as the key prints it. Without `grouping` it is the value
+   exactly as given (the published months depend on that); with it, a finite
+   number gets the en-US thousands separator and keeps its own decimals. */
+function fmtSlice(value, opts) {
+  if (!opts.grouping || typeof value !== 'number' || !Number.isFinite(value)) return value;
+  return value.toLocaleString('en-US', { maximumFractionDigits: 4 });
+}
+
 export function donut(slices, opts = {}) {
   const size = opts.size || 240;
   const r = size / 2 - 18;
@@ -37,7 +45,7 @@ export function donut(slices, opts = {}) {
     const d = arcPath(c, c, r, at, at + frac);
     at += frac;
     return `<path d="${d}" fill="none" stroke="${esc(s.color)}" stroke-width="26"` +
-           ` stroke-linecap="butt" class="ch-arc" style="--i:${i}"><title>${esc(s.label)}: ${esc(s.value)}</title></path>`;
+           ` stroke-linecap="butt" class="ch-arc" style="--i:${i}"><title>${esc(s.label)}: ${esc(fmtSlice(s.value, opts))}</title></path>`;
   }).join('');
   const centre = opts.centre
     ? `<text x="${c}" y="${c}" class="ch-centre" text-anchor="middle" dominant-baseline="central">${esc(opts.centre)}</text>`
@@ -47,12 +55,21 @@ export function donut(slices, opts = {}) {
   // A ring of colours nobody can read is decoration. Every slice is listed
   // with its own figure and its share of the whole, so the chart can be read
   // from the back of the room without anyone guessing at the colours.
+  //
+  // Two opt-in settings, both OFF by default so every month already published
+  // renders character for character as it did:
+  //   grouping: true   prints 2,387 rather than 2387 (in the key and the
+  //                    slice's tooltip), matching the alt text and the prose.
+  //   decimals: n      prints each share to n decimal places — 82.0% rather
+  //                    than 82% — for a ring whose small slices would
+  //                    otherwise round to the same whole number.
   const legend = slices.map((s) => {
-    const pct = total > 0 ? Math.round((Math.max(0, s.value) / total) * 100) : 0;
+    const share = total > 0 ? (Math.max(0, s.value) / total) * 100 : 0;
+    const pct = opts.decimals > 0 ? share.toFixed(Math.min(4, opts.decimals)) : String(Math.round(share));
     return `<li class="ch-key-row">` +
       `<span class="ch-key-dot" style="background:${esc(s.color)}"></span>` +
       `<span class="ch-key-label">${esc(s.label)}</span>` +
-      `<span class="ch-key-val">${esc(s.value)}</span>` +
+      `<span class="ch-key-val">${esc(fmtSlice(s.value, opts))}</span>` +
       `<span class="ch-key-pct">${pct}%</span></li>`;
   }).join('');
 
@@ -80,9 +97,14 @@ export function lineChart(points, opts = {}) {
     const dot = s.indexOf('.');
     return Math.max(most, dot === -1 ? 0 : s.length - dot - 1);
   }, 0));
-  const fmt = (v) => Number(v).toLocaleString('en-US', {
-    minimumFractionDigits: dp, maximumFractionDigits: dp
-  });
+  // opts.decimals (opt-in; leave it out and nothing changes):
+  //   a number   every figure to exactly that many places
+  //   'auto'     each figure to as few places as it needs, up to 4 — so
+  //              3.69, 4, 6 rather than the series-wide 3.69, 4.00, 6.00
+  const fixed = Number.isInteger(opts.decimals) ? Math.max(0, Math.min(4, opts.decimals)) : null;
+  const fmt = (v) => Number(v).toLocaleString('en-US', opts.decimals === 'auto'
+    ? { maximumFractionDigits: 4 }
+    : { minimumFractionDigits: fixed ?? dp, maximumFractionDigits: fixed ?? dp });
 
   /* ── THE BASELINE COMES FROM THE DATA, NOT FROM A HARD ZERO ──
      It was `Math.min(...values, 0)`. A forced zero floor wastes the plot on any
@@ -132,8 +154,15 @@ export function lineChart(points, opts = {}) {
      The vertical padding is a budget, not a margin:
        padTop    46  one value label above the highest point (17 lift + 21 type)
        padBottom 76  one value label BELOW the lowest point, then the date row */
-  const padX = 42, padTop = 46, padBottom = 76, pitch = 76;
-  const w = opts.width || Math.max(640, padX * 2 + pitch * Math.max(1, n - 1));
+  // padX is at least half the widest end label, plus a hair: the first and
+  // last labels are centred on the end points, and at a flat 42 a label like
+  // "Aug 2026" (≈ 88 units) hung 2–4px outside the chart's own box and past
+  // the card's text edge. ~5.6 units per character at .ch-xlabel's size.
+  const endChars = Math.max(
+    String(points[0]?.label ?? '').length, String(points[n - 1]?.label ?? '').length);
+  const padX = Math.max(42, Math.ceil(endChars * 5.6 + 6)), padTop = 46, padBottom = 76, pitch = 76;
+  const natural = Math.max(640, padX * 2 + pitch * Math.max(1, n - 1));
+  const w = opts.width || natural;
   const h = opts.height || 290;
   const plotH = h - padTop - padBottom;
   const stepX = n > 1 ? (w - padX * 2) / (n - 1) : 0;
@@ -199,7 +228,17 @@ export function lineChart(points, opts = {}) {
   // --ch-w hands the chart's natural width to the stylesheet. It is the one
   // thing CSS cannot read off a viewBox, and without it every chart on a page
   // is scaled by a different amount and its type comes out a different size.
-  return `<svg class="ch-line" viewBox="0 0 ${w} ${h}" style="--ch-w:${w}"` +
+  //
+  // data-refit carries the chart's own inputs so the motion layer can redraw
+  // it WIDER when its card has room (fitCharts in effects.js). Without it a
+  // chart in a full-width card stopped at its natural width — the two
+  // Queuing hour charts were 934px wide in a 1752px card, 781px of it empty —
+  // because the scale cap in report.css keeps the type at its designed size.
+  // Redrawn on a wider viewBox, the line uses the card and the type stays the
+  // same size. A caller that fixes opts.width is taken at its word and is not
+  // redrawn.
+  const refit = opts.width ? '' : ` data-refit="${esc(JSON.stringify({ points, opts }))}" data-natural="${natural}"`;
+  return `<svg class="ch-line" viewBox="0 0 ${w} ${h}" style="--ch-w:${w}"${refit}` +
     ` role="img" aria-label="${esc(opts.alt || 'Trend over time')}">` +
     `<polyline points="${line}" fill="none" class="ch-path"/>${dots}${valueLabels}${labels}</svg>`;
 }
@@ -213,6 +252,12 @@ export function lineChart(points, opts = {}) {
  *
  * `good` is 'low' when small numbers are better (response time, click rate).
  */
+// A figure and the word it counts are one unit: "24 hours" must never break
+// into "24" / "hours or less". Every space after a digit and before a letter
+// in generated caption text becomes U+00A0. (The dash before the percentage
+// is bound to the words before it for the same reason.)
+const bindNum = (s) => String(s).replace(/(\d) (?=\p{L})/gu, '$1 ');
+
 export function gauge({ value, max, label, unit = '', good = 'low', caption = '' }) {
   const w = 640, h = 96, pad = 24;
   const span = w - pad * 2;
@@ -231,7 +276,7 @@ export function gauge({ value, max, label, unit = '', good = 'low', caption = ''
       <text x="${x.toFixed(1)}" y="22" class="gauge-value" text-anchor="middle">${esc(value)}${esc(unit)}</text>
       <text x="${pad}" y="82" class="gauge-limit-label">0</text>
     </svg>
-    <figcaption>${esc(caption || label)} — <strong>${pct}%</strong> of the limit.</figcaption>
+    <figcaption>${esc(bindNum(caption || label))} — <strong>${pct}%</strong> of the limit.</figcaption>
   </figure>`;
 }
 
